@@ -55,6 +55,7 @@ void Generate::saveTable(string psFileName) {
 			strFileName << _iaDistanceBetweenCities[i][j] << " ";
 		strFileName << endl;
 	}
+	strFileName.close();
 }
 
 void Generate::generateDistances() {
@@ -86,7 +87,17 @@ int Generate::getNumberOfCities() {
 
 int Generate::calculateWholeDistance(vector<int> *pvCitiesSequence) {
 	int iTmpCalculation = 0;
-	for (int i = 0; i < pvCitiesSequence->size() - 1; i++)
+	for (unsigned int i = 0; i < pvCitiesSequence->size() - 1; i++)
 		iTmpCalculation += getDistance(pvCitiesSequence->at(i), pvCitiesSequence->at(i + 1));
 	return iTmpCalculation;
 }
+
+vector<int>* Generate::getRandomResult() {
+	vector<int> *result = new vector<int>;
+	for (int i = 0; i < _iNumberOfCities; i++) {
+		result->push_back(i);
+	}
+	random_shuffle(result->begin(), result->end());
+	return result;
+}
+
