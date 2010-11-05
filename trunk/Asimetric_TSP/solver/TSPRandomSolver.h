@@ -16,7 +16,7 @@ class TSPRandomSolver : public TSPSolver
 public:
 	TSPRandomSolver(Instance *inst);
 	TSPRandomSolver(u_int32_t);
-	void setStepsCount(uint32_t);
+	void setStepsCount(u_int32_t);
 	u_int32_t getStepsCount();
 	virtual ~TSPRandomSolver();
 

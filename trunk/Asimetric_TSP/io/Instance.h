@@ -9,6 +9,7 @@
 #define INSTANCE_H_
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "Point.h"
 
 class Instance
