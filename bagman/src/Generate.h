@@ -13,6 +13,7 @@
 #include <fstream>
 #include <time.h>
 #include <stdlib.h>
+#include <algorithm>
 
 #include "Point.h"
 
@@ -29,6 +30,7 @@ public:
 	int calculateWholeDistance(vector <int> *pvCitiesSequence);
 	void saveTable(string psFileName);
 	int getNumberOfCities();
+	vector<int>* getRandomResult();
 private:
 	void generateDistances();
 	int _iNumberOfCities;
