@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 
 #include "solver/TSPLocalSearch.h"
 #include "solver/TSPRandomSolver.h"
