@@ -9,6 +9,7 @@
 #define RESULT_H_
 
 #include <vector>
+#include <algorithm>
 
 #include "io/Point.h"
 

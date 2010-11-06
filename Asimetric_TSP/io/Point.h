@@ -23,7 +23,7 @@ public:
 	u_int32_t getX() { return _x; }
 	u_int32_t getY() { return _y; }
 	void setNum(u_int32_t num) { _num = num; }
-	u_int32_t getNum() { return _num; }
+	u_int32_t getNum() { return _num; };
 	float calcDistance(Point &p);
 	static Point *generatePoint(u_int32_t num);
 	void print();
