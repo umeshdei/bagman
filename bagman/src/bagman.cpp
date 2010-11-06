@@ -14,8 +14,8 @@
 
 #include <string.h>
 #include "Generate.h"
-#include "Calculation.h"
-#include "RandomCalculation.h"
+#include "heuristics/Calculation.h"
+#include "heuristics/RandomCalculation.h"
 
 using namespace std;
 

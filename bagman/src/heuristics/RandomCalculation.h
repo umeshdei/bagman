@@ -14,7 +14,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-#include "Generate.h"
+#include "../Generate.h"
 #include "Calculation.h"
 
 using namespace std;

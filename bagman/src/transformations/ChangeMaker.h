@@ -8,7 +8,7 @@
 #ifndef CHANGEMAKER_H_
 #define CHANGEMAKER_H_
 
-#include "Generate.h"
+#include "../Generate.h"
 
 class ChangeMaker {
 public:
