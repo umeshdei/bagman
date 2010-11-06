@@ -10,15 +10,13 @@
 
 #include <vector>
 
-#include "Generate.h"
+#include "../Generate.h"
 
 using namespace std;
 
 class Calculation {
 public:
-	Calculation();
-	virtual ~Calculation();
-	virtual vector<int> *solve(Generate *pgenData);
+	virtual vector<int> *solve(Generate *pgenData) = 0;
 };
 
 #endif /* CALCULATION_H_ */
