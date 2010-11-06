@@ -8,6 +8,8 @@
 #include "Instance.h"
 #include "tsp.h"
 
+#include <string.h>
+
 Instance::Instance(u_int32_t size)
 {
 	_size = size;
@@ -18,6 +20,7 @@ Instance::Instance(u_int32_t size)
 		_distanceMatrix[i] = new u_int32_t[size];
 		_distanceMatrix[i][i] = 1;
 	}
+	_minLimit = 0;
 }
 
 Instance *Instance::generateRandomInstance(u_int32_t size, int seed)
@@ -45,6 +48,32 @@ Instance *Instance::generateRandomInstance(u_int32_t size, int seed)
 u_int32_t Instance::getPointsDistance(u_int32_t i, u_int32_t j)
 {
 	return _distanceMatrix[i][j];
+}
+
+int u_int32_compare (const void * a, const void * b)
+{
+  return ( *(u_int32_t *)a > *(u_int32_t *)b ? 1 : -1 );
+}
+
+u_int32_t Instance::calculateMinLimit()
+{
+	if (_minLimit == 0)
+	{
+		u_int32_t *tmpTab = new u_int32_t[_size];
+		for (u_int32_t i = 0; i < _size; i++)
+		{
+			//pomijanie elementu bedacego na przekatnej
+			if (i > 0)
+				memcpy(tmpTab, _distanceMatrix[i], i * sizeof(u_int32_t));
+			if (i < _size - 1)
+				memcpy(tmpTab + i, _distanceMatrix[i] + (i + 1), (_size - i - 1) * sizeof(u_int32_t));
+			qsort(tmpTab, _size - 1, sizeof(u_int32_t), u_int32_compare);
+			_minLimit += tmpTab[0];
+		}
+		delete tmpTab;
+	}
+
+	return _minLimit;
 }
 
 Point *Instance::getPoint(u_int32_t i)

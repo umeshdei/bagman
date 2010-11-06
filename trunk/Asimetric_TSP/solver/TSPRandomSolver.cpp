@@ -31,7 +31,7 @@ Result *TSPRandomSolver::solve()
 	curr = generateRandomResult();
 	bestDistance = calculateDistance(curr);
 	curr->setCalculatedDistance(bestDistance);
-	curr->print(true);
+	//curr->print(true);
 	best = *curr;
 
 	for (u_int32_t i = 0; i < _stepsCount; i++)
@@ -41,14 +41,14 @@ Result *TSPRandomSolver::solve()
 		curr->setCalculatedDistance(currDistance);
 		if (currDistance < bestDistance)
 		{
-			curr->print(true);
+			//curr->print(true);
 			bestDistance = currDistance;
 			best = *curr;
 		}
 	}
 
 	bestResult = new Result(best);
-	bestResult->print();
+	//bestResult->print();
 	delete curr;
 
 	return bestResult;

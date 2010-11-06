@@ -32,18 +32,19 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 	Result best, changed;
 	best = *pure;
 	changed = *pure;
-	bestDistance = best.getCalculatedDistance();
+	bestDistance = pure->getCalculatedDistance();
 	best.setCalculatedDistance(bestDistance);
-	Point *tmp1;
 
-	for (int i = 0; i < pure->size()-1; i++)
+	for (u_int32_t i = 0; i < pure->size() - 1; i++)
 	{
-		for (int j = 1; j < pure->size(); j++)
+		for (u_int32_t j = 1; j < pure->size(); j++)
 		{
+			/*
 			tmp1 = changed[i];
 			changed[i] = changed[j];
 			changed[j] = tmp1;
-
+			*/
+			std::swap(changed[i], changed[j]);
 			changedDistance = calculateDistance(&changed);
 			//jezeli natrafilismy na lepsze rozwiazanie
 			if (changedDistance < bestDistance)
@@ -51,13 +52,14 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 				bestDistance = changedDistance;
 				best = changed;
 				best.setCalculatedDistance(bestDistance);
-				best.print(true);
+				//best.print(true);
 			}
-			changed = *pure;
+			//changed = *pure;
+			std::swap(changed[i], changed[j]);
 		}
 	}
 	bestResult = new Result(best);
-	bestResult->print();
+	//bestResult->print();
 	delete pure;
 
 	return bestResult;
@@ -72,7 +74,7 @@ Result *TSPSteepestSolver::solve()
 	curr = generateRandomResult();
 	bestDistance = calculateDistance(curr);
 	curr->setCalculatedDistance(bestDistance);
-	curr->print();
+	//curr->print();
 
 	for (u_int32_t i = 0; i < _stepsCount; i++)
 	{
@@ -82,22 +84,22 @@ Result *TSPSteepestSolver::solve()
 		{
 			return best;
 			/*
-			bestResult = new Result(best);
-			bestResult->print();
-			delete best;
+			 bestResult = new Result(best);
+			 bestResult->print();
+			 delete best;
 
-			return bestResult;
-			*/
+			 return bestResult;
+			 */
 		}
 		curr = best;
-		printf("lepsze rozwiazanie: %d\n", best->getCalculatedDistance());
+		//printf("lepsze rozwiazanie: %d\n", best->getCalculatedDistance());
 	}
 
 	/*
-	bestResult = new Result(best);
-	bestResult->print();
-	delete best;
-*/
+	 bestResult = new Result(best);
+	 bestResult->print();
+	 delete best;
+	 */
 	return best;
 }
 

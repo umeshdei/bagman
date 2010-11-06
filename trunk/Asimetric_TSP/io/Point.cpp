@@ -31,8 +31,8 @@ Point *Point::generatePoint(u_int32_t num)
 	u_int32_t x, y;
 	Point *p;
 
-	x = rand() % TSP_RAND_MAX;
-	y = rand() % TSP_RAND_MAX;
+	x = rand() % TSP_RAND_MAX + 1;
+	y = rand() % TSP_RAND_MAX + 1;
 
 	p = new Point(x, y);
 	p->setNum(num);

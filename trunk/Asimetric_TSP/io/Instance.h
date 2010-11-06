@@ -18,6 +18,7 @@ public:
 	Instance(u_int32_t size);
 	virtual ~Instance();
 	u_int32_t getPointsDistance(u_int32_t i, u_int32_t j);
+	u_int32_t calculateMinLimit();
 	Point *getPoint(u_int32_t i);
 	u_int32_t getSize();
 
@@ -26,6 +27,7 @@ public:
 
 private:
 	u_int32_t _size;
+	u_int32_t _minLimit;
 	u_int32_t **_distanceMatrix;
 	Point **_pointArray;
 };
