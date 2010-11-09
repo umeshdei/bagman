@@ -1,22 +1,22 @@
 /*
- * Greedy.h
+ * Steepest.h
  *
- *  Created on: Nov 6, 2010
+ *  Created on: Nov 9, 2010
  *      Author: piekar294
  */
 
-#ifndef GREEDY_H_
-#define GREEDY_H_
+#ifndef STEEPEST_H_
+#define STEEPEST_H_
 
 #include "Calculation.h"
 #include "../transformations/Transformation2OPT.h"
 
-class Greedy: public Calculation {
+class Steepest: public Calculation {
 public:
-	Greedy();
-	virtual ~Greedy();
+	Steepest();
+	virtual ~Steepest();
 	virtual vector<int> *solve(Generate *pgenData);
 	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount);
 };
 
-#endif /* GREEDY_H_ */
+#endif /* STEEPEST_H_ */
