@@ -1,36 +1,38 @@
 /*
- * Greedy.cpp
+ * Steepest.cpp
  *
- *  Created on: Nov 6, 2010
+ *  Created on: Nov 9, 2010
  *      Author: piekar294
  */
 
-#include "Greedy.h"
+#include "Steepest.h"
 
-Greedy::Greedy() {
+Steepest::Steepest() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Greedy::~Greedy() {
+Steepest::~Steepest() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Greedy::solve(Generate *pgenData) {
+vector<int> *Steepest::solve(Generate *pgenData) {
 	return NULL;
 }
 
-vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount) {
+vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount) {
 	vector<int> *best = pgenData->getRandomResult();
 	int bestScore = pgenData->calculateWholeDistance(best);
 	Transformation *t = new Transformation2OPT();
 	vector<int> *current;
 	bool progress; //contains progress flag
+	//iterate through all neightbours
+
 
 	for (int i = 0; i < pintMaxIterCount; i++) {
 		progress = false;
 		t->reset(best);
-		//iterate until better solution is found
+		//iterate through all neightbours (do not break if better solution is found)
 		while(t->getNext(current)) {
 			int currScore = pgenData->calculateWholeDistance(current);
 			if (currScore < bestScore) {
@@ -38,7 +40,6 @@ vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount) {
 				delete best;
 				best = current;
 				bestScore = currScore;
-				break;
 			} else {
 				delete current;
 			}
