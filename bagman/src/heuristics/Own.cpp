@@ -22,7 +22,7 @@ vector<int> *Own::solve(Generate *pgenData) {
 
 	int iNextCityID = 0;
 	vctrSolution->push_back(vctrCitiesLeft->at(iNextCityID));
-	vctrCitiesLeft->erase(vctrCitiesLeft->begin() + iNextCityID);
+	vctrCitiesLeft->erase(vctrCitiesLeft->begin());
 
 	while (vctrCitiesLeft->size()) {
 		iNextCityID = pgenData->findClosest_returnID(vctrSolution->back(), vctrCitiesLeft);
