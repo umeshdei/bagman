@@ -7,7 +7,7 @@
 
 #include "Own.h"
 
-Own::Own() {
+Own::Own(string strOutputFileName) : Calculation(strOutputFileName) {
 	// TODO Auto-generated constructor stub
 
 }

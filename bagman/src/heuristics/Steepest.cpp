@@ -7,7 +7,7 @@
 
 #include "Steepest.h"
 
-Steepest::Steepest() {
+Steepest::Steepest(string strOutputFileName) : Calculation(strOutputFileName) {
 	// TODO Auto-generated constructor stub
 
 }

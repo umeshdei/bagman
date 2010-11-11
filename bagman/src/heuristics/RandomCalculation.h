@@ -22,7 +22,7 @@ using namespace std;
 
 class RandomCalculation: public Calculation {
 public:
-	RandomCalculation();
+	RandomCalculation(string strOutputFileName);
 	virtual ~RandomCalculation();
 	vector<int> *solve(Generate *pgenData);
 	vector<int> *solve(Generate *pgenData, int pintMaxIterCount);
