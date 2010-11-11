@@ -7,9 +7,8 @@
 
 #include "Greedy.h"
 
-Greedy::Greedy() {
+Greedy::Greedy(string strOutputFileName) : Calculation(strOutputFileName) {
 	// TODO Auto-generated constructor stub
-
 }
 
 Greedy::~Greedy() {

@@ -15,7 +15,7 @@
 
 class Greedy: public Calculation {
 public:
-	Greedy();
+	Greedy(string strOutputFileName);
 	virtual ~Greedy();
 	virtual vector<int> *solve(Generate *pgenData);
 	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount);

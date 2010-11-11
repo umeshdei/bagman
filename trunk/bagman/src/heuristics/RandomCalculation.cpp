@@ -7,7 +7,7 @@
 
 #include "RandomCalculation.h"
 
-RandomCalculation::RandomCalculation() {
+RandomCalculation::RandomCalculation(string strOutputFileName) : Calculation(strOutputFileName) {
 	// TODO Auto-generated constructor stub
 
 }

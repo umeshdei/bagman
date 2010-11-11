@@ -15,7 +15,7 @@
 
 class Steepest: public Calculation {
 public:
-	Steepest();
+	Steepest(string strOutputFileName);
 	virtual ~Steepest();
 	virtual vector<int> *solve(Generate *pgenData);
 	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount);

@@ -26,13 +26,13 @@ using namespace std;
 
 int iChosenSolution = 0;
 int iMaxNumberOfIteretion = 0;
-
+bool DEBUG = false;
 
 int main(int argc, char **argv) {
-	char *caSaveTableFileName = NULL;
+	char *caSaveFileName = NULL;
 	char *caLoadTableFileName = NULL;
 	char *caSizeOfTable = NULL;
-
+	bool bGenerate = false;
 
 
 	int c;
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 				//					{ "version", 0, 0, 0 },
 				{ "help", 0, 0, 0 }, { 0, 0, 0, 0 } };
 
-		c = getopt_long(argc, argv, "g:l:s:i:tero", long_options, &option_index);
+		c = getopt_long(argc, argv, "gl:s:i:tero:dw", long_options, &option_index);
 		if (c == -1)
 			break;
 
@@ -70,14 +70,16 @@ int main(int argc, char **argv) {
 				//					printf("\t-n|--name [filename]\tGive name if you want to change file name.\n");
 				//					printf("\t--proxy [user[:pass]@]IP:port\tSet proxy (if you want).\n");
 				//					printf("\t-4\t\t\tUse SOCKS4 as proxy.\n");
-				cout << "\t-g [filename]\t\t\tGenerate data for calculation." << endl;
+				cout << "\t-g \t\t\tGenerate data for calculation." << endl;
 				cout << "\t-s [integer]\t\t\tThe size of generated data." << endl;
 				cout << "\t-l [filename]\t\t\tLoad generated date." << endl;
+				cout << "\t-o [filename]\t\t\tOutput date." << endl;
 				cout << "\t-r \t\t\tUse random algorithm." << endl;
 				cout << "\t-t \t\t\tUse steepest algorithm." << endl;
 				cout << "\t-e \t\t\tUse greedy algorithm." << endl;
-				cout << "\t-o \t\t\tUse own algorithm." << endl;
+				cout << "\t-w \t\t\tUse own algorithm." << endl;
 				cout << "\t-i \t\t\tNumber of iteration." << endl;
+				cout << "\t-d \t\t\tPrint debug." << endl;
 				exit(0);
 			} else
 				break;
@@ -100,17 +102,23 @@ int main(int argc, char **argv) {
 		case 't':
 			iChosenSolution = iChosenSolution | STEEPEST;
 			break;
-		case 'o':
+		case 'w':
 			iChosenSolution = iChosenSolution | OWNSOLUTION;
 			break;
+		case 'o':
+			caSaveFileName = strdup(optarg);
+			break;
 		case 'g':
-			caSaveTableFileName = strdup(optarg);
+			bGenerate = true;
 			break;
 		case 'l':
 			caLoadTableFileName = strdup(optarg);
 			break;
 		case 's':
 			caSizeOfTable = strdup(optarg);
+			break;
+		case 'd':
+			DEBUG = true;
 			break;
 		case 'i':
 			iMaxNumberOfIteretion = atoi(optarg);
@@ -122,14 +130,19 @@ int main(int argc, char **argv) {
 
 	}
 
+	if (caSaveFileName == NULL) {
+		cerr << "You have to give the output file name as a parameter -o!" << endl;
+		exit(1);
+	}
+
 	Generate *gen;
-	if (caSaveTableFileName != NULL) {
+	if (bGenerate) {
 		if (caSizeOfTable != NULL) {
 			gen = new Generate(atoi(caSizeOfTable));
-			gen->saveTable(string(caSaveTableFileName));
+			gen->saveTable(string(caSaveFileName));
 			exit(0);
 		} else {
-			cerr << "While generating you have to give the size of table as a paramether -s!" << endl;
+			cerr << "While generating you have to give the size of table as a parameter -s!" << endl;
 			exit(1);
 		}
 	} else if (caLoadTableFileName != NULL) {
@@ -153,35 +166,39 @@ int main(int argc, char **argv) {
 
 	cout << "Calculating" << endl;
 	if ((iChosenSolution & RANDOM) == RANDOM) {
-		calc = new RandomCalculation();
+		calc = new RandomCalculation("RANDOM");
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Random best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
-		gen->DEBUG_printTrace(vec);
+		if (DEBUG)
+			gen->DEBUG_printTrace(vec);
 		delete calc;
 	}
 	if ((iChosenSolution & STEEPEST) == STEEPEST) {
-		calc = new Steepest();
+		calc = new Steepest("STEEPEST");
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Steepest best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
-		gen->DEBUG_printTrace(vec);
+		if (DEBUG)
+			gen->DEBUG_printTrace(vec);
 		delete calc;
 	}
 	if ((iChosenSolution & GREEDY) == GREEDY) {
-		calc = new Greedy();
+		calc = new Greedy("GREEDY");
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Greedy best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
-		gen->DEBUG_printTrace(vec);
+		if (DEBUG)
+			gen->DEBUG_printTrace(vec);
 		delete calc;
 	}
 	if ((iChosenSolution & OWNSOLUTION) == OWNSOLUTION) {
-		calc = new Own();
+		calc = new Own("OWNSOLUTION");
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Own best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
-		gen->DEBUG_printTrace(vec);
+		if (DEBUG)
+			gen->DEBUG_printTrace(vec);
 		delete calc;
 	}
 
