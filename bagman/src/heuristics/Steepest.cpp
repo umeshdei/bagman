@@ -33,7 +33,7 @@ vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount) {
 		progress = false;
 		t->reset(best);
 		//iterate through all neightbours (do not break if better solution is found)
-		while(t->getNext(current)) {
+		while(t->getNext(&current)) {
 			int currScore = pgenData->calculateWholeDistance(current);
 			if (currScore < bestScore) {
 				progress = true;

@@ -14,7 +14,7 @@ using namespace std;
 
 class Transformation {
 public:
-	virtual bool getNext(vector<int> *outNext) = 0;
+	virtual bool getNext(vector<int> **outNext) = 0;
 	virtual void reset(vector<int> *baseVec) = 0;
 };
 

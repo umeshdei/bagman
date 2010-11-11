@@ -19,18 +19,18 @@ Transformation2OPT::Transformation2OPT(vector<int> *inVector): _base(inVector) {
 Transformation2OPT::~Transformation2OPT() {
 }
 
-bool Transformation2OPT::getNext(vector<int> *outNext) {
+bool Transformation2OPT::getNext(vector<int> **outNext) {
 	if (_end) {
 		outNext = NULL;
 		return false;
 	}
 
 	//first swap
-	outNext = new vector<int>(*_base);
+	*outNext = new vector<int>(*_base);
 	int tmp;
-	tmp = outNext->at(_i);
-	(*outNext)[_i] = (*outNext)[_j];
-	(*outNext)[_j] = tmp;
+	tmp = (*outNext)->at(_i);
+	(**outNext)[_i] = (**outNext)[_j];
+	(**outNext)[_j] = tmp;
 
 	//iterate to next result
     if (++_j == _base->size()) {
