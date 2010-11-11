@@ -8,14 +8,15 @@
 #ifndef RANDOMCALCULATION_H_
 #define RANDOMCALCULATION_H_
 
-#define MAX_ROUND 1000
-
 #include <vector>
 #include <time.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "../Generate.h"
 #include "Calculation.h"
+
+#define MAX_ROUND 10000
 
 using namespace std;
 

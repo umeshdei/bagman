@@ -6,6 +6,7 @@
  */
 
 #include "RandomCalculation.h"
+#include <iostream>
 
 RandomCalculation::RandomCalculation() {
 	// TODO Auto-generated constructor stub
@@ -34,9 +35,12 @@ vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount) 
 	for (int i = 0; i < pintMaxIterCount; i++) {
 		random_shuffle(vctrSolution->begin(), vctrSolution->end());
 		if ((iTmp = pgenData->calculateWholeDistance(vctrSolution)) < iBestResult) {
+			cout << iTmp << endl;
 			iBestResult = iTmp;
 			vctrBestSolution = vctrSolution;
+			cout << pgenData->calculateWholeDistance(vctrBestSolution) << endl;
 		}
 	}
+	cout << pgenData->calculateWholeDistance(vctrBestSolution) << endl;
 	return vctrBestSolution;
 }
