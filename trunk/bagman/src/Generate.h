@@ -31,7 +31,7 @@ public:
 	int getDistance(int piFirstCityNumber, int piSecondCityNumber);
 	int calculateWholeDistance(vector <int> *pvCitiesSequence);
 	void saveTable(string psFileName);
-	void D_printTrace(vector <int> *pvCitiesSequence);
+	void DEBUG_printTrace(vector <int> *pvCitiesSequence);
 	int getNumberOfCities();
 	vector<int>* getSortedResult();
 	vector<int>* getRandomResult();

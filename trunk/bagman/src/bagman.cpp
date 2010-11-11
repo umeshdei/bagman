@@ -157,6 +157,7 @@ int main(int argc, char **argv) {
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Random best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
+		gen->DEBUG_printTrace(vec);
 		delete calc;
 	}
 	if ((iChosenSolution & STEEPEST) == STEEPEST) {
@@ -164,6 +165,7 @@ int main(int argc, char **argv) {
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Steepest best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
+		gen->DEBUG_printTrace(vec);
 		delete calc;
 	}
 	if ((iChosenSolution & GREEDY) == GREEDY) {
@@ -171,6 +173,7 @@ int main(int argc, char **argv) {
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Greedy best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
+		gen->DEBUG_printTrace(vec);
 		delete calc;
 	}
 	if ((iChosenSolution & OWNSOLUTION) == OWNSOLUTION) {
@@ -178,6 +181,7 @@ int main(int argc, char **argv) {
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Own best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
+		gen->DEBUG_printTrace(vec);
 		delete calc;
 	}
 

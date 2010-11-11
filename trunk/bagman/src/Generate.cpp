@@ -137,6 +137,9 @@ int Generate::findClosest_returnID(int piCityNumber, vector<int> *pvctrAvailable
 }
 
 
-void D_printTrace(vector <int> *pvCitiesSequence) {
-	return;
+void Generate::DEBUG_printTrace(vector <int> *pvCitiesSequence) {
+	cout << "  " << (*pvCitiesSequence)[0];
+	for (unsigned int i = 1; i < pvCitiesSequence->size(); i++)
+		cout << " --(" << getDistance((*pvCitiesSequence)[i - 1], (*pvCitiesSequence)[i]) << ")--> " << (*pvCitiesSequence)[i];
+	cout << endl;
 }
