@@ -10,13 +10,14 @@
 Transformation2OPT::Transformation2OPT() {
 }
 
-Transformation2OPT::Transformation2OPT(vector<int> *inVector): _base(inVector) {
-	_i = 0;
-	_j = 0;
-	_end = false;
+Transformation2OPT::Transformation2OPT(vector<int> *inVector) {
+	this->reset(inVector);
 }
 
 Transformation2OPT::~Transformation2OPT() {
+	if (_base != NULL) {
+		delete _base;
+	}
 }
 
 bool Transformation2OPT::getNext(vector<int> **outNext) {
@@ -47,5 +48,8 @@ void Transformation2OPT::reset(vector<int> *baseVec) {
 	_i = 0;
 	_j = 0;
 	_end = false;
+	if (_base != NULL) {
+		delete _base;
+	}
 	_base = new vector<int>(*baseVec);
 }
