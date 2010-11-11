@@ -22,7 +22,7 @@ vector<int> *RandomCalculation::solve(Generate *pgenData) {
 
 vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount) {
 	_timer.start();
-	vector<int> *vctrSolution = pgenData->getRandomResult();
+	vector<int> *vctrSolution = pgenData->getSortedResult();
 	vector<int> *vctrBestSolution = new vector<int>(*vctrSolution);
 	int iBestResult = pgenData->calculateWholeDistance(vctrBestSolution);
 	int iTmp;
