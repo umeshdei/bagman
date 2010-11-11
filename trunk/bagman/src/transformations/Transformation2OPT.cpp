@@ -47,5 +47,5 @@ void Transformation2OPT::reset(vector<int> *baseVec) {
 	_i = 0;
 	_j = 0;
 	_end = false;
-	_base = baseVec;
+	_base = new vector<int>(*baseVec);
 }
