@@ -25,7 +25,6 @@ public:
 	virtual ~RandomCalculation();
 	vector<int> *solve(Generate *pgenData);
 private:
-	void shakeIt(vector<int> *vctrData);
 	int _iNumberOfCities;
 };
 
