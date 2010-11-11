@@ -15,7 +15,7 @@ public:
 	Transformation2OPT();
 	Transformation2OPT(vector<int> *inVector);
 	virtual ~Transformation2OPT();
-	virtual bool getNext(vector<int> *outNext);
+	virtual bool getNext(vector<int> **outNext);
 	virtual void reset(vector<int> *baseVec);
 
 private:
