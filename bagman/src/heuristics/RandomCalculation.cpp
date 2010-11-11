@@ -30,14 +30,15 @@ vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount) 
 	for (int i = 0; i < _iNumberOfCities; i++) {
 		vctrSolution->push_back(i);
 	}
-	vctrBestSolution = vctrSolution;
+	vctrBestSolution = new vector<int>(*vctrSolution);
 	iBestResult = pgenData->calculateWholeDistance(vctrBestSolution);
 	for (int i = 0; i < pintMaxIterCount; i++) {
 		random_shuffle(vctrSolution->begin(), vctrSolution->end());
 		if ((iTmp = pgenData->calculateWholeDistance(vctrSolution)) < iBestResult) {
 			cout << iTmp << endl;
 			iBestResult = iTmp;
-			vctrBestSolution = vctrSolution;
+			delete vctrBestSolution;
+			vctrBestSolution = new vector<int>(*vctrSolution);
 			cout << pgenData->calculateWholeDistance(vctrBestSolution) << endl;
 		}
 	}
