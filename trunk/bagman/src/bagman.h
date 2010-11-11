@@ -11,7 +11,9 @@
 #define GREEDY 0x01
 #define STEEPEST 0x02
 #define RANDOM 0x04
-#define OWN 0x08
+#define OWNSOLUTION 0x08
 
+#include <time.h>
+#include <stdlib.h>
 
 #endif /* BAGMAN_H_ */

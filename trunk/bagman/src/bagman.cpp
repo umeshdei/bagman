@@ -18,6 +18,7 @@
 #include "heuristics/RandomCalculation.h"
 #include "heuristics/Steepest.h"
 #include "heuristics/Greedy.h"
+#include "heuristics/Own.h"
 
 #include "bagman.h"
 
@@ -100,7 +101,7 @@ int main(int argc, char **argv) {
 			iChosenSolution = iChosenSolution | STEEPEST;
 			break;
 		case 'o':
-			iChosenSolution = iChosenSolution | OWN;
+			iChosenSolution = iChosenSolution | OWNSOLUTION;
 			break;
 		case 'g':
 			caSaveTableFileName = strdup(optarg);
@@ -146,6 +147,8 @@ int main(int argc, char **argv) {
 
 	cout << gen->calculateWholeDistance(vec) << endl;
 
+	srand(time(NULL));
+
 	Calculation *calc;
 
 	cout << "Calculating" << endl;
@@ -163,11 +166,17 @@ int main(int argc, char **argv) {
 		cout << gen->calculateWholeDistance(vec) << endl;
 		delete calc;
 	}
-
 	if ((iChosenSolution & GREEDY) == GREEDY) {
 		calc = new Greedy();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Greedy best solution" << endl;
+		cout << gen->calculateWholeDistance(vec) << endl;
+		delete calc;
+	}
+	if ((iChosenSolution & OWNSOLUTION) == OWNSOLUTION) {
+		calc = new Own();
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
+		cout << "Own best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		delete calc;
 	}

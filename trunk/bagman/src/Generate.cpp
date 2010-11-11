@@ -89,17 +89,54 @@ int Generate::calculateWholeDistance(vector<int> *pvCitiesSequence) {
 	if (pvCitiesSequence == NULL)
 		return -1;
 	int iTmpCalculation = 0;
-	for (unsigned int i = 0; i < pvCitiesSequence->size() - 1; i++)
-		iTmpCalculation += getDistance((*pvCitiesSequence)[i], (*pvCitiesSequence)[i + 1]);
+	for (unsigned int i = 0; i < pvCitiesSequence->size(); i++)
+		iTmpCalculation += getDistance((*pvCitiesSequence)[i], (*pvCitiesSequence)[(i + 1) % _iNumberOfCities]);
 	return iTmpCalculation;
 }
 
-vector<int>* Generate::getRandomResult() {
+vector<int>* Generate::getSortedResult() {
 	vector<int> *result = new vector<int>;
 	for (int i = 0; i < _iNumberOfCities; i++) {
 		result->push_back(i);
 	}
+	return result;
+}
+
+vector<int>* Generate::getRandomResult() {
+	vector<int> *result = getSortedResult();
 	random_shuffle(result->begin(), result->end());
 	return result;
 }
 
+int Generate::findClosest(int piCityNumber, vector<int> *pvctrAvailableCities) {
+	if (!pvctrAvailableCities->size()) return -1;
+	int iResult = (*pvctrAvailableCities)[0];
+	int iTmp;
+	int iDistance = getDistance(piCityNumber, iResult);
+	for (unsigned int i = 1; i < pvctrAvailableCities->size(); i++)
+		if ((iTmp = getDistance(piCityNumber, (*pvctrAvailableCities)[i])) < iDistance)
+		{
+			iResult = (*pvctrAvailableCities)[i];
+			iDistance = iTmp;
+		}
+	return iResult;
+}
+
+int Generate::findClosest_returnID(int piCityNumber, vector<int> *pvctrAvailableCities) {
+	if (!pvctrAvailableCities->size()) return -1;
+	int iResult = 0;
+	int iTmp;
+	int iDistance = getDistance(piCityNumber, (*pvctrAvailableCities)[iResult]);
+	for (unsigned int i = 1; i < pvctrAvailableCities->size(); i++)
+		if ((iTmp = getDistance(piCityNumber, (*pvctrAvailableCities)[i])) < iDistance)
+		{
+			iResult = i;
+			iDistance = iTmp;
+		}
+	return iResult;
+}
+
+
+void D_printTrace(vector <int> *pvCitiesSequence) {
+	return;
+}
