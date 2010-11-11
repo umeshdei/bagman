@@ -24,6 +24,7 @@ public:
 	RandomCalculation();
 	virtual ~RandomCalculation();
 	vector<int> *solve(Generate *pgenData);
+	vector<int> *solve(Generate *pgenData, int pintMaxIterCount);
 private:
 	int _iNumberOfCities;
 };

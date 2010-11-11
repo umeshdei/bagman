@@ -17,14 +17,14 @@ Steepest::~Steepest() {
 }
 
 vector<int> *Steepest::solve(Generate *pgenData) {
-	return NULL;
+	return solve(pgenData, INT_MAX);
 }
 
 vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount) {
 	vector<int> *best = pgenData->getRandomResult();
 	int bestScore = pgenData->calculateWholeDistance(best);
 	Transformation *t = new Transformation2OPT();
-	vector<int> *current;
+	vector<int> *current = NULL;
 	bool progress; //contains progress flag
 	//iterate through all neightbours
 

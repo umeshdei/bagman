@@ -8,6 +8,8 @@
 #ifndef STEEPEST_H_
 #define STEEPEST_H_
 
+#include <limits.h>
+
 #include "Calculation.h"
 #include "../transformations/Transformation2OPT.h"
 

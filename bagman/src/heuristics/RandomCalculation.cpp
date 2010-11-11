@@ -17,24 +17,26 @@ RandomCalculation::~RandomCalculation() {
 }
 
 vector<int> *RandomCalculation::solve(Generate *pgenData) {
+	return solve(pgenData, MAX_ROUND);
+}
+
+vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount) {
 	_iNumberOfCities = pgenData->getNumberOfCities();
 	vector<int> *vctrSolution = new vector<int> ();
-	vector<int> *vctrBectSolution = NULL;
+	vector<int> *vctrBestSolution = NULL;
 	int iBestResult = 0;
 	int iTmp;
 	for (int i = 0; i < _iNumberOfCities; i++) {
 		vctrSolution->push_back(i);
 	}
-	vctrBectSolution = vctrSolution;
-	iBestResult = pgenData->calculateWholeDistance(vctrBectSolution);
-	for (int i = 0; i < MAX_ROUND; i++) {
+	vctrBestSolution = vctrSolution;
+	iBestResult = pgenData->calculateWholeDistance(vctrBestSolution);
+	for (int i = 0; i < pintMaxIterCount; i++) {
 		random_shuffle(vctrSolution->begin(), vctrSolution->end());
 		if ((iTmp = pgenData->calculateWholeDistance(vctrSolution)) < iBestResult) {
 			iBestResult = iTmp;
-			vctrBectSolution->clear();
-			delete vctrBectSolution;
-			vctrBectSolution = vctrSolution;
+			vctrBestSolution = vctrSolution;
 		}
 	}
-	return vctrBectSolution;
+	return vctrBestSolution;
 }

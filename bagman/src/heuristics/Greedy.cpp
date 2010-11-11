@@ -17,14 +17,14 @@ Greedy::~Greedy() {
 }
 
 vector<int> *Greedy::solve(Generate *pgenData) {
-	return NULL;
+	return solve(pgenData, INT_MAX);
 }
 
 vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount) {
 	vector<int> *best = pgenData->getRandomResult();
 	int bestScore = pgenData->calculateWholeDistance(best);
 	Transformation *t = new Transformation2OPT();
-	vector<int> *current;
+	vector<int> *current = NULL;
 	bool progress; //contains progress flag
 
 	for (int i = 0; i < pintMaxIterCount; i++) {
