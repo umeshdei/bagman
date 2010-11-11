@@ -23,14 +23,16 @@
 
 using namespace std;
 
-int iChosenSolution;
+int iChosenSolution = 0;
+int iMaxNumberOfIteretion = 0;
+
 
 int main(int argc, char **argv) {
 	char *caSaveTableFileName = NULL;
 	char *caLoadTableFileName = NULL;
 	char *caSizeOfTable = NULL;
 
-	iChosenSolution = 0;
+
 
 	int c;
 	while (1) {
@@ -44,7 +46,7 @@ int main(int argc, char **argv) {
 				//					{ "version", 0, 0, 0 },
 				{ "help", 0, 0, 0 }, { 0, 0, 0, 0 } };
 
-		c = getopt_long(argc, argv, "g:l:s:tero", long_options, &option_index);
+		c = getopt_long(argc, argv, "g:l:s:i:tero", long_options, &option_index);
 		if (c == -1)
 			break;
 
@@ -74,6 +76,7 @@ int main(int argc, char **argv) {
 				cout << "\t-t \t\t\tUse steepest algorithm." << endl;
 				cout << "\t-e \t\t\tUse greedy algorithm." << endl;
 				cout << "\t-o \t\t\tUse own algorithm." << endl;
+				cout << "\t-i \t\t\tNumber of iteration." << endl;
 				exit(0);
 			} else
 				break;
@@ -108,6 +111,9 @@ int main(int argc, char **argv) {
 		case 's':
 			caSizeOfTable = strdup(optarg);
 			break;
+		case 'i':
+			iMaxNumberOfIteretion = atoi(optarg);
+			break;
 		case '?':
 		default:
 			break;
@@ -139,31 +145,31 @@ int main(int argc, char **argv) {
 	}
 
 	cout << gen->calculateWholeDistance(vec) << endl;
-	random_shuffle(vec->begin(), vec->end());
-	cout << gen->calculateWholeDistance(vec) << endl;
+
+	Calculation *calc;
 
 	cout << "Calculating" << endl;
 	if ((iChosenSolution & RANDOM) == RANDOM) {
-		RandomCalculation *calcr = new RandomCalculation();
-		vec = calcr->solve(gen);
+		calc = new RandomCalculation();
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Random best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
-		delete calcr;
+		delete calc;
 	}
 	if ((iChosenSolution & STEEPEST) == STEEPEST) {
-		Steepest *calcs = new Steepest();
-		vec = calcs->solve(gen, 10);
+		calc = new Steepest();
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Steepest best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
-		delete calcs;
+		delete calc;
 	}
 
 	if ((iChosenSolution & GREEDY) == GREEDY) {
-		Greedy *calcg = new Greedy();
-		vec = calcg->solve(gen, 10);
+		calc = new Greedy();
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
 		cout << "Greedy best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
-		delete calcg;
+		delete calc;
 	}
 
 	delete gen;
