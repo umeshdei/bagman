@@ -8,6 +8,8 @@
 #ifndef GREEDY_H_
 #define GREEDY_H_
 
+#include <limits.h>
+
 #include "Calculation.h"
 #include "../transformations/Transformation2OPT.h"
 

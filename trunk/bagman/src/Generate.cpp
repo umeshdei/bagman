@@ -88,7 +88,7 @@ int Generate::getNumberOfCities() {
 int Generate::calculateWholeDistance(vector<int> *pvCitiesSequence) {
 	int iTmpCalculation = 0;
 	for (unsigned int i = 0; i < pvCitiesSequence->size() - 1; i++)
-		iTmpCalculation += getDistance(pvCitiesSequence->at(i), pvCitiesSequence->at(i + 1));
+		iTmpCalculation += getDistance((*pvCitiesSequence)[i], (*pvCitiesSequence)[i + 1]);
 	return iTmpCalculation;
 }
 

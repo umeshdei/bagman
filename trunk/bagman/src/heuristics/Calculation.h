@@ -17,6 +17,7 @@ using namespace std;
 class Calculation {
 public:
 	virtual vector<int> *solve(Generate *pgenData) = 0;
+	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount) = 0;
 };
 
 #endif /* CALCULATION_H_ */

@@ -16,13 +16,21 @@
 #include "Generate.h"
 #include "heuristics/Calculation.h"
 #include "heuristics/RandomCalculation.h"
+#include "heuristics/Steepest.h"
+#include "heuristics/Greedy.h"
+
+#include "bagman.h"
 
 using namespace std;
+
+int iChosenSolution;
 
 int main(int argc, char **argv) {
 	char *caSaveTableFileName = NULL;
 	char *caLoadTableFileName = NULL;
 	char *caSizeOfTable = NULL;
+
+	iChosenSolution = 0;
 
 	int c;
 	while (1) {
@@ -36,7 +44,7 @@ int main(int argc, char **argv) {
 				//					{ "version", 0, 0, 0 },
 				{ "help", 0, 0, 0 }, { 0, 0, 0, 0 } };
 
-		c = getopt_long(argc, argv, "g:l:s:", long_options, &option_index);
+		c = getopt_long(argc, argv, "g:l:s:tero", long_options, &option_index);
 		if (c == -1)
 			break;
 
@@ -62,6 +70,10 @@ int main(int argc, char **argv) {
 				cout << "\t-g [filename]\t\t\tGenerate data for calculation." << endl;
 				cout << "\t-s [integer]\t\t\tThe size of generated data." << endl;
 				cout << "\t-l [filename]\t\t\tLoad generated date." << endl;
+				cout << "\t-r \t\t\tUse random algorithm." << endl;
+				cout << "\t-t \t\t\tUse steepest algorithm." << endl;
+				cout << "\t-e \t\t\tUse greedy algorithm." << endl;
+				cout << "\t-o \t\t\tUse own algorithm." << endl;
 				exit(0);
 			} else
 				break;
@@ -75,6 +87,18 @@ int main(int argc, char **argv) {
 			//					caUploadFileName = strdup(optarg);
 			//					break;
 			//				}
+		case 'e':
+			iChosenSolution = iChosenSolution | GREEDY;
+			break;
+		case 'r':
+			iChosenSolution = iChosenSolution | RANDOM;
+			break;
+		case 't':
+			iChosenSolution = iChosenSolution | STEEPEST;
+			break;
+		case 'o':
+			iChosenSolution = iChosenSolution | OWN;
+			break;
 		case 'g':
 			caSaveTableFileName = strdup(optarg);
 			break;
@@ -91,12 +115,6 @@ int main(int argc, char **argv) {
 
 	}
 
-	//		if (optind < argc) {
-	//			caFileName = strdup(argv[optind]);
-	//		} else {
-	//			printf("Give filename as paramether!");
-	//			exit(1);
-	//		}
 	Generate *gen;
 	if (caSaveTableFileName != NULL) {
 		if (caSizeOfTable != NULL) {
@@ -121,17 +139,32 @@ int main(int argc, char **argv) {
 	}
 
 	cout << gen->calculateWholeDistance(vec) << endl;
-
-	cout << "Calculating" << endl;
-
-	RandomCalculation *calc = new RandomCalculation();
-
-	vec = calc->solve(gen);
-
-	cout << "Best solution" << endl;
-
+	random_shuffle(vec->begin(), vec->end());
 	cout << gen->calculateWholeDistance(vec) << endl;
 
+	cout << "Calculating" << endl;
+	if ((iChosenSolution & RANDOM) == RANDOM) {
+		RandomCalculation *calcr = new RandomCalculation();
+		vec = calcr->solve(gen);
+		cout << "Random best solution" << endl;
+		cout << gen->calculateWholeDistance(vec) << endl;
+		delete calcr;
+	}
+	if ((iChosenSolution & STEEPEST) == STEEPEST) {
+		Steepest *calcs = new Steepest();
+		vec = calcs->solve(gen, 10);
+		cout << "Steepest best solution" << endl;
+		cout << gen->calculateWholeDistance(vec) << endl;
+		delete calcs;
+	}
+
+	if ((iChosenSolution & GREEDY) == GREEDY) {
+		Greedy *calcg = new Greedy();
+		vec = calcg->solve(gen, 10);
+		cout << "Greedy best solution" << endl;
+		cout << gen->calculateWholeDistance(vec) << endl;
+		delete calcg;
+	}
 
 	delete gen;
 
