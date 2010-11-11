@@ -8,9 +8,11 @@
 #include "Transformation2OPT.h"
 
 Transformation2OPT::Transformation2OPT() {
+	_base = NULL;
 }
 
 Transformation2OPT::Transformation2OPT(vector<int> *inVector) {
+	_base = NULL;
 	this->reset(inVector);
 }
 
@@ -48,5 +50,8 @@ void Transformation2OPT::reset(vector<int> *baseVec) {
 	_i = 0;
 	_j = 0;
 	_end = false;
+	if (_base != NULL) {
+		delete _base;
+	}
 	_base = new vector<int>(*baseVec);
 }
