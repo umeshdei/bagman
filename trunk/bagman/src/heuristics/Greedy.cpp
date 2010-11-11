@@ -21,6 +21,8 @@ vector<int> *Greedy::solve(Generate *pgenData) {
 }
 
 vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount) {
+	_timer.start();
+
 	vector<int> *best = pgenData->getRandomResult();
 	int bestScore = pgenData->calculateWholeDistance(best);
 	Transformation *t = new Transformation2OPT();
