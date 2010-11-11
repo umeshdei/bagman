@@ -37,8 +37,7 @@ vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount) 
 		if ((iTmp = pgenData->calculateWholeDistance(vctrSolution)) < iBestResult) {
 			cout << iTmp << endl;
 			iBestResult = iTmp;
-			delete vctrBestSolution;
-			vctrBestSolution = new vector<int>(*vctrSolution);
+			(*vctrBestSolution) = (*vctrSolution);
 			cout << pgenData->calculateWholeDistance(vctrBestSolution) << endl;
 		}
 	}
