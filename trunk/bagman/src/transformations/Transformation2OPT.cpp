@@ -48,8 +48,5 @@ void Transformation2OPT::reset(vector<int> *baseVec) {
 	_i = 0;
 	_j = 0;
 	_end = false;
-	if (_base != NULL) {
-		delete _base;
-	}
 	_base = new vector<int>(*baseVec);
 }
