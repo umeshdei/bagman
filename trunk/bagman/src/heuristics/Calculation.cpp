@@ -7,7 +7,8 @@
 
 #include "Calculation.h"
 
-Calculation::Calculation(string strOutputFileName) : outputStream(strOutputFileName.c_str(), ios::out) {
-	//ifstream tmp(strOutputFileName.c_str());
-	//outputStream = tmp;
+Calculation::Calculation(string strOutputFileName) : outputStream(strOutputFileName.c_str(), ios::out) { }
+
+Calculation::~Calculation() {
+	outputStream.close();
 }
