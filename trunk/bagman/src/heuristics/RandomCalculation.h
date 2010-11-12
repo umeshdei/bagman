@@ -24,9 +24,10 @@ class RandomCalculation: public Calculation {
 public:
 	RandomCalculation(string strTimeFileName, string strIterationFileName, string strStepFileName);
 	RandomCalculation(string strFileName);
+	RandomCalculation();
 	virtual ~RandomCalculation();
-	vector<int> *solve(Generate *pgenData);
-	vector<int> *solve(Generate *pgenData, int pintMaxIterCount);
+	vector<int> *solve(Generate *pgenData, string fileName);
+	vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName);
 private:
 	int _iNumberOfCities;
 };

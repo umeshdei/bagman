@@ -14,6 +14,7 @@ DataSaver::DataSaver(string pstrFName) {
 
 	//TODO:odczaic jak duze to ustawic :)
 	_WorkingFile.width(20);
+	_WorkingFile.precision(2);
 }
 
 DataSaver::~DataSaver() {
@@ -23,7 +24,7 @@ DataSaver::~DataSaver() {
 }
 
 void DataSaver::saveLine(double pdTime, long plScore) {
-	_WorkingFile << pdTime << "\t" << plScore << std::endl;
+	_WorkingFile << fixed << pdTime << "\t" << plScore << std::endl;
 }
 
 void DataSaver::saveLine(int piStamp, long plScore) {

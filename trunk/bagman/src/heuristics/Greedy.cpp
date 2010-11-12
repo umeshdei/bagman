@@ -15,15 +15,23 @@ Greedy::Greedy(string strFileName) : Calculation(strFileName) {
 	// TODO Auto-generated constructor stub
 }
 
+Greedy::Greedy() {
+}
+
 Greedy::~Greedy() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Greedy::solve(Generate *pgenData) {
-	return solve(pgenData, INT_MAX);
+vector<int> *Greedy::solve(Generate *pgenData, string fileName) {
+	return solve(pgenData, INT_MAX, fileName);
 }
 
-vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount) {
+vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
+	string iFileName = fileName + ".iter";
+	string tFileName = fileName + ".tm";
+	DataSaver *iSaver = DataSaver::GetIterationFile(iFileName);
+	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
+
 	_timer.start();
 
 	vector<int> *best = pgenData->getRandomResult();
@@ -31,6 +39,10 @@ vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount) {
 	Transformation *t = new Transformation2OPT();
 	vector<int> *current = NULL;
 	bool progress; //contains progress flag
+
+	//save initial values
+	iSaver->saveLine(0, bestScore);
+	tSaver->saveLine(_timer.getRunTime(), bestScore);
 
 	for (int i = 0; i < pintMaxIterCount; i++) {
 		progress = false;
@@ -48,11 +60,19 @@ vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount) {
 				delete current;
 			}
 		}
+		//save current score
+		iSaver->saveLine(i+1, bestScore);
+		tSaver->saveLine(_timer.getRunTime(), bestScore);
+
 		if (!progress) {
+			delete iSaver;
+			delete tSaver;
 			return best;
 		}
 	}
 
 	//return best after max iteration amount
+	delete iSaver;
+	delete tSaver;
 	return best;
 }

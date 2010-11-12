@@ -15,11 +15,15 @@ Own::Own(string strFileName) : Calculation(strFileName) {
 	// TODO Auto-generated constructor stub
 }
 
+Own::Own() {
+
+}
+
 Own::~Own() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Own::solve(Generate *pgenData) {
+vector<int> *Own::solve(Generate *pgenData, string fileName) {
 	vector<int> *vctrSolution = new vector<int>();
 	vector<int> *vctrCitiesLeft = pgenData->getSortedResult();
 
@@ -35,6 +39,6 @@ vector<int> *Own::solve(Generate *pgenData) {
 	return vctrSolution;
 }
 
-vector<int> *Own::solve(Generate *pgenData, int pintMaxIterCount) {
-	return solve(pgenData);
+vector<int> *Own::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
+	return solve(pgenData, fileName);
 }

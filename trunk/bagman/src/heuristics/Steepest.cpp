@@ -15,15 +15,23 @@ Steepest::Steepest(string strFileName) : Calculation(strFileName) {
 	// TODO Auto-generated constructor stub
 }
 
+Steepest::Steepest() {
+}
+
 Steepest::~Steepest() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Steepest::solve(Generate *pgenData) {
-	return solve(pgenData, INT_MAX);
+vector<int> *Steepest::solve(Generate *pgenData, string fileName) {
+	return solve(pgenData, INT_MAX, fileName);
 }
 
-vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount) {
+vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
+	string iFileName = fileName + ".iter";
+	string tFileName = fileName + ".tm";
+	DataSaver *iSaver = DataSaver::GetIterationFile(iFileName);
+	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
+
 	_timer.start();
 	vector<int> *best = pgenData->getRandomResult();
 	int bestScore = pgenData->calculateWholeDistance(best);
@@ -32,6 +40,9 @@ vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount) {
 	bool progress; //contains progress flag
 	//iterate through all neightbours
 
+	//save initial values
+	iSaver->saveLine(0, bestScore);
+	tSaver->saveLine(_timer.getRunTime(), bestScore);
 
 	for (int i = 0; i < pintMaxIterCount; i++) {
 		progress = false;
@@ -48,11 +59,19 @@ vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount) {
 				delete current;
 			}
 		}
+		//save current score
+		iSaver->saveLine(i+1, bestScore);
+		tSaver->saveLine(_timer.getRunTime(), bestScore);
+
 		if (!progress) {
+			delete iSaver;
+			delete tSaver;
 			return best;
 		}
 	}
 
 	//return best after max iteration amount
+	delete iSaver;
+	delete tSaver;
 	return best;
 }

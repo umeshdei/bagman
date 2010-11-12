@@ -25,9 +25,10 @@ class Calculation {
 public:
 	Calculation(string strTimeFileName, string strIterationFileName, string strStepFileName);
 	Calculation(string strFileName);
+	Calculation();
 	~Calculation();
-	virtual vector<int> *solve(Generate *pgenData) = 0;
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount) = 0;
+	virtual vector<int> *solve(Generate *pgenData, string fileName) = 0;
+	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName) = 0;
 
 protected:
 	DataSaver *_timeSaver;

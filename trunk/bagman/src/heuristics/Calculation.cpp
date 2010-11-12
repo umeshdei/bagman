@@ -19,6 +19,10 @@ Calculation::Calculation(string strFileName) {
 	_stepSaver = DataSaver::GetTimeFile(strFileName + "_step");
 }
 
+Calculation::Calculation() {
+
+}
+
 Calculation::~Calculation() {
 	delete _timeSaver;
 	delete _iteretionSaver;
