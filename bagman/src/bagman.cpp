@@ -166,8 +166,8 @@ int main(int argc, char **argv) {
 
 	cout << "Calculating" << endl;
 	if ((iChosenSolution & RANDOM) == RANDOM) {
-		calc = new RandomCalculation("RANDOM");
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
+		calc = new RandomCalculation();
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, "RANDOM") : calc->solve(gen,"RANDOM");
 		cout << "Random best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
@@ -175,8 +175,8 @@ int main(int argc, char **argv) {
 		delete calc;
 	}
 	if ((iChosenSolution & STEEPEST) == STEEPEST) {
-		calc = new Steepest("STEEPEST");
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
+		calc = new Steepest();
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, "STEEPEST") : calc->solve(gen,"STEEPEST");
 		cout << "Steepest best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
@@ -184,8 +184,8 @@ int main(int argc, char **argv) {
 		delete calc;
 	}
 	if ((iChosenSolution & GREEDY) == GREEDY) {
-		calc = new Greedy("GREEDY");
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
+		calc = new Greedy();
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, "GREEDY") : calc->solve(gen,"GREEDY");
 		cout << "Greedy best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
@@ -193,8 +193,8 @@ int main(int argc, char **argv) {
 		delete calc;
 	}
 	if ((iChosenSolution & OWNSOLUTION) == OWNSOLUTION) {
-		calc = new Own("OWNSOLUTION");
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion) : calc->solve(gen);
+		calc = new Own();
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, "OWNSOLUTION") : calc->solve(gen,"OWNSOLUTION");
 		cout << "Own best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
