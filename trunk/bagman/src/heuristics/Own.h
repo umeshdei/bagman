@@ -12,7 +12,8 @@
 
 class Own: public Calculation {
 public:
-	Own(string strOutputFileName);
+	Own(string strTimeFileName, string strIterationFileName, string strStepFileName);
+	Own(string strFileName);
 	virtual ~Own();
 	virtual vector<int> *solve(Generate *pgenData);
 	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount);

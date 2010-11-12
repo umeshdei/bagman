@@ -7,9 +7,12 @@
 
 #include "Steepest.h"
 
-Steepest::Steepest(string strOutputFileName) : Calculation(strOutputFileName) {
+Steepest::Steepest(string strTimeFileName, string strIterationFileName, string strStepFileName) : Calculation(strTimeFileName, strIterationFileName, strStepFileName) {
 	// TODO Auto-generated constructor stub
+}
 
+Steepest::Steepest(string strFileName) : Calculation(strFileName) {
+	// TODO Auto-generated constructor stub
 }
 
 Steepest::~Steepest() {

@@ -7,9 +7,12 @@
 
 #include "RandomCalculation.h"
 
-RandomCalculation::RandomCalculation(string strOutputFileName) : Calculation(strOutputFileName) {
+RandomCalculation::RandomCalculation(string strTimeFileName, string strIterationFileName, string strStepFileName) : Calculation(strTimeFileName, strIterationFileName, strStepFileName) {
 	// TODO Auto-generated constructor stub
+}
 
+RandomCalculation::RandomCalculation(string strFileName) : Calculation(strFileName) {
+	// TODO Auto-generated constructor stub
 }
 
 RandomCalculation::~RandomCalculation() {
