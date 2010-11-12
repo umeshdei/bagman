@@ -28,17 +28,33 @@ vector<int> *RandomCalculation::solve(Generate *pgenData, string fileName) {
 }
 
 vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
+	string iFileName = fileName + ".iter";
+	string tFileName = fileName + ".tm";
+	DataSaver *iSaver = DataSaver::GetIterationFile(iFileName);
+	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
+
 	_timer.start();
 	vector<int> *vctrSolution = pgenData->getSortedResult();
 	vector<int> *vctrBestSolution = new vector<int>(*vctrSolution);
 	int iBestResult = pgenData->calculateWholeDistance(vctrBestSolution);
 	int iTmp;
+
+	//save initial values
+	iSaver->saveLine(0, iBestResult);
+	tSaver->saveLine(_timer.getRunTime(), iBestResult);
+
 	for (int i = 0; i < pintMaxIterCount; i++) {
 		random_shuffle(vctrSolution->begin(), vctrSolution->end());
 		if ((iTmp = pgenData->calculateWholeDistance(vctrSolution)) < iBestResult) {
 			iBestResult = iTmp;
 			(*vctrBestSolution) = (*vctrSolution);
+			//save current score
+			iSaver->saveLine(i+1, iBestResult);
+			tSaver->saveLine(_timer.getRunTime(), iBestResult);
 		}
 	}
+
+	delete iSaver;
+	delete tSaver;
 	return vctrBestSolution;
 }
