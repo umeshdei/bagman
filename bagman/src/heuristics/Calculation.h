@@ -11,9 +11,8 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include <time.h>
-#include <stdlib.h>
-#include <algorithm>
+
+#include "../DataSaver.h"
 
 #include <iostream>
 
@@ -24,13 +23,16 @@ using namespace std;
 
 class Calculation {
 public:
-	Calculation(string strOutputFileName);
+	Calculation(string strTimeFileName, string strIterationFileName, string strStepFileName);
+	Calculation(string strFileName);
 	~Calculation();
 	virtual vector<int> *solve(Generate *pgenData) = 0;
 	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount) = 0;
 
 protected:
-	ofstream outputStream;
+	DataSaver *_timeSaver;
+	DataSaver *_iteretionSaver;
+	DataSaver *_stepSaver;
 	Timer _timer;
 };
 

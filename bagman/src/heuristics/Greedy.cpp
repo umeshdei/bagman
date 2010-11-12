@@ -7,7 +7,11 @@
 
 #include "Greedy.h"
 
-Greedy::Greedy(string strOutputFileName) : Calculation(strOutputFileName) {
+Greedy::Greedy(string strTimeFileName, string strIterationFileName, string strStepFileName) : Calculation(strTimeFileName, strIterationFileName, strStepFileName) {
+	// TODO Auto-generated constructor stub
+}
+
+Greedy::Greedy(string strFileName) : Calculation(strFileName) {
 	// TODO Auto-generated constructor stub
 }
 

@@ -7,9 +7,12 @@
 
 #include "Own.h"
 
-Own::Own(string strOutputFileName) : Calculation(strOutputFileName) {
+Own::Own(string strTimeFileName, string strIterationFileName, string strStepFileName) : Calculation(strTimeFileName, strIterationFileName, strStepFileName) {
 	// TODO Auto-generated constructor stub
+}
 
+Own::Own(string strFileName) : Calculation(strFileName) {
+	// TODO Auto-generated constructor stub
 }
 
 Own::~Own() {

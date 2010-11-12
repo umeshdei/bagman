@@ -7,8 +7,20 @@
 
 #include "Calculation.h"
 
-Calculation::Calculation(string strOutputFileName) : outputStream(strOutputFileName.c_str(), ios::out) { }
+Calculation::Calculation(string strTimeFileName, string strIterationFileName, string strStepFileName) {
+	_timeSaver = DataSaver::GetTimeFile(strTimeFileName);
+	_iteretionSaver = DataSaver::GetIterationFile(strIterationFileName);
+	_stepSaver = DataSaver::GetStepsFile(strStepFileName);
+}
+
+Calculation::Calculation(string strFileName) {
+	_timeSaver = DataSaver::GetTimeFile(strFileName + "_time");
+	_iteretionSaver = DataSaver::GetTimeFile(strFileName + "_iter");
+	_stepSaver = DataSaver::GetTimeFile(strFileName + "_step");
+}
 
 Calculation::~Calculation() {
-	outputStream.close();
+	delete _timeSaver;
+	delete _iteretionSaver;
+	delete _stepSaver;
 }
