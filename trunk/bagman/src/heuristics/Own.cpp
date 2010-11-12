@@ -24,6 +24,9 @@ Own::~Own() {
 }
 
 vector<int> *Own::solve(Generate *pgenData, string fileName) {
+	_timer.start();
+	DataSaver *tSaver = DataSaver::GetTimeFile(fileName + ".tm");
+
 	vector<int> *vctrSolution = new vector<int>();
 	vector<int> *vctrCitiesLeft = pgenData->getSortedResult();
 
@@ -36,6 +39,10 @@ vector<int> *Own::solve(Generate *pgenData, string fileName) {
 		vctrSolution->push_back(vctrCitiesLeft->at(iNextCityID));
 		vctrCitiesLeft->erase(vctrCitiesLeft->begin() + iNextCityID);
 	}
+
+	tSaver->saveLine(_timer.getRunTime(), pgenData->calculateWholeDistance(vctrSolution));
+
+	delete tSaver;
 	return vctrSolution;
 }
 
