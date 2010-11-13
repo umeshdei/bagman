@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 class DataSaver {
@@ -20,6 +21,11 @@ public:
 	 * Used to save time/score results.
 	 */
 	static DataSaver* GetTimeFile(string pstrFName);
+
+	/**
+	 * Used to save time/score results.
+	 */
+	static DataSaver* GetSolutionFile(string pstrFName);
 
 	/**
 	 * Used to save iteration/score results.
@@ -42,6 +48,8 @@ public:
 	void saveLine(double pdTime, long plScore);
 
 	void saveLine(int piStamp, long plScore);
+
+	void saveLine(vector<int> *solution);
 
 private:
 	DataSaver(string pstrFName);

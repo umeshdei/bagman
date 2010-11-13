@@ -29,6 +29,8 @@ vector<int> *Greedy::solve(Generate *pgenData, string fileName) {
 vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
 	string iFileName = fileName + ".iter";
 	string tFileName = fileName + ".tm";
+	string vFileName = fileName + ".vec";
+	DataSaver *vSaver = DataSaver::GetIterationFile(vFileName);
 	DataSaver *iSaver = DataSaver::GetIterationFile(iFileName);
 	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
 
@@ -65,6 +67,8 @@ vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string file
 		tSaver->saveLine(_timer.getRunTime(), bestScore);
 
 		if (!progress) {
+			vSaver->saveLine(best);
+			delete vSaver;
 			delete iSaver;
 			delete tSaver;
 			return best;
@@ -72,6 +76,8 @@ vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string file
 	}
 
 	//return best after max iteration amount
+	vSaver->saveLine(best);
+	delete vSaver;
 	delete iSaver;
 	delete tSaver;
 	return best;

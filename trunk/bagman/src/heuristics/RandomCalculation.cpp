@@ -30,6 +30,8 @@ vector<int> *RandomCalculation::solve(Generate *pgenData, string fileName) {
 vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
 	string iFileName = fileName + ".iter";
 	string tFileName = fileName + ".tm";
+	string vFileName = fileName + ".vec";
+	DataSaver *vSaver = DataSaver::GetIterationFile(vFileName);
 	DataSaver *iSaver = DataSaver::GetIterationFile(iFileName);
 	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
 
@@ -53,7 +55,8 @@ vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount, 
 			tSaver->saveLine(_timer.getRunTime(), iBestResult);
 		}
 	}
-
+	vSaver->saveLine(vctrBestSolution);
+	delete vSaver;
 	delete iSaver;
 	delete tSaver;
 	return vctrBestSolution;

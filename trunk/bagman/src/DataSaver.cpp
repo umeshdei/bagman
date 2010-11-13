@@ -31,9 +31,20 @@ void DataSaver::saveLine(int piStamp, long plScore) {
 	_WorkingFile << piStamp << "\t" << plScore << std::endl;
 }
 
+void DataSaver::saveLine(vector<int> *solution) {
+	for (unsigned int i = 0; i < solution->size(); i++)
+		_WorkingFile << (*solution)[i] << "\t";
+}
+
 DataSaver* DataSaver::GetIterationFile(string pstrFName) {
 	DataSaver *result = new DataSaver(pstrFName);
 	result->insIterationTempate();
+
+	return result;
+}
+
+DataSaver* DataSaver::GetSolutionFile(string pstrFName) {
+	DataSaver *result = new DataSaver(pstrFName);
 
 	return result;
 }

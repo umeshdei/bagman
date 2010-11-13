@@ -157,18 +157,18 @@ int main(int argc, char **argv) {
 		vec->push_back(i);
 	}
 
-	cout << gen->calculateWholeDistance(vec) << endl;
+//	cout << gen->calculateWholeDistance(vec) << endl;
 
 	srand(time(NULL));
 
 	Calculation *calc;
 
-	cout << "Calculating" << endl;
+	//cout << "Calculating" << endl;
 	if ((iChosenSolution & RANDOM) == RANDOM) {
 		calc = new RandomCalculation();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		cout << "Random best solution" << endl;
-		cout << gen->calculateWholeDistance(vec) << endl;
+		//cout << "Random best solution" << endl;
+		//cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
 			gen->DEBUG_printTrace(vec);
 		delete calc;
@@ -176,8 +176,8 @@ int main(int argc, char **argv) {
 	if ((iChosenSolution & STEEPEST) == STEEPEST) {
 		calc = new Steepest();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		cout << "Steepest best solution" << endl;
-		cout << gen->calculateWholeDistance(vec) << endl;
+//		cout << "Steepest best solution" << endl;
+//		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
 			gen->DEBUG_printTrace(vec);
 		delete calc;
@@ -185,8 +185,8 @@ int main(int argc, char **argv) {
 	if ((iChosenSolution & GREEDY) == GREEDY) {
 		calc = new Greedy();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		cout << "Greedy best solution" << endl;
-		cout << gen->calculateWholeDistance(vec) << endl;
+//		cout << "Greedy best solution" << endl;
+//		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
 			gen->DEBUG_printTrace(vec);
 		delete calc;
@@ -194,8 +194,8 @@ int main(int argc, char **argv) {
 	if ((iChosenSolution & OWNSOLUTION) == OWNSOLUTION) {
 		calc = new Own();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		cout << "Own best solution" << endl;
-		cout << gen->calculateWholeDistance(vec) << endl;
+//		cout << "Own best solution" << endl;
+//		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
 			gen->DEBUG_printTrace(vec);
 		delete calc;

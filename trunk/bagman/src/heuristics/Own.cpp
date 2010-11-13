@@ -25,6 +25,8 @@ Own::~Own() {
 
 vector<int> *Own::solve(Generate *pgenData, string fileName) {
 	_timer.start();
+	string vFileName = fileName + ".vec";
+	DataSaver *vSaver = DataSaver::GetIterationFile(vFileName);
 	DataSaver *tSaver = DataSaver::GetTimeFile(fileName + ".tm");
 
 	vector<int> *vctrSolution = new vector<int>();
@@ -41,7 +43,8 @@ vector<int> *Own::solve(Generate *pgenData, string fileName) {
 	}
 
 	tSaver->saveLine(_timer.getRunTime(), pgenData->calculateWholeDistance(vctrSolution));
-
+	vSaver->saveLine(vctrSolution);
+	delete vSaver;
 	delete tSaver;
 	return vctrSolution;
 }
