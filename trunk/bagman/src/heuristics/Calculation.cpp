@@ -20,11 +20,16 @@ Calculation::Calculation(string strFileName) {
 }
 
 Calculation::Calculation() {
-
+	_timeSaver = NULL;
+	_iteretionSaver = NULL;
+	_stepSaver = NULL;
 }
 
 Calculation::~Calculation() {
-	delete _timeSaver;
-	delete _iteretionSaver;
-	delete _stepSaver;
+	if (_timeSaver != NULL)
+		delete _timeSaver;
+	if (_iteretionSaver != NULL)
+		delete _iteretionSaver;
+	if (_stepSaver != NULL)
+		delete _stepSaver;
 }
