@@ -30,9 +30,9 @@ vector<int> *Own::solve(Generate *pgenData, string fileName) {
 	vector<int> *vctrSolution = new vector<int>();
 	vector<int> *vctrCitiesLeft = pgenData->getSortedResult();
 
-	int iNextCityID = 0;
+	int iNextCityID = random() % pgenData->getNumberOfCities();
 	vctrSolution->push_back(vctrCitiesLeft->at(iNextCityID));
-	vctrCitiesLeft->erase(vctrCitiesLeft->begin());
+	vctrCitiesLeft->erase(vctrCitiesLeft->begin() + iNextCityID);
 
 	while (vctrCitiesLeft->size()) {
 		iNextCityID = pgenData->findClosest_returnID(vctrSolution->back(), vctrCitiesLeft);
