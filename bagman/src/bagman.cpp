@@ -21,6 +21,7 @@
 #include "heuristics/Own.h"
 
 #include "bagman.h"
+#include "tmp/tsplib.h"
 
 using namespace std;
 
@@ -33,6 +34,11 @@ int main(int argc, char **argv) {
 	char *caLoadTableFileName = NULL;
 	char *caSizeOfTable = NULL;
 	bool bGenerate = false;
+
+	FILE *pFile;
+	pFile = fopen ("myfile.txt" , "r");
+	struct tsplib_tsp_struct *x = tsplib_read_tsp(pFile);
+
 
 	int c;
 	while (1) {
