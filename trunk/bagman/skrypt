@@ -1,0 +1,27 @@
+#!/bin/bash
+
+mkdir data
+mkdir results
+
+for s in `seq 1 10`
+do
+	for i in `seq 1 10`
+	do
+		./Debug/bagman -g -s $((s * 50)) -o data/input.$i.$((s * 50)).txt
+				
+		for j in `seq 1 10`
+		do
+			./Debug/bagman -l data/input.$i.$((s * 50)).txt -e -o results/greedy.$i.$((s * 50)).$j.txt
+		done
+		for j in `seq 1 10`
+		do
+			./Debug/bagman -l data/input.$i.$((s * 50)).txt -t -o results/steepest.$i.$((s * 50)).$j.txt
+		done
+		for j in `seq 1 10`
+		do
+			./Debug/bagman -l data/input.$i.$((s * 50)).txt -r -o results/random.$i.$(($s * 50)).$j.txt -i $(($j * 20000))
+		done
+		./Debug/bagman -l data/input.$i.$((s * 50)).txt -w -o results/own.$i.$(($s * 50)).txt
+	done
+done
+
