@@ -50,10 +50,52 @@ u_int32_t Instance::getPointsDistance(u_int32_t i, u_int32_t j)
 	return _distanceMatrix[i][j];
 }
 
+dynamic_matrix_t *Instance::getDynamicDistanceMatrix()
+{
+	dynamic_matrix_t *matrix;
+
+	matrix = new dynamic_matrix_t();
+	for (u_int32_t i = 0; i < _size; i++)
+	{
+		map<u_int32_t, u_int32_t> v;
+		for (u_int32_t j = 0; j < _size; j++)
+		{
+			v[j] = _distanceMatrix[i][j];
+		}
+		(*matrix)[i] = v;
+	}
+
+	return matrix;
+}
+
+vertex_dist_t *Instance::getDistanceVector(u_int32_t i)
+{
+	vertex_dist_t *vect;
+
+	if (i > _size)
+		return NULL;
+
+	vect = new vertex_dist_t[_size];
+	for (u_int32_t j = 0; j < _size; j++)
+	{
+		vect[j].vertexId = j;
+		vect[j].distance = _distanceMatrix[i][j];
+	}
+
+	return vect;
+}
+
 int u_int32_compare (const void * a, const void * b)
 {
   return ( *(u_int32_t *)a > *(u_int32_t *)b ? 1 : -1 );
 }
+
+
+int vertex_dist_compare (const void * a, const void * b)
+{
+  return ( ((vertex_dist_t *)a)->distance > ((vertex_dist_t *)b)->distance ? 1 : -1 );
+}
+
 
 u_int32_t Instance::calculateMinLimit()
 {
