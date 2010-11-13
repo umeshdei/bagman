@@ -5,6 +5,7 @@
 #include "solver/TSPRandomSolver.h"
 #include "solver/TSPSteepestSolver.h"
 #include "solver/TSPGreedySolver.h"
+#include "solver/TSPGreedySolver2.h"
 
 #include "tsp.h"
 
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
 	TSPRandomSolver *randomSolver;
 	TSPSteepestSolver *steepestSolver;
 	TSPGreedySolver *greedySolver;
+	TSPGreedySolver2 *greedySolver2;
 	Result *res;
 	u_int32_t randomStepsCount = 100000;
 	u_int32_t stepsCount = 1000;
@@ -49,6 +51,13 @@ int main(int argc, char *argv[])
 	res = greedySolver->solve();
 	res->print();
 	delete greedySolver;
+	delete res;
+
+	printf("==========wynik dzialania algorytmu greedy2==============\n");
+	greedySolver2 = new TSPGreedySolver2(instance);
+	res = greedySolver2->solve();
+	res->print();
+	delete greedySolver2;
 	delete res;
 
 	delete instance;
