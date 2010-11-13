@@ -34,7 +34,6 @@ int main(int argc, char **argv) {
 	char *caSizeOfTable = NULL;
 	bool bGenerate = false;
 
-
 	int c;
 	while (1) {
 		//int this_option_optind = optind ? optind : 1;
@@ -167,7 +166,7 @@ int main(int argc, char **argv) {
 	cout << "Calculating" << endl;
 	if ((iChosenSolution & RANDOM) == RANDOM) {
 		calc = new RandomCalculation();
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, "RANDOM") : calc->solve(gen,"RANDOM");
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
 		cout << "Random best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
@@ -176,7 +175,7 @@ int main(int argc, char **argv) {
 	}
 	if ((iChosenSolution & STEEPEST) == STEEPEST) {
 		calc = new Steepest();
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, "STEEPEST") : calc->solve(gen,"STEEPEST");
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
 		cout << "Steepest best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
@@ -185,7 +184,7 @@ int main(int argc, char **argv) {
 	}
 	if ((iChosenSolution & GREEDY) == GREEDY) {
 		calc = new Greedy();
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, "GREEDY") : calc->solve(gen,"GREEDY");
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
 		cout << "Greedy best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
@@ -194,7 +193,7 @@ int main(int argc, char **argv) {
 	}
 	if ((iChosenSolution & OWNSOLUTION) == OWNSOLUTION) {
 		calc = new Own();
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, "OWNSOLUTION") : calc->solve(gen,"OWNSOLUTION");
+		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
 		cout << "Own best solution" << endl;
 		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
