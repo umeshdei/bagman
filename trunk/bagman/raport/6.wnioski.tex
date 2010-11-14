@@ -16,4 +16,61 @@ Jest jednak możliwość, że punkt początkowy leżałby w pobliżu jakiegoś o
 lokalnego, i zawsze zwracany były ten sam wynik, uniemożliwiając odkrycie innych 
 optimów i dzięki temu polepszenie wyniku.
 
+\subsection{Uzyskane wyniki}
+
+Zgodnie z uzyskanymi obliczeniami najlepszy algorytmem okazał się prosty algorytm 
+heurystyczny. Uyzkuje on, w niektórych przypadkach, wyniki lepsze o ponad 50\% od
+drugiego w zestawieniu algorytmu Greedy. Kolejnym algorytmem jest Steepest z wynikami 
+nieznacznie gorszymi od algorytmu Greedy. Ostatni w zestawieniu znalazł się algorytm 
+losowy.
+
+\subsubsection{Prosty algorytm heurystyczny}
+
+Sukces algorytmu autorskiego opiera się w dużej części na podejściu do problemu. 
+Programowanie dynamiczne wybiera w daej chwili najbardziej optymalne rozwiązanie, 
+dzięki czemu osiąga w ogólności bardzo dobre wyniki. Istnieją jednak sytuacje, gdy 
+rozwiązania zaproponowane przez prosty algorytm heurystyczny może być ponad 2 razy 
+gorsze od pozostałych algorytmów. Dzieje się tak w przypadku, gdy ostatnia wybrana 
+trasa jest bardzo długa. Dlatego po otrzymaniu rozwiązania należałoby przejrzeć 
+sąsiedztwo w poszukiawaniu rozwiązania lepszego umożliwiając, w niektórych przypadkach
+usinięci najdłużeszej trasy.
+
+\subsubsection{Algorytm losowy}
+
+Słaby wynik algorytmu wiąże się z jego niedeterminizmem, jak i brakiem wykorzystania 
+już osiągniętych informacji. Jest to jedyny algorytm, dla którego nie można określić 
+złożoności, gdyż będzie on działał tak długo, aż jego praca zostanie przerwana. Losując 
+rozwiązania na bardzo dużych danych wejściowych ciężko osiąnąć jest wynik nawet zbliżony 
+do optimum. 
+
+W przypadku małych instancji algorytm ten zwracał wyniki porównywalne z 
+pozostałymi algorytmami w o wiele krótszym czasie (nie licząc czasu działania algorytmu
+autorskiego). Dla $ n = 10 $ ilość permutacji wynosi:
+
+$$ n! = 10! = 3~628~800 $$
+
+co przy przykładowych 200~000 powtórzeń daje szansę w trafienie w rozwiązanie optymalne:
+
+$$ \frac{200~000}{10!} * 100\% = 5,51\%  $$
+
+Natomiast jeśli podniesiemy $ n = 50 $ otrzymujemy wyniki:
+
+$$ n! = 50! = 3,04 * 10^{64} $$
+$$ \frac{200~000}{50!} * 100\% = 6,58 * 10^{-58}\%  $$
+
+A przy $ n = 400 $, czyli górnej granicy obliczeń:
+
+$$ n! = 400! = 6,40 * 10^{870} $$
+$$ \frac{200~000}{400!} * 100\% = 3,13 * 10^{-864}\%  $$
+
+Jak więc widać dla dużych $ n $ szanse trafienia w rozwiązanie optymalne są równe $ 0 $.
+
+Algorytm ten nie wykorzystuje różwnież informacji o już znalezionych rozwiązaniach 
+w przypadku generowania nowego, dzięki czemu wygenerowane rozwiązania nie przybliżają
+go do optimum.
+
 \subsection{Ilość iteracji}
+
+Porównując ilość itteracji algorytmów Greedy i Steepest można zauważyć, że algorytm 
+Steepest wykonyje ok. 4 razy mniej kroków od algorytmu Greedy. Jest to spowodowane 
+dokładnym przeglądaniem przestrzeni sąsiedztwa i wybierania najleprzego rozwiązania.
