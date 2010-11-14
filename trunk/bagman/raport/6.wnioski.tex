@@ -4,8 +4,9 @@
 \subsection{Złożoność obliczeniowa prostego algorytmu heurystycznego}
 
 Zgodnie z załączonymi wynikami można zauważyć bardzo którki czas działania prostej
-heurystki zaproponowanej przez autorów. Jest to spowodowane liniową złożonością 
-czasową $ O(n) $. Otrzymujemy dzięki temu bardzo sybki algorytm. Jego wadą jest 
+heurystki zaproponowanej przez autorów. Jest to spowodowane kwadratową złożonością 
+czasową $ O(n^{2}) $, ponieważ musimy $ n $ razy przejrzeć $ n $ punktów, aby znaleźć
+nalbliższy. Otrzymujemy dzięki temu bardzo sybki algorytm. Jego wadą jest 
 możliwość otrzymania wyniku bardzo oddalonego od optimum. Dzieje się tak dlatego, 
 że przy końcowych obliczeniach nie mamy już dużego wyboru następnych odwiedzanych 
 punktów, więc ostatnie ścieżki do wyboru mogę być bardzo długie. Wynik działania 
@@ -15,6 +16,18 @@ by to ich czas działania, poprzez start w miejscu, które jest blisko optimium.
 Jest jednak możliwość, że punkt początkowy leżałby w pobliżu jakiegoś optimum 
 lokalnego, i zawsze zwracany były ten sam wynik, uniemożliwiając odkrycie innych 
 optimów i dzięki temu polepszenie wyniku.
+
+\subsection{Odległość od optimum}
+
+Przedstawione wyniki prezentują, że odległość od optimum dla wykonanych obliczeń 
+są bardzo zróżnicowane. Najbardziej stalinie prezentuje się algorytm autorski 
+dając średnio 20\% nadłożenie trasy. Algorytmy Steepest i Greedy lepiej działają dla 
+większych instancji, przy małych natomiast znajdowane rozwiązania są dalekie od optimum
+nawet ponad 2-krotnie.
+
+Najbardziej zmienny jest algorytm losowy. Dane uzyskane za jego pomocą dla małych instancji
+potrafią być bliskie optimum, a dla dużych instancji potrafiż byc bardzo odległe. Rozwiązanie
+tego specyficznego zachowania zostało wytłumaczone poniżej.
 
 \subsection{Uzyskane wyniki}
 
