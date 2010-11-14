@@ -35,6 +35,7 @@ int main(int argc, char **argv) {
 	char *caLoadTableFileName = NULL;
 	char *caSizeOfTable = NULL;
 	bool bGenerate = false;
+	bool bTspFile = false;
 
 	//PRZYKLAD WYKORZYSTANIA EUC_2_PARSER
 	/*
@@ -63,7 +64,7 @@ int main(int argc, char **argv) {
 				//					{ "version", 0, 0, 0 },
 				{ "help", 0, 0, 0 }, { 0, 0, 0, 0 } };
 
-		c = getopt_long(argc, argv, "gl:s:i:tero:dw", long_options, &option_index);
+		c = getopt_long(argc, argv, "gl:s:i:terpo:dw", long_options, &option_index);
 		if (c == -1)
 			break;
 
@@ -87,6 +88,7 @@ int main(int argc, char **argv) {
 				//					printf("\t--proxy [user[:pass]@]IP:port\tSet proxy (if you want).\n");
 				//					printf("\t-4\t\t\tUse SOCKS4 as proxy.\n");
 				cout << "\t-g \t\t\tGenerate data for calculation." << endl;
+				cout << "\t-p \t\t\tUse tsp file as input." << endl;
 				cout << "\t-s [integer]\t\t\tThe size of generated data." << endl;
 				cout << "\t-l [filename]\t\t\tLoad generated date." << endl;
 				cout << "\t-o [filename]\t\t\tOutput date." << endl;
@@ -109,6 +111,9 @@ int main(int argc, char **argv) {
 			//					caUploadFileName = strdup(optarg);
 			//					break;
 			//				}
+		case 'p':
+			bTspFile = true;
+			break;
 		case 'e':
 			iChosenSolution = iChosenSolution | GREEDY;
 			break;
@@ -162,7 +167,17 @@ int main(int argc, char **argv) {
 			exit(1);
 		}
 	} else if (caLoadTableFileName != NULL) {
-		gen = new Generate(string(caLoadTableFileName));
+		if (bTspFile) {
+			vector<Point *> *coord = new vector<Point *>();
+			EUC_2_Parser ep;
+
+			ep.parse(caLoadTableFileName, coord);
+
+			gen = new Generate(coord);
+			cout << "Loaded" << endl;
+		}
+		else
+			gen = new Generate(string(caLoadTableFileName));
 	} else {
 		cerr << "You have to load or generate table!" << endl;
 		exit(1);
@@ -174,18 +189,18 @@ int main(int argc, char **argv) {
 		vec->push_back(i);
 	}
 
-//	cout << gen->calculateWholeDistance(vec) << endl;
+	cout << gen->calculateWholeDistance(vec) << endl;
 
 	srand(time(NULL));
 
 	Calculation *calc;
 
-	//cout << "Calculating" << endl;
+	cout << "Calculating" << endl;
 	if ((iChosenSolution & RANDOM) == RANDOM) {
 		calc = new RandomCalculation();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		//cout << "Random best solution" << endl;
-		//cout << gen->calculateWholeDistance(vec) << endl;
+		cout << "Random best solution" << endl;
+		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
 			gen->DEBUG_printTrace(vec);
 		delete calc;
@@ -193,8 +208,8 @@ int main(int argc, char **argv) {
 	if ((iChosenSolution & STEEPEST) == STEEPEST) {
 		calc = new Steepest();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-//		cout << "Steepest best solution" << endl;
-//		cout << gen->calculateWholeDistance(vec) << endl;
+		cout << "Steepest best solution" << endl;
+		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
 			gen->DEBUG_printTrace(vec);
 		delete calc;
@@ -202,8 +217,8 @@ int main(int argc, char **argv) {
 	if ((iChosenSolution & GREEDY) == GREEDY) {
 		calc = new Greedy();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-//		cout << "Greedy best solution" << endl;
-//		cout << gen->calculateWholeDistance(vec) << endl;
+		cout << "Greedy best solution" << endl;
+		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
 			gen->DEBUG_printTrace(vec);
 		delete calc;
@@ -211,8 +226,8 @@ int main(int argc, char **argv) {
 	if ((iChosenSolution & OWNSOLUTION) == OWNSOLUTION) {
 		calc = new Own();
 		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-//		cout << "Own best solution" << endl;
-//		cout << gen->calculateWholeDistance(vec) << endl;
+		cout << "Own best solution" << endl;
+		cout << gen->calculateWholeDistance(vec) << endl;
 		if (DEBUG)
 			gen->DEBUG_printTrace(vec);
 		delete calc;
