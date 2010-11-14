@@ -18,6 +18,17 @@ Generate::Generate(int piNumberOfCities) {
 	generateDistances();
 }
 
+Generate::Generate(vector<Point*> *cord) {
+	if (cord == NULL)
+		throw "Illegal parameter in Generate Constructor: cord cannot be NULL.";
+	_iNumberOfCities = cord->size();
+	_iaDistanceBetweenCities = new int*[_iNumberOfCities];
+	for (int i = 0; i < _iNumberOfCities; i++) {
+		_iaDistanceBetweenCities[i] = new int[_iNumberOfCities];
+	}
+	generateDistances(cord);
+}
+
 Generate::Generate(string psFileName) {
 	ifstream strFileName(psFileName.c_str());
 	strFileName >> _iNumberOfCities;
@@ -58,12 +69,18 @@ void Generate::saveTable(string psFileName) {
 	strFileName.close();
 }
 
-void Generate::generateDistances() {
+void Generate::generateDistances(vector<Point*> *pCities) {
 	srand(time(NULL));
-	vector<Point *> *vctrCities = new vector<Point *>();
+	vector<Point*> *vctrCities;
 
-	for (int i = 0; i < _iNumberOfCities; i++)
-		vctrCities->push_back(Point::generateRandomPoint(MAX_VALUE, MAX_VALUE));
+	if (pCities == NULL) {
+		vctrCities = new vector<Point*>();
+		for (int i = 0; i < _iNumberOfCities; i++)
+			vctrCities->push_back(Point::generateRandomPoint(MAX_VALUE, MAX_VALUE));
+	}
+	else {
+		vctrCities = pCities;
+	}
 
 	for (int i = 0; i < _iNumberOfCities - 1; i++)
 		for (int j = i + 1; j < _iNumberOfCities; j++) {
@@ -73,8 +90,14 @@ void Generate::generateDistances() {
 	for (int i = 0; i < _iNumberOfCities; i++)
 		_iaDistanceBetweenCities[i][i] = 0;
 
-	vctrCities->empty();
-	delete vctrCities;
+	while(!vctrCities->empty()) {
+		delete vctrCities->back();
+		vctrCities->pop_back();
+	}
+
+	if (pCities == NULL) {
+		delete vctrCities;
+	}
 }
 
 int Generate::getDistance(int piFirstCityNumber, int piSecondCityNumber) {
