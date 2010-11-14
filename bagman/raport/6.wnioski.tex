@@ -69,6 +69,32 @@ Algorytm ten nie wykorzystuje różwnież informacji o już znalezionych rozwią
 w przypadku generowania nowego, dzięki czemu wygenerowane rozwiązania nie przybliżają
 go do optimum.
 
+\subsection{Czas działania}
+
+\it
+W zestawieniu nie został ujęty prosty algorytm heurystyczny z poowdu zbyt krótkich czasów 
+działania, dla 400 elementów nie został zmierzony (obliczenia pokazywały 0,00), podczas 
+gdy najwolniejszy algorytm Steepest wymagał ponad 7 min.
+\rm
+
+\subsubsection{Algorytm Greedy}
+
+Czas działania tego algorytmu dla większych instancji jest lepszy o ok. 50 - 70 \% w porównaniu 
+do algorytmu Steepest. Pomimo, że potrzebuje on więcej iteracji, przejście do następnego kroku 
+zajmuje mniej czasu, gdyż następuje od razu po znalezieniu lepszego rozwiązania. Jego złożoność 
+wynosi następująco:
+
+
+\subsubsection{Algorytm Steepest}
+
+Algorytm ten jest ok. 2 razy gorszy od algorytmu Greedy.Wynika to głównie z fakty, że przegląda on
+wszystkie rozwiązania zanim podejmie decyzję o następnym kroku. 
+
+\subsubsection{Algorytm losowy}
+
+Algorytm ten działa niederministycznie, dlatego potrafi osiągnąć szybsze czasy działania dla 
+większych instancji. 
+
 \subsection{Ilość iteracji}
 
 Porównując ilość itteracji algorytmów Greedy i Steepest można zauważyć, że algorytm 
