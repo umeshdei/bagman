@@ -22,6 +22,7 @@
 
 #include "bagman.h"
 #include "tsp/tsplib.h"
+#include "tsp/EUC_2_Parser.h"
 
 using namespace std;
 
@@ -35,11 +36,20 @@ int main(int argc, char **argv) {
 	char *caSizeOfTable = NULL;
 	bool bGenerate = false;
 
-	FILE *pFile;
-	pFile = fopen ("myfile.txt" , "r");
-	tsplib *tsp = new tsplib();
-	struct tsplib_tsp_struct *x = tsp->tsplib_read_tsp(pFile);
+	//PRZYKLAD WYKORZYSTANIA EUC_2_PARSER
+	/*
+	EUC_2_Parser ep;
+	vector<Point*> cord;
 
+	cout << ep.parse("/home/piekar294/Downloads/tmp/tsp/euc_2d/a280.tsp", &cord)<< endl;
+	for(unsigned int i=0; i < cord.size(); i++) {
+		cout << i+1 << "\t" << (cord[i])->getX() << "\t" << (cord[i])->getY() << endl;
+	}
+
+	Generate ggg(&cord);
+	cout <<"przeszlo generate" <<endl;
+	return 0;
+    */
 
 	int c;
 	while (1) {

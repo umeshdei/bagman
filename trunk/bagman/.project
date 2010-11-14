@@ -3,6 +3,7 @@
 	<name>bagman</name>
 	<comment></comment>
 	<projects>
+		<project>slib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

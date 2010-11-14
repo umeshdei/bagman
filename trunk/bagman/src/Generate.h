@@ -27,6 +27,7 @@ class Generate {
 public:
 	Generate(int piNumberOfCities);
 	Generate(string psFileName);
+	Generate(vector<Point*> *cord);
 	virtual ~Generate();
 	int getDistance(int piFirstCityNumber, int piSecondCityNumber);
 	int calculateWholeDistance(vector <int> *pvCitiesSequence);
@@ -38,7 +39,7 @@ public:
 	int findClosest(int piCityNumber, vector<int> *pvctrAvailableCities);
 	int findClosest_returnID(int piCityNumber, vector<int> *pvctrAvailableCities);
 private:
-	void generateDistances();
+	void generateDistances(vector<Point*> *pCities = NULL);
 	int _iNumberOfCities;
 	int **_iaDistanceBetweenCities;
 };
