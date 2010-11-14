@@ -69,6 +69,16 @@ Algorytm ten nie wykorzystuje różwnież informacji o już znalezionych rozwią
 w przypadku generowania nowego, dzięki czemu wygenerowane rozwiązania nie przybliżają
 go do optimum.
 
+\subsubsection{Algorytm Greedy i Steepest}
+
+Wyniki uzyskane przez algorytm Greedy są lepsze niż uzyskane przez algorytm Steepest. 
+Jest to spowodowane przechodzeniem do najlepszego rozwiązania przez algorytm Steepest. 
+Dzięki temu wybiera on najczęściej ścieżkę do najbliższego optimum lokalnego. Algorytm
+Greedy natomiast wybiera pierwsze znalezione rozwiązanie, które jest lepsze od dotychczas 
+znalezionego. dzięki temu nie zbliża się gwałtownie do żadnego z optimów lokalnych, lecz 
+raczej przeszukuje obszar tak długo, aż znajdzie ślepy zaułek.
+
+
 \subsection{Czas działania}
 
 \it
@@ -84,7 +94,6 @@ do algorytmu Steepest. Pomimo, że potrzebuje on więcej iteracji, przejście do
 zajmuje mniej czasu, gdyż następuje od razu po znalezieniu lepszego rozwiązania. Jego złożoność 
 wynosi następująco:
 
-
 \subsubsection{Algorytm Steepest}
 
 Algorytm ten jest ok. 2 razy gorszy od algorytmu Greedy.Wynika to głównie z fakty, że przegląda on
@@ -97,6 +106,6 @@ większych instancji.
 
 \subsection{Ilość iteracji}
 
-Porównując ilość itteracji algorytmów Greedy i Steepest można zauważyć, że algorytm 
+Porównując ilość iteracji algorytmów Greedy i Steepest można zauważyć, że algorytm 
 Steepest wykonyje ok. 4 razy mniej kroków od algorytmu Greedy. Jest to spowodowane 
 dokładnym przeglądaniem przestrzeni sąsiedztwa i wybierania najleprzego rozwiązania.
