@@ -6,8 +6,24 @@ w grafie pełnym. Należy on do klasy problemów NP-trudnych.
 W poniższym projekcie użyto czterech algorytów metaheurystycznych rozwiązująych 
 dany problem. 
 
-* algorytm losowy --- polega na losowym wybieraniu kolejności miast i 
+\begin{enumerate}
+
+\item Algorytm losowy --- polega na losowym wybieraniu kolejności odiwedzanych punktów i 
 porównywaniu otrzymanego wyniku z dotychczasowo najlepszym.
 
-* alogrytm Greedy --- algorytm ten startując z losowego rozwiązania przeszukuje 
-sąsiedztwo celem znalezienia lepszego. Po znalezieniu 
+\item Alogrytm Greedy --- algorytm ten startując z losowego ustawienia przeszukuje 
+sąsiedztwo celem znalezienia lepszego rozwiązania. Po znalezieniu takiego zaprzestaje 
+poszukiwań i przechodzi do lepszego rozwiązania rozpoczynając od nowa przeglądanie sąsiedztwa.
+Zaprzestaje swoje obliczenia, gdy nie znajduje lepszego rozwiązania.
+
+\item Alogrytm Steepest --- algorytm ten startując z losowego ustawienia przeszukuje 
+sąsiedztwo celem znalezienia lepszego rozwiązania. Po przejrzeniu całego sąsiedztwa przechodzi 
+do najlepszego znalezionego rozwiązania rozpoczynając od nowa przeglądanie sąsiedztwa.
+Zaprzestaje swoje obliczenia, gdy nie znajduje lepszego rozwiązania.
+
+\item Alogrytm autorski --- algorytm ten wybiera losowy punkt, od którego rozpoczyna obliczenia.
+Następnie dodaje kolejne odwiedzane punkty, jako kryterium stosując odległość punktu od punktu, w 
+którym obecnie się znajduje.
+
+\end{enumerate}
+
