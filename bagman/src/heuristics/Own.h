@@ -12,12 +12,10 @@
 
 class Own: public Calculation {
 public:
-	Own(string strTimeFileName, string strIterationFileName, string strStepFileName);
-	Own(string strFileName);
-	Own();
+	Own(string strSave);
 	virtual ~Own();
-	virtual vector<int> *solve(Generate *pgenData, string fileName,  string ovFileName);
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName);
 };
 
 #endif /* OWN_H_ */

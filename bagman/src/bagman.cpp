@@ -115,16 +115,32 @@ int main(int argc, char **argv) {
 			bTspFile = true;
 			break;
 		case 'e':
-			iChosenSolution = iChosenSolution | GREEDY;
+			if (iChosenSolution != -1) {
+				cerr << "You can choose only one algorithm!" << endl;
+				exit(1);
+			}
+			iChosenSolution = GREEDY;
 			break;
 		case 'r':
-			iChosenSolution = iChosenSolution | RANDOM;
+			if (iChosenSolution != -1) {
+				cerr << "You can choose only one algorithm!" << endl;
+				exit(1);
+			}
+			iChosenSolution = RANDOM;
 			break;
 		case 't':
-			iChosenSolution = iChosenSolution | STEEPEST;
+			if (iChosenSolution != -1) {
+				cerr << "You can choose only one algorithm!" << endl;
+				exit(1);
+			}
+			iChosenSolution = STEEPEST;
 			break;
 		case 'w':
-			iChosenSolution = iChosenSolution | OWNSOLUTION;
+			if (iChosenSolution != -1) {
+				cerr << "You can choose only one algorithm!" << endl;
+				exit(1);
+			}
+			iChosenSolution = OWNSOLUTION;
 			break;
 		case 'o':
 			caSaveFileName = strdup(optarg);
@@ -153,6 +169,11 @@ int main(int argc, char **argv) {
 
 	if (caSaveFileName == NULL) {
 		cerr << "You have to give the output file name as a parameter -o!" << endl;
+		exit(1);
+	}
+
+	if (iChosenSolution == -1) {
+		cerr << "You can choose one algorithm!" << endl;
 		exit(1);
 	}
 
@@ -195,43 +216,30 @@ int main(int argc, char **argv) {
 
 	Calculation *calc;
 
-	cout << "Calculating" << endl;
-	if ((iChosenSolution & RANDOM) == RANDOM) {
-		calc = new RandomCalculation();
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		cout << "Random best solution" << endl;
-		cout << gen->calculateWholeDistance(vec) << endl;
-		if (DEBUG)
-			gen->DEBUG_printTrace(vec);
-		delete calc;
+	switch (iChosenSolution) {
+	case GREEDY:
+			calc = new Greedy(caSaveFileName);
+			break;
+	case OWNSOLUTION:
+			calc = new Own(caSaveFileName);
+			break;
+	case STEEPEST:
+			calc = new Steepest(caSaveFileName);
+			break;
+	case RANDOM:
+			calc = new RandomCalculation(caSaveFileName);
+			break;
+	default:
+		cerr << "Internal ERROR! Unknown algorithm!" << endl;
+		exit(1);
 	}
-	if ((iChosenSolution & STEEPEST) == STEEPEST) {
-		calc = new Steepest();
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		cout << "Steepest best solution" << endl;
-		cout << gen->calculateWholeDistance(vec) << endl;
-		if (DEBUG)
-			gen->DEBUG_printTrace(vec);
-		delete calc;
-	}
-	if ((iChosenSolution & GREEDY) == GREEDY) {
-		calc = new Greedy();
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		cout << "Greedy best solution" << endl;
-		cout << gen->calculateWholeDistance(vec) << endl;
-		if (DEBUG)
-			gen->DEBUG_printTrace(vec);
-		delete calc;
-	}
-	if ((iChosenSolution & OWNSOLUTION) == OWNSOLUTION) {
-		calc = new Own();
-		vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caSaveFileName) : calc->solve(gen, caSaveFileName);
-		cout << "Own best solution" << endl;
-		cout << gen->calculateWholeDistance(vec) << endl;
-		if (DEBUG)
-			gen->DEBUG_printTrace(vec);
-		delete calc;
-	}
+
+
+	vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caLoadTableFileName) : calc->solve(gen, caLoadTableFileName);
+	if (DEBUG)
+		gen->DEBUG_printTrace(vec);
+	delete calc;
+	cout << "Best known solution: " << gen->calculateWholeDistance(vec) << endl;
 
 	delete gen;
 

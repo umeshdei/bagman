@@ -50,7 +50,7 @@ public:
 
 	void saveLine(int piStamp, long plScore);
 
-	void saveLine(vector<int> *solution);
+	void saveLine(string strAlgorithm, vector<int> *solution);
 
 	void saveOverallLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score);
 
