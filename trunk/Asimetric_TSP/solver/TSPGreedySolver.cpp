@@ -42,7 +42,7 @@ Result *TSPGreedySolver::solve()
 					continue;
 
 				std::swap(changed[j], changed[k]);
-
+				neighorsVisited++;
 				changedDistance = calculateDistance(&changed);
 				if (changedDistance < bestDistance)
 				{
@@ -56,6 +56,7 @@ Result *TSPGreedySolver::solve()
 
 				std::swap(changed[j], changed[k]);
 			}
+			numberOfSteps++;
 			if (foundBetter)
 				break;
 		}
