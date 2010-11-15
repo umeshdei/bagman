@@ -39,12 +39,9 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 	{
 		for (u_int32_t j = 1; j < pure->size(); j++)
 		{
-			/*
-			tmp1 = changed[i];
-			changed[i] = changed[j];
-			changed[j] = tmp1;
-			*/
 			std::swap(changed[i], changed[j]);
+
+			neighorsVisited++;
 			changedDistance = calculateDistance(&changed);
 			//jezeli natrafilismy na lepsze rozwiazanie
 			if (changedDistance < bestDistance)
@@ -57,6 +54,7 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 			//changed = *pure;
 			std::swap(changed[i], changed[j]);
 		}
+		numberOfSteps++;
 	}
 	bestResult = new Result(best);
 	//bestResult->print();

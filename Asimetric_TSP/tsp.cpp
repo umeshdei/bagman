@@ -1,9 +1,9 @@
-#include <iostream>
 #include <stdio.h>
-
 #include <unistd.h>
 #include <getopt.h>
 #include <string.h>
+
+#include <iostream>
 
 #include "solver/TSPLocalSearch.h"
 #include "solver/TSPRandomSolver.h"
@@ -93,28 +93,31 @@ void run_heuristics(cmd_parameters_t params)
 	else
 		instance = Instance::generateRandomInstance(0);
 
-	if (params.solution & GREEDY)
+	for (int i = 0; i < 10; i++)
 	{
-		res = run_greedy(instance, params.max_iterations);
-		delete res;
-	}
+		if (params.solution & GREEDY)
+		{
+			res = run_greedy(instance, params.max_iterations);
+			delete res;
+		}
 
-	if (params.solution & GREEDY2)
-	{
-		res = run_greedy2(instance);
-		delete res;
-	}
+		if (params.solution & GREEDY2)
+		{
+			res = run_greedy2(instance);
+			delete res;
+		}
 
-	if (params.solution & STEEPEST)
-	{
-		res = run_steepest(instance, params.max_iterations);
-		delete res;
-	}
+		if (params.solution & STEEPEST)
+		{
+			res = run_steepest(instance, params.max_iterations);
+			delete res;
+		}
 
-	if (params.solution & RANDOM)
-	{
-		res = run_random(instance, params.max_iterations);
-		delete res;
+		if (params.solution & RANDOM)
+		{
+			res = run_random(instance, params.max_iterations);
+			delete res;
+		}
 	}
 }
 void command_line_parameters(int argc, char *argv[])
