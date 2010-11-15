@@ -1,0 +1,24 @@
+#!/bin/bash
+
+mkdir ../results_euc_2d
+
+
+for i in * 
+do	
+	for j in `seq 1 10`
+	do
+		../Debug/bagman -l $i -p -e -o ../results_euc_2d/greedy
+	done
+	for j in `seq 1 10`
+	do
+		../Debug/bagman -l $i -p -t -o ../results_euc_2d/steepest
+	done
+	for j in `seq 1 10`
+	do
+		../Debug/bagman -l $i -p -r -o ../results_euc_2d/random -i $((j * 20000))
+	done
+	for j in `seq 1 10`
+	do
+		../Debug/bagman -l $i -p -w -o ../results_euc_2d/own
+	done
+done
