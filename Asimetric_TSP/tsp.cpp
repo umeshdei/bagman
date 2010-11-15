@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+#include "Timer.h"
+
 #include "solver/TSPLocalSearch.h"
 #include "solver/TSPRandomSolver.h"
 #include "solver/TSPSteepestSolver.h"
@@ -87,6 +89,7 @@ void run_heuristics(cmd_parameters_t params)
 {
 	Instance *instance;
 	Result *res;
+	Timer timer;
 
 	if (params.size > 0)
 		instance = Instance::generateRandomInstance(params.size);
@@ -97,28 +100,39 @@ void run_heuristics(cmd_parameters_t params)
 	{
 		if (params.solution & GREEDY)
 		{
+			timer.start();
 			res = run_greedy(instance, params.max_iterations);
+			timer.getRunTime(); // TODO: to zapisac przy, do tego pobrac oczywiscie wynik, neighorsVisited oraz numberOfSteps
 			delete res;
 		}
 
 		if (params.solution & GREEDY2)
 		{
+			timer.start();
 			res = run_greedy2(instance);
+			timer.getRunTime();
 			delete res;
 		}
 
 		if (params.solution & STEEPEST)
 		{
+			timer.start();
 			res = run_steepest(instance, params.max_iterations);
+			timer.getRunTime();
 			delete res;
 		}
 
 		if (params.solution & RANDOM)
 		{
+			timer.start();
 			res = run_random(instance, params.max_iterations);
+			timer.getRunTime();
 			delete res;
 		}
 	}
+
+	//instance->saveToFile("jakis_plik")
+	delete instance;
 }
 void command_line_parameters(int argc, char *argv[])
 {
