@@ -2,4 +2,6 @@ hello ;)
 
 plik z iteracjami:
 
-#nazwa_pliku	#czas	#krok	#ilosc_iteracji	#ilosc_przejrzanych_rozwiazan	#wynik	
+#nazwa_pliku	#czas	#krok	#ilosc_iteracji	#ilosc_przejrzanych_rozwiazan	#wynik
+
+random mozna ograniczyc czasem dzialania?	
