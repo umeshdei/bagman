@@ -8,7 +8,7 @@
 #include "Calculation.h"
 
 Calculation::Calculation(string strFileName) {
-	_ovallSaver = DataSaver::GetTimeFile(strFileName + ".all");
+	_ovallSaver = DataSaver::GetOverallFile(strFileName + ".all");
 }
 
 Calculation::Calculation() {

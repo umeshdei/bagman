@@ -173,7 +173,7 @@ int main(int argc, char **argv) {
 	}
 
 	if (iChosenSolution == -1) {
-		cerr << "You can choose one algorithm!" << endl;
+		cerr << "You have to choose one algorithm!" << endl;
 		exit(1);
 	}
 
