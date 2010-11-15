@@ -23,16 +23,13 @@ using namespace std;
 
 class Calculation {
 public:
-	Calculation(string strTimeFileName, string strIterationFileName, string strStepFileName);
 	Calculation(string strFileName);
 	Calculation();
 	~Calculation();
-	virtual vector<int> *solve(Generate *pgenData, string fileName, string ovFileName) = 0;
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) = 0;
+	virtual vector<int> *solve(Generate *pgenData, string ovFileName) = 0;
+	virtual vector<int> *solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName) = 0;
 
 protected:
-	DataSaver *_timeSaver;
-	DataSaver *_iteretionSaver;
 	DataSaver *_ovallSaver;
 	Timer _timer;
 };
