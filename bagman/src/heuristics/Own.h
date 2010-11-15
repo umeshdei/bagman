@@ -16,8 +16,8 @@ public:
 	Own(string strFileName);
 	Own();
 	virtual ~Own();
-	virtual vector<int> *solve(Generate *pgenData, string fileName);
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName);
+	virtual vector<int> *solve(Generate *pgenData, string fileName,  string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName);
 };
 
 #endif /* OWN_H_ */

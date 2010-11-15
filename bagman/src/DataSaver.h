@@ -35,7 +35,8 @@ public:
 	/**
 	 * Used to save no_of_steps/score results.
 	 */
-	static DataSaver* GetStepsFile(string pstrFName);
+	static DataSaver* GetOverallFile(string pstrFName);
+
 
 	inline void open() {
 		_WorkingFile.open(_FileName.c_str(), ios_base::out|ios_base::app);
@@ -51,8 +52,10 @@ public:
 
 	void saveLine(vector<int> *solution);
 
+	void saveOverallLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score);
+
 private:
-	DataSaver(string pstrFName);
+	DataSaver(string pstrFName, ios_base::openmode pMode = ios_base::out|ios_base::trunc);
 	ofstream _WorkingFile;
 	string _FileName;
 
@@ -70,12 +73,6 @@ private:
 	 */
 	void insTimeTempate();
 
-	/**
-	 * Insert:
-	 * "#time #score"
-	 * columns to a result file.
-	 */
-	void insStepsTempate();
 };
 
 #endif /* DATASAVER_H_ */

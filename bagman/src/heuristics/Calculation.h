@@ -27,13 +27,13 @@ public:
 	Calculation(string strFileName);
 	Calculation();
 	~Calculation();
-	virtual vector<int> *solve(Generate *pgenData, string fileName) = 0;
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName) = 0;
+	virtual vector<int> *solve(Generate *pgenData, string fileName, string ovFileName) = 0;
+	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) = 0;
 
 protected:
 	DataSaver *_timeSaver;
 	DataSaver *_iteretionSaver;
-	DataSaver *_stepSaver;
+	DataSaver *_ovallSaver;
 	Timer _timer;
 };
 

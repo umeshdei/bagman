@@ -19,8 +19,8 @@ public:
 	Steepest(string strFileName);
 	Steepest();
 	virtual ~Steepest();
-	virtual vector<int> *solve(Generate *pgenData, string fileName);
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName);
+	virtual vector<int> *solve(Generate *pgenData, string fileName, string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName);
 };
 
 #endif /* STEEPEST_H_ */

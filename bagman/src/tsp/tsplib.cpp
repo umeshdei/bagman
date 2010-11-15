@@ -34,6 +34,20 @@ tsplib::tsplib_read_tsp(FILE *file) { //striped_
 		goto error;
 	}
 
+	//skipp comment tag
+	while ((fgetc(file)) != '\n');
+
+	/*ret = fscanf(file, "COMMENT : %s\n", name_buf);
+	if (ret != 1) {
+		goto error;
+	}*/
+
+
+	ret = fscanf(file, "TYPE : %s\n", name_buf);
+	if (ret != 1) {
+		goto error;
+	}
+
 	ret = fscanf(file, "DIMENSION : %u\n", &dimension);
 	if (ret != 1) {
 		goto error;
@@ -178,7 +192,8 @@ void tsplib::tsplib_tsp_construct_distance_map(struct tsplib_tsp_struct *tsp) {
 		tsp->distance_map = NULL;
 	}
 
-	distance_map = (unsigned int *) calloc(sizeof *distance_map, (dimension - 1) * dimension / 2.0);
+	printf("%d\t%d\n",sizeof (unsigned int), (dimension - 1) * dimension / 2.0);
+	distance_map = (unsigned int *) calloc(sizeof (unsigned int *), (dimension - 1) * dimension / 2.0);
 
 	/* select the distance function */
 	switch (tsp->edge_weight_type) {
@@ -187,8 +202,10 @@ void tsplib::tsplib_tsp_construct_distance_map(struct tsplib_tsp_struct *tsp) {
 		for (j = 0; j < dimension; j++) {
 			for (k = j + 1; k < dimension; k++) {
 				distance_map[s] = euc_2d_distance_func(node_coords[j], node_coords[k]);
+				printf("%d\t",distance_map[s] );
 				s++;
 			}
+			printf("\n");
 		}
 		break;
 
@@ -197,8 +214,10 @@ void tsplib::tsplib_tsp_construct_distance_map(struct tsplib_tsp_struct *tsp) {
 		for (j = 0; j < dimension; j++) {
 			for (k = j + 1; k < dimension; k++) {
 				distance_map[s] = geom_distance_func(node_coords[j], node_coords[k]);
+				printf("%d\t",distance_map[s] );
 				s++;
 			}
+			printf("\n");
 		}
 		break;
 

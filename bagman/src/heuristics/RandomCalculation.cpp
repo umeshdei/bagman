@@ -23,11 +23,11 @@ RandomCalculation::~RandomCalculation() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *RandomCalculation::solve(Generate *pgenData, string fileName) {
-	return solve(pgenData, MAX_ROUND, fileName);
+vector<int> *RandomCalculation::solve(Generate *pgenData, string fileName, string ovFileName) {
+	return solve(pgenData, MAX_ROUND, fileName, ovFileName);
 }
 
-vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
+vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) {
 	string iFileName = fileName + ".iter";
 	string tFileName = fileName + ".tm";
 	string vFileName = fileName + ".vec";
@@ -36,7 +36,7 @@ vector<int> *RandomCalculation::solve(Generate *pgenData, int pintMaxIterCount, 
 	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
 
 	_timer.start();
-	vector<int> *vctrSolution = pgenData->getSortedResult();
+	vector<int> *vctrSolution = pgenData->getRandomResult();
 	vector<int> *vctrBestSolution = new vector<int>(*vctrSolution);
 	int iBestResult = pgenData->calculateWholeDistance(vctrBestSolution);
 	int iTmp;

@@ -10,19 +10,19 @@
 Calculation::Calculation(string strTimeFileName, string strIterationFileName, string strStepFileName) {
 	_timeSaver = DataSaver::GetTimeFile(strTimeFileName);
 	_iteretionSaver = DataSaver::GetIterationFile(strIterationFileName);
-	_stepSaver = DataSaver::GetStepsFile(strStepFileName);
+	_ovallSaver = DataSaver::GetOverallFile(strStepFileName);
 }
 
 Calculation::Calculation(string strFileName) {
 	_timeSaver = DataSaver::GetTimeFile(strFileName + "_time");
 	_iteretionSaver = DataSaver::GetTimeFile(strFileName + "_iter");
-	_stepSaver = DataSaver::GetTimeFile(strFileName + "_step");
+	_ovallSaver = DataSaver::GetTimeFile(strFileName + "_step");
 }
 
 Calculation::Calculation() {
 	_timeSaver = NULL;
 	_iteretionSaver = NULL;
-	_stepSaver = NULL;
+	_ovallSaver = NULL;
 }
 
 Calculation::~Calculation() {
@@ -30,6 +30,6 @@ Calculation::~Calculation() {
 		delete _timeSaver;
 	if (_iteretionSaver != NULL)
 		delete _iteretionSaver;
-	if (_stepSaver != NULL)
-		delete _stepSaver;
+	if (_ovallSaver != NULL)
+		delete _ovallSaver;
 }
