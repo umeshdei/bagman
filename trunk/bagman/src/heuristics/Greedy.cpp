@@ -7,47 +7,34 @@
 
 #include "Greedy.h"
 
-Greedy::Greedy(string strTimeFileName, string strIterationFileName, string strStepFileName) : Calculation(strTimeFileName, strIterationFileName, strStepFileName) {
-	// TODO Auto-generated constructor stub
-}
-
-Greedy::Greedy(string strFileName) : Calculation(strFileName) {
-	// TODO Auto-generated constructor stub
-}
-
-Greedy::Greedy() {
+Greedy::Greedy(string strSave) : Calculation(strSave) {
 }
 
 Greedy::~Greedy() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Greedy::solve(Generate *pgenData, string fileName, string ovFileName) {
-	return solve(pgenData, INT_MAX, fileName, ovFileName);
+vector<int> *Greedy::solve(Generate *pgenData, string ovFileName) {
+	return solve(pgenData, UINT_MAX, ovFileName);
 }
 
-vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) {
-	string iFileName = fileName + ".iter";
-	string tFileName = fileName + ".tm";
-	string vFileName = fileName + ".vec";
-	DataSaver *vSaver = DataSaver::GetIterationFile(vFileName);
-	DataSaver *iSaver = DataSaver::GetIterationFile(iFileName);
-	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
-
+vector<int> *Greedy::solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName) {
 	_timer.start();
+
+	DataSaver *vSaver = DataSaver::GetIterationFile(ovFileName + ".vec");
 
 	int noSeenN = 0;
 	vector<int> *best = pgenData->getRandomResult();
+
 	int bestScore = pgenData->calculateWholeDistance(best);
+
 	Transformation *t = new Transformation2OPT();
 	vector<int> *current = NULL;
 	bool progress; //contains progress flag
 
-	//save initial values
-	iSaver->saveLine(0, bestScore);
-	tSaver->saveLine(_timer.getRunTime(), bestScore);
+	_ovallSaver->saveOverallLine(ovFileName, _timer.getRunTime(), 0, 0, bestScore);
 
-	for (int i = 0; i < pintMaxIterCount; i++) {
+	for (unsigned int i = 0; i < pintMaxIterCount; i++) {
 		progress = false;
 		t->reset(best);
 		//iterate until better solution is found
@@ -64,23 +51,18 @@ vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string file
 				delete current;
 			}
 		}
-		//save current score
-		iSaver->saveLine(i+1, bestScore);
-		tSaver->saveLine(_timer.getRunTime(), bestScore);
+		_ovallSaver->saveOverallLine(ovFileName, _timer.getRunTime(), i+1, noSeenN, bestScore);
+
 
 		if (!progress) {
-			vSaver->saveLine(best);
+
+			vSaver->saveLine("greedy", best);
 			delete vSaver;
-			delete iSaver;
-			delete tSaver;
 			return best;
 		}
 	}
 
-	//return best after max iteration amount
-	vSaver->saveLine(best);
+	vSaver->saveLine("greedy", best);
 	delete vSaver;
-	delete iSaver;
-	delete tSaver;
 	return best;
 }

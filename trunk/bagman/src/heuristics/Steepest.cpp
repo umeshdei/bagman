@@ -7,32 +7,20 @@
 
 #include "Steepest.h"
 
-Steepest::Steepest(string strTimeFileName, string strIterationFileName, string strStepFileName) : Calculation(strTimeFileName, strIterationFileName, strStepFileName) {
-	// TODO Auto-generated constructor stub
-}
-
-Steepest::Steepest(string strFileName) : Calculation(strFileName) {
-	// TODO Auto-generated constructor stub
-}
-
-Steepest::Steepest() {
+Steepest::Steepest(string strSave) : Calculation(strSave){
 }
 
 Steepest::~Steepest() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Steepest::solve(Generate *pgenData, string fileName, string ovFileName) {
-	return solve(pgenData, INT_MAX, fileName, ovFileName);
+vector<int> *Steepest::solve(Generate *pgenData, string ovFileName) {
+	return solve(pgenData, UINT_MAX, ovFileName);
 }
 
-vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) {
-	string iFileName = fileName + ".iter";
-	string tFileName = fileName + ".tm";
-	string vFileName = fileName + ".vec";
-	DataSaver *vSaver = DataSaver::GetIterationFile(vFileName);
-	DataSaver *iSaver = DataSaver::GetIterationFile(iFileName);
-	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
+vector<int> *Steepest::solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName) {
+
+	DataSaver *vSaver = DataSaver::GetIterationFile(ovFileName + ".vec");
 
 	_timer.start();
 	int noSeenN = 0;
@@ -44,10 +32,9 @@ vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount, string fi
 	//iterate through all neightbours
 
 	//save initial values
-	iSaver->saveLine(0, bestScore);
-	tSaver->saveLine(_timer.getRunTime(), bestScore);
+	_ovallSaver->saveOverallLine(ovFileName, _timer.getRunTime(), 0, 0, bestScore);
 
-	for (int i = 0; i < pintMaxIterCount; i++) {
+	for (unsigned int i = 0; i < pintMaxIterCount; i++) {
 		progress = false;
 		t->reset(best);
 		//iterate through all neightbours (do not break if better solution is found)
@@ -64,22 +51,17 @@ vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount, string fi
 			}
 		}
 		//save current score
-		iSaver->saveLine(i+1, bestScore);
-		tSaver->saveLine(_timer.getRunTime(), bestScore);
+		_ovallSaver->saveOverallLine(ovFileName, _timer.getRunTime(), i+1, noSeenN, bestScore);
 
 		if (!progress) {
-			vSaver->saveLine(best);
+			vSaver->saveLine("steepest", best);
 			delete vSaver;
-			delete iSaver;
-			delete tSaver;
 			return best;
 		}
 	}
 
 	//return best after max iteration amount
-	vSaver->saveLine(best);
+	vSaver->saveLine("steepest", best);
 	delete vSaver;
-	delete iSaver;
-	delete tSaver;
 	return best;
 }

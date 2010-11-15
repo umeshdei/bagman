@@ -31,9 +31,11 @@ void DataSaver::saveLine(int piStamp, long plScore) {
 	_WorkingFile << piStamp << "\t" << plScore << std::endl;
 }
 
-void DataSaver::saveLine(vector<int> *solution) {
+void DataSaver::saveLine(string strAlgorithm, vector<int> *solution) {
+	_WorkingFile << strAlgorithm << "\t";
 	for (unsigned int i = 0; i < solution->size(); i++)
 		_WorkingFile << (*solution)[i] << "\t";
+	_WorkingFile << std::endl;
 }
 
 void DataSaver::saveOverallLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score) {
@@ -41,8 +43,8 @@ void DataSaver::saveOverallLine(string pstrFName, double pdTime, int piSteps, in
 }
 
 DataSaver* DataSaver::GetIterationFile(string pstrFName) {
-	DataSaver *result = new DataSaver(pstrFName);
-	result->insIterationTempate();
+	DataSaver *result = new DataSaver(pstrFName, ios_base::app|ios_base::out);
+	//result->insIterationTempate();
 
 	return result;
 }

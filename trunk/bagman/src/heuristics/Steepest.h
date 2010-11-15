@@ -15,12 +15,10 @@
 
 class Steepest: public Calculation {
 public:
-	Steepest(string strTimeFileName, string strIterationFileName, string strStepFileName);
-	Steepest(string strFileName);
-	Steepest();
+	Steepest(string strSave);
 	virtual ~Steepest();
-	virtual vector<int> *solve(Generate *pgenData, string fileName, string ovFileName);
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName);
 };
 
 #endif /* STEEPEST_H_ */

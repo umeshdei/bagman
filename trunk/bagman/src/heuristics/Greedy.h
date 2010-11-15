@@ -15,12 +15,10 @@
 
 class Greedy: public Calculation {
 public:
-	Greedy(string strTimeFileName, string strIterationFileName, string strStepFileName);
-	Greedy(string strFileName);
-	Greedy();
+	Greedy(string strSave);
 	virtual ~Greedy();
-	virtual vector<int> *solve(Generate *pgenData, string fileName, string ovFileName);
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName);
 };
 
 #endif /* GREEDY_H_ */

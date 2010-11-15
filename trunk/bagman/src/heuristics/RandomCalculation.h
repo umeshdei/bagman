@@ -22,12 +22,10 @@ using namespace std;
 
 class RandomCalculation: public Calculation {
 public:
-	RandomCalculation(string strTimeFileName, string strIterationFileName, string strStepFileName);
-	RandomCalculation(string strFileName);
-	RandomCalculation();
+	RandomCalculation(string strSave);
 	virtual ~RandomCalculation();
-	vector<int> *solve(Generate *pgenData, string fileName, string ovFileName);
-	vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName);
+	vector<int> *solve(Generate *pgenData, string ovFileName);
+	vector<int> *solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName);
 private:
 	int _iNumberOfCities;
 };

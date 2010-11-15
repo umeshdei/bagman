@@ -7,27 +7,17 @@
 
 #include "Own.h"
 
-Own::Own(string strTimeFileName, string strIterationFileName, string strStepFileName) : Calculation(strTimeFileName, strIterationFileName, strStepFileName) {
+Own::Own(string strSave) : Calculation(strSave) {
 	// TODO Auto-generated constructor stub
-}
-
-Own::Own(string strFileName) : Calculation(strFileName) {
-	// TODO Auto-generated constructor stub
-}
-
-Own::Own() {
-
 }
 
 Own::~Own() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Own::solve(Generate *pgenData, string fileName, string ovFileName) {
+vector<int> *Own::solve(Generate *pgenData, string ovFileName) {
 	_timer.start();
-	string vFileName = fileName + ".vec";
-	DataSaver *vSaver = DataSaver::GetIterationFile(vFileName);
-	DataSaver *tSaver = DataSaver::GetTimeFile(fileName + ".tm");
+	DataSaver *vSaver = DataSaver::GetIterationFile(ovFileName + ".vec");
 
 	vector<int> *vctrSolution = new vector<int>();
 	vector<int> *vctrCitiesLeft = pgenData->getSortedResult();
@@ -42,13 +32,14 @@ vector<int> *Own::solve(Generate *pgenData, string fileName, string ovFileName) 
 		vctrCitiesLeft->erase(vctrCitiesLeft->begin() + iNextCityID);
 	}
 
-	tSaver->saveLine(_timer.getRunTime(), pgenData->calculateWholeDistance(vctrSolution));
-	vSaver->saveLine(vctrSolution);
+	_ovallSaver->saveOverallLine(ovFileName, _timer.getRunTime(), vctrSolution->size(), vctrSolution->size(), pgenData->calculateWholeDistance(vctrSolution));
+
+	vSaver->saveLine("own", vctrSolution);
 	delete vSaver;
-	delete tSaver;
+
 	return vctrSolution;
 }
 
-vector<int> *Own::solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) {
-	return solve(pgenData, fileName, ovFileName);
+vector<int> *Own::solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName) {
+	return solve(pgenData, ovFileName);
 }
