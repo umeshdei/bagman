@@ -43,7 +43,7 @@ void DataSaver::saveOverallLine(string pstrFName, double pdTime, int piSteps, in
 }
 
 DataSaver* DataSaver::GetIterationFile(string pstrFName) {
-	DataSaver *result = new DataSaver(pstrFName, ios_base::app|ios_base::out);
+	DataSaver *result = new DataSaver(pstrFName, ios_base::out|ios_base::app);
 	//result->insIterationTempate();
 
 	return result;
@@ -63,7 +63,7 @@ DataSaver* DataSaver::GetTimeFile(string pstrFName) {
 }
 
 DataSaver* DataSaver::GetOverallFile(string pstrFName) {
-	DataSaver *result = new DataSaver(pstrFName, ios_base::app|ios_base::out);
+	DataSaver *result = new DataSaver(pstrFName, ios_base::out|ios_base::app);
 
 	return result;
 }
