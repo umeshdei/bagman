@@ -10,6 +10,8 @@
 TSPSolver::TSPSolver()
 {
 	_instance = NULL;
+	numberOfSteps = 0;
+	neighorsVisited = 0;
 }
 
 Result *TSPSolver::generateRandomResult()

@@ -45,6 +45,28 @@ Instance *Instance::generateRandomInstance(u_int32_t size, int seed)
 	return instance;
 }
 
+Instance *Instance::loadFromFile(string &fileName)
+{
+	u_int32_t verticesCount, tmp;
+	Instance *instance = NULL;
+
+    ifstream instanceFile(fileName.c_str());
+    instanceFile >> verticesCount;
+
+    instance = new Instance((u_int32_t)verticesCount);
+
+    for (u_int32_t i = 0; i < verticesCount; i++) {
+        for (u_int32_t j = 0; j < verticesCount; j++)
+        {
+        	instanceFile >> tmp;
+            instance->_distanceMatrix[i][j] = tmp;
+            instance->_distanceMatrix[j][i] = tmp;
+        }
+    }
+
+    return instance;
+}
+
 u_int32_t Instance::getPointsDistance(u_int32_t i, u_int32_t j)
 {
 	return _distanceMatrix[i][j];
@@ -126,6 +148,20 @@ Point *Instance::getPoint(u_int32_t i)
 u_int32_t Instance::getSize()
 {
 	return _size;
+}
+
+void Instance::saveToFile(string &fileName)
+{
+	ofstream outputFile(fileName.c_str(), ios::out);
+	outputFile << _size << endl;
+	for (u_int32_t i = 0; i < _size; i++) {
+		for (u_int32_t j = 0; j < _size; j++)
+		{
+			outputFile << _distanceMatrix[i][j] << " ";
+		}
+		outputFile << endl;
+	}
+	outputFile.close();
 }
 
 void Instance::print()

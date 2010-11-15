@@ -1,6 +1,10 @@
 #include <iostream>
 #include <stdio.h>
 
+#include <unistd.h>
+#include <getopt.h>
+#include <string.h>
+
 #include "solver/TSPLocalSearch.h"
 #include "solver/TSPRandomSolver.h"
 #include "solver/TSPSteepestSolver.h"
@@ -9,56 +13,199 @@
 
 #include "tsp.h"
 
+#define GREEDY     1 << 1
+#define GREEDY2    1 << 2
+#define RANDOM     1 << 3
+#define STEEPEST   1 << 4
+
 using namespace std;
 
-int main(int argc, char *argv[])
+typedef struct
 {
-	Instance *instance;
-	TSPRandomSolver *randomSolver;
-	TSPSteepestSolver *steepestSolver;
+	int solution;
+	int max_iterations;
+	int size;
+	string filename;
+
+} cmd_parameters_t;
+
+Result *run_greedy(Instance *instance, u_int32_t stepsCount)
+{
 	TSPGreedySolver *greedySolver;
+	Result *res;
+
+	greedySolver = new TSPGreedySolver(instance, stepsCount);
+	res = greedySolver->solve();
+	res->print();
+	delete greedySolver;
+
+	return res;
+}
+
+Result *run_greedy2(Instance *instance)
+{
 	TSPGreedySolver2 *greedySolver2;
 	Result *res;
-	u_int32_t randomStepsCount = 100000;
-	u_int32_t stepsCount = 1000;
-	srand(time(NULL));
 
-	instance = Instance::generateRandomInstance(100);
-	instance->print();
-	printf("\n\n");
-
-	printf("==========ograniczenie dolne dla instancji==============\n");
-	printf("%u\n", instance->calculateMinLimit());
-
-	printf("==========wynik dzialania algorytmu losowego==============\n");
-	randomSolver = new TSPRandomSolver(instance);
-	randomSolver->setStepsCount(randomStepsCount);
-	res = randomSolver->solve();
+	greedySolver2 = new TSPGreedySolver2(instance);
+	res = greedySolver2->solve();
 	res->print();
-	delete randomSolver;
-	delete res;
+	delete greedySolver2;
 
-	printf("==========wynik dzialania algorytmu steepest==============\n");
+	return res;
+}
+
+Result *run_steepest(Instance *instance, u_int32_t stepsCount)
+{
+	TSPSteepestSolver *steepestSolver;
+	Result *res;
+
 	steepestSolver = new TSPSteepestSolver(instance);
 	steepestSolver->setStepsCount(stepsCount);
 	res = steepestSolver->solve();
 	res->print();
 	delete steepestSolver;
-	delete res;
 
-	printf("==========wynik dzialania algorytmu greedy==============\n");
-	greedySolver = new TSPGreedySolver(instance, stepsCount);
-	res = greedySolver->solve();
+	return res;
+}
+
+Result *run_random(Instance *instance, u_int32_t randomStepsCount)
+{
+	TSPRandomSolver *randomSolver;
+	Result *res;
+
+	randomSolver = new TSPRandomSolver(instance);
+	randomSolver->setStepsCount(randomStepsCount);
+	res = randomSolver->solve();
 	res->print();
-	delete greedySolver;
-	delete res;
+	delete randomSolver;
 
-	printf("==========wynik dzialania algorytmu greedy2==============\n");
-	greedySolver2 = new TSPGreedySolver2(instance);
-	res = greedySolver2->solve();
-	res->print();
-	delete greedySolver2;
-	delete res;
+	return res;
+}
 
-	delete instance;
+void run_heuristics(cmd_parameters_t params)
+{
+	Instance *instance;
+	Result *res;
+
+	if (params.size > 0)
+		instance = Instance::generateRandomInstance(params.size);
+	else
+		instance = Instance::generateRandomInstance(0);
+
+	if (params.solution & GREEDY)
+	{
+		res = run_greedy(instance, params.max_iterations);
+		delete res;
+	}
+
+	if (params.solution & GREEDY2)
+	{
+		res = run_greedy2(instance);
+		delete res;
+	}
+
+	if (params.solution & STEEPEST)
+	{
+		res = run_steepest(instance, params.max_iterations);
+		delete res;
+	}
+
+	if (params.solution & RANDOM)
+	{
+		res = run_random(instance, params.max_iterations);
+		delete res;
+	}
+}
+void command_line_parameters(int argc, char *argv[])
+{
+	cmd_parameters_t params;
+	Instance *instance;
+	bool generate = false;
+	int c;
+
+	params.solution = 0;
+
+	while (1) {
+		int option_index = 0;
+		static struct option long_options[] = {
+			{ "help", 0, 0, 0 }, { 0, 0, 0, 0 },
+			{ "generate", 0, 0, 0 }, { 0, 0, 0, 0 }
+		};
+
+		c = getopt_long(argc, argv, "l:s:i:gteroa:dw", long_options, &option_index);
+		if (c == -1)
+			break;
+
+		switch (c) {
+		case 0:
+			if (!strcmp(long_options[option_index].name, "generate"))
+				generate = true;
+			break;
+		case 'g':
+			params.solution = params.solution | GREEDY;
+			break;
+		case 'e':
+			params.solution = params.solution | GREEDY2;
+			break;
+		case 'r':
+			params.solution = params.solution | RANDOM;
+			break;
+		case 't':
+			params.solution = params.solution | STEEPEST;
+			break;
+		case 'a':
+			params.solution = params.solution | GREEDY | GREEDY2 | RANDOM | STEEPEST;
+		case 'o':
+			break;
+		case 'l':
+			params.filename = string(optarg);
+			break;
+		case 'p':
+			params.size = atoi(optarg);
+			break;
+		case 'd':
+			//DEBUG = true;
+			break;
+		case 'i':
+			params.max_iterations = atoi(optarg);
+			break;
+		case '?':
+		default:
+			break;
+		}
+	}
+
+	if (params.filename.empty())
+	{
+		if (generate)
+		{
+			instance = Instance::generateRandomInstance(params.size, time(NULL));
+			instance->saveToFile(params.filename);
+		}
+		else
+		{
+			instance = Instance::loadFromFile(params.filename);
+		}
+	}
+	else
+	{
+	}
+}
+
+int main(int argc, char *argv[])
+{
+//	Instance *instance;
+//	u_int32_t randomStepsCount = 100000;
+//	u_int32_t stepsCount = 1000;
+//	srand(time(NULL));
+//
+//	instance = Instance::generateRandomInstance(100);
+//	instance->print();
+//
+//	printf("==========ograniczenie dolne dla instancji==============\n");
+//	printf("%u\n", instance->calculateMinLimit());
+//
+//	delete instance;
+	return 0;
 }

@@ -10,7 +10,10 @@
 
 #include "io/Instance.h"
 #include "io/Result.h"
+
 #include <algorithm>
+#include <map>
+//#include <glib-2.0/glib.h>
 
 class TSPSolver
 {
@@ -21,9 +24,16 @@ public:
 	static void randomizeResult(Result *);
 	virtual Result *solve() = 0;
 
+	u_int32_t getNumberOfSteps() { return numberOfSteps; }
+//	u_int32_t get
+	map<double, u_int32_t> &getScores() { return scores; }
+
 protected:
 	Result *generateRandomResult();
 	u_int32_t calculateDistance(Result *);
+	u_int32_t numberOfSteps;
+	u_int32_t neighorsVisited;
+	map<double, u_int32_t> scores;
 
 	Instance *_instance;
 };
