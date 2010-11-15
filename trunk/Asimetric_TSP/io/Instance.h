@@ -13,6 +13,7 @@
 #include "Point.h"
 
 #include <map>
+#include <fstream>
 
 using namespace std;
 
@@ -37,9 +38,11 @@ public:
 	u_int32_t calculateMinLimit();
 	Point *getPoint(u_int32_t i);
 	u_int32_t getSize();
+	void saveToFile(string &fileName);
 
 	void print();
 	static Instance *generateRandomInstance(u_int32_t size, int seed = 0);
+	static Instance *loadFromFile(string &fileName);
 
 private:
 	u_int32_t _size;
