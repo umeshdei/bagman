@@ -1,0 +1,5 @@
+hello ;)
+
+plik z iteracjami:
+
+#nazwa_pliku	#czas	#krok	#ilosc_iteracji	#ilosc_przejrzanych_rozwiazan	#wynik	
