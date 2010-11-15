@@ -10,10 +10,10 @@
 DataSaver::DataSaver(string pstrFName, ios_base::openmode pMode) {
 	_FileName = pstrFName;
 	_WorkingFile.open(pstrFName.c_str(), pMode);
-	_WorkingFile.setf(ios::left);
+	//_WorkingFile.setf(ios::left);
 
 	//TODO:odczaic jak duze to ustawic :)
-	_WorkingFile.width(20);
+	//_WorkingFile.width(20);
 	_WorkingFile.precision(2);
 }
 
@@ -39,7 +39,7 @@ void DataSaver::saveLine(string strAlgorithm, vector<int> *solution) {
 }
 
 void DataSaver::saveOverallLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score) {
-	_WorkingFile << pstrFName << "\t" << fixed << pdTime << "\t" << piSteps << "\t" << piSeenS << "\t" << score << std::endl;
+	_WorkingFile << fixed << pstrFName << "\t" << pdTime << "\t" << piSteps << "\t" << piSeenS << "\t" << score << std::endl;
 }
 
 DataSaver* DataSaver::GetIterationFile(string pstrFName) {
