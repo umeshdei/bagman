@@ -26,7 +26,7 @@
 
 using namespace std;
 
-int iChosenSolution = 0;
+int iChosenSolution = -1;
 int iMaxNumberOfIteretion = 0;
 bool DEBUG = false;
 
