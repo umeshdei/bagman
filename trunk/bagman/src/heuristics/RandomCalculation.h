@@ -26,8 +26,8 @@ public:
 	RandomCalculation(string strFileName);
 	RandomCalculation();
 	virtual ~RandomCalculation();
-	vector<int> *solve(Generate *pgenData, string fileName);
-	vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName);
+	vector<int> *solve(Generate *pgenData, string fileName, string ovFileName);
+	vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName);
 private:
 	int _iNumberOfCities;
 };

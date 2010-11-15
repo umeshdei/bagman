@@ -22,11 +22,11 @@ Steepest::~Steepest() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Steepest::solve(Generate *pgenData, string fileName) {
-	return solve(pgenData, INT_MAX, fileName);
+vector<int> *Steepest::solve(Generate *pgenData, string fileName, string ovFileName) {
+	return solve(pgenData, INT_MAX, fileName, ovFileName);
 }
 
-vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
+vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) {
 	string iFileName = fileName + ".iter";
 	string tFileName = fileName + ".tm";
 	string vFileName = fileName + ".vec";
@@ -35,6 +35,7 @@ vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount, string fi
 	DataSaver *tSaver = DataSaver::GetTimeFile(tFileName);
 
 	_timer.start();
+	int noSeenN = 0;
 	vector<int> *best = pgenData->getRandomResult();
 	int bestScore = pgenData->calculateWholeDistance(best);
 	Transformation *t = new Transformation2OPT();
@@ -51,6 +52,7 @@ vector<int> *Steepest::solve(Generate *pgenData, int pintMaxIterCount, string fi
 		t->reset(best);
 		//iterate through all neightbours (do not break if better solution is found)
 		while(t->getNext(&current)) {
+			noSeenN++;
 			int currScore = pgenData->calculateWholeDistance(current);
 			if (currScore < bestScore) {
 				progress = true;

@@ -22,11 +22,11 @@ Greedy::~Greedy() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Greedy::solve(Generate *pgenData, string fileName) {
-	return solve(pgenData, INT_MAX, fileName);
+vector<int> *Greedy::solve(Generate *pgenData, string fileName, string ovFileName) {
+	return solve(pgenData, INT_MAX, fileName, ovFileName);
 }
 
-vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
+vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) {
 	string iFileName = fileName + ".iter";
 	string tFileName = fileName + ".tm";
 	string vFileName = fileName + ".vec";
@@ -36,6 +36,7 @@ vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string file
 
 	_timer.start();
 
+	int noSeenN = 0;
 	vector<int> *best = pgenData->getRandomResult();
 	int bestScore = pgenData->calculateWholeDistance(best);
 	Transformation *t = new Transformation2OPT();
@@ -51,6 +52,7 @@ vector<int> *Greedy::solve(Generate *pgenData, int pintMaxIterCount, string file
 		t->reset(best);
 		//iterate until better solution is found
 		while(t->getNext(&current)) {
+			noSeenN++;
 			int currScore = pgenData->calculateWholeDistance(current);
 			if (currScore < bestScore) {
 				progress = true;

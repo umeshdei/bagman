@@ -7,9 +7,9 @@
 
 #include "DataSaver.h"
 
-DataSaver::DataSaver(string pstrFName) {
+DataSaver::DataSaver(string pstrFName, ios_base::openmode pMode) {
 	_FileName = pstrFName;
-	_WorkingFile.open(pstrFName.c_str(), ios_base::out|ios_base::trunc);
+	_WorkingFile.open(pstrFName.c_str(), pMode);
 	_WorkingFile.setf(ios::left);
 
 	//TODO:odczaic jak duze to ustawic :)
@@ -36,6 +36,10 @@ void DataSaver::saveLine(vector<int> *solution) {
 		_WorkingFile << (*solution)[i] << "\t";
 }
 
+void DataSaver::saveOverallLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score) {
+	_WorkingFile << pstrFName << "\t" << fixed << pdTime << "\t" << piSteps << "\t" << piSeenS << "\t" << score << std::endl;
+}
+
 DataSaver* DataSaver::GetIterationFile(string pstrFName) {
 	DataSaver *result = new DataSaver(pstrFName);
 	result->insIterationTempate();
@@ -56,9 +60,8 @@ DataSaver* DataSaver::GetTimeFile(string pstrFName) {
 	return result;
 }
 
-DataSaver* DataSaver::GetStepsFile(string pstrFName) {
-	DataSaver *result = new DataSaver(pstrFName);
-	result->insStepsTempate();
+DataSaver* DataSaver::GetOverallFile(string pstrFName) {
+	DataSaver *result = new DataSaver(pstrFName, ios_base::app|ios_base::out);
 
 	return result;
 }
@@ -69,8 +72,4 @@ void DataSaver::insIterationTempate() {
 
 void DataSaver::insTimeTempate() {
 	_WorkingFile << "#time\t#score" << std::endl;
-}
-
-void DataSaver::insStepsTempate() {
-	_WorkingFile << "#no_of_steps\t#score" << std::endl;
 }

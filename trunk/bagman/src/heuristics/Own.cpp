@@ -23,7 +23,7 @@ Own::~Own() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *Own::solve(Generate *pgenData, string fileName) {
+vector<int> *Own::solve(Generate *pgenData, string fileName, string ovFileName) {
 	_timer.start();
 	string vFileName = fileName + ".vec";
 	DataSaver *vSaver = DataSaver::GetIterationFile(vFileName);
@@ -49,6 +49,6 @@ vector<int> *Own::solve(Generate *pgenData, string fileName) {
 	return vctrSolution;
 }
 
-vector<int> *Own::solve(Generate *pgenData, int pintMaxIterCount, string fileName) {
-	return solve(pgenData, fileName);
+vector<int> *Own::solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName) {
+	return solve(pgenData, fileName, ovFileName);
 }

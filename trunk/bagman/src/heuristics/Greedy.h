@@ -19,8 +19,8 @@ public:
 	Greedy(string strFileName);
 	Greedy();
 	virtual ~Greedy();
-	virtual vector<int> *solve(Generate *pgenData, string fileName);
-	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName);
+	virtual vector<int> *solve(Generate *pgenData, string fileName, string ovFileName);
+	virtual vector<int> *solve(Generate *pgenData, int pintMaxIterCount, string fileName, string ovFileName);
 };
 
 #endif /* GREEDY_H_ */
