@@ -74,6 +74,8 @@ Result *TSPSteepestSolver::solve()
 	curr->setCalculatedDistance(bestDistance);
 	//curr->print();
 
+	//cout << "Rozwiazuje steepest" << endl;
+
 	for (u_int32_t i = 0; i < _stepsCount; i++)
 	{
 		best = checkNeighbours(curr);
@@ -91,6 +93,12 @@ Result *TSPSteepestSolver::solve()
 		}
 		curr = best;
 		//printf("lepsze rozwiazanie: %d\n", best->getCalculatedDistance());
+		u_int32_t a = i%(u_int32_t)FREQUENCY_SAVER;
+		//cout << a << endl;
+		if(a == 0)
+		{
+			cout << i << " " << best->getCalculatedDistance() << endl;
+		}
 	}
 
 	/*

@@ -45,6 +45,12 @@ Result *TSPRandomSolver::solve()
 			bestDistance = currDistance;
 			best = *curr;
 		}
+		u_int32_t a = i%(u_int32_t)FREQUENCY_SAVER;
+		//cout << a << endl;
+		if(a == 0)
+		{
+			cout << i << " " << best.getCalculatedDistance() << endl;
+		}
 	}
 
 	bestResult = new Result(best);

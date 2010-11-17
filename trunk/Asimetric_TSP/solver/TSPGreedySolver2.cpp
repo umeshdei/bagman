@@ -41,6 +41,12 @@ Result *TSPGreedySolver2::solve()
 				break;
 			}
 		}
+		u_int32_t a = i%(u_int32_t)FREQUENCY_SAVER;
+		//cout << a << endl;
+		if(a == 0)
+		{
+			cout << i << " " << best->getCalculatedDistance() << endl;
+		}
 	}
 	best->setCalculatedDistance(calculateDistance(best));
 
