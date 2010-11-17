@@ -15,6 +15,8 @@
 #include <map>
 //#include <glib-2.0/glib.h>
 
+#define FREQUENCY_SAVER	10;
+
 class TSPSolver
 {
 public:
