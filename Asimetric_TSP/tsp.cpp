@@ -22,13 +22,22 @@
 
 using namespace std;
 
-typedef struct
+typedef struct cmd_parameters_t_
 {
 	int solution;
 	int max_iterations;
 	int size;
 	string filename;
+	Instance *instance;
 
+	cmd_parameters_t_()
+	{
+		solution = 0;
+		max_iterations = 1000;
+		size = 100;
+		filename = string("");
+		instance = NULL;
+	}
 } cmd_parameters_t;
 
 Result *run_greedy(Instance *instance, u_int32_t stepsCount)
@@ -91,10 +100,17 @@ void run_heuristics(cmd_parameters_t params)
 	Result *res;
 	Timer timer;
 
-	if (params.size > 0)
-		instance = Instance::generateRandomInstance(params.size);
+	if (params.instance == NULL)
+	{
+		if (params.size > 0)
+			instance = Instance::generateRandomInstance(params.size);
+		else
+			instance = Instance::generateRandomInstance(0);
+	}
 	else
-		instance = Instance::generateRandomInstance(0);
+	{
+		instance = params.instance;
+	}
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -141,6 +157,12 @@ void command_line_parameters(int argc, char *argv[])
 	bool generate = false;
 	int c;
 
+	if (argc < 2)
+	{
+		printf("give me some parameters\n");
+		exit(-1);
+	}
+
 	params.solution = 0;
 
 	while (1) {
@@ -178,7 +200,7 @@ void command_line_parameters(int argc, char *argv[])
 		case 'l':
 			params.filename = string(optarg);
 			break;
-		case 'p':
+		case 's':
 			params.size = atoi(optarg);
 			break;
 		case 'd':
@@ -193,7 +215,7 @@ void command_line_parameters(int argc, char *argv[])
 		}
 	}
 
-	if (params.filename.empty())
+	if (!params.filename.empty())
 	{
 		if (generate)
 		{
@@ -207,11 +229,16 @@ void command_line_parameters(int argc, char *argv[])
 	}
 	else
 	{
+		instance = Instance::generateRandomInstance(params.size, time(NULL));
 	}
+
+	params.instance = instance;
+	run_heuristics(params);
 }
 
 int main(int argc, char *argv[])
 {
+	command_line_parameters(argc, argv);
 	Instance *instance;
 	string str;
 //	Instance *instance;
