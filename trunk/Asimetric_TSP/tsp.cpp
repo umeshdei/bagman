@@ -212,6 +212,8 @@ void command_line_parameters(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
+	Instance *instance;
+	string str;
 //	Instance *instance;
 //	u_int32_t randomStepsCount = 100000;
 //	u_int32_t stepsCount = 1000;
@@ -224,5 +226,13 @@ int main(int argc, char *argv[])
 //	printf("%u\n", instance->calculateMinLimit());
 //
 //	delete instance;
+
+	if (argc == 2)
+		str = (string)argv[1];
+	else
+		str = (string)"ALL_atsp/ft53.atsp";
+
+	instance = Instance::loadFromFile(str);
+	instance->print();
 	return 0;
 }
