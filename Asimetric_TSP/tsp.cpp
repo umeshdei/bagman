@@ -233,6 +233,11 @@ int main(int argc, char *argv[])
 		str = (string)"ALL_atsp/ft53.atsp";
 
 	instance = Instance::loadFromFile(str);
+	if (instance == NULL)
+	{
+		cout << "BLAD! Brak instacji" << endl;
+		return 0;
+	}
 	instance->print();
 	return 0;
 }
