@@ -49,6 +49,8 @@ private:
 	u_int32_t _minLimit;
 	u_int32_t **_distanceMatrix;
 	Point **_pointArray;
+
+	static void readEdges(Instance *instance, ifstream *instanceFile);
 };
 
 #endif /* INSTANCE_H_ */

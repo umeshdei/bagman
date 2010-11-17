@@ -9,6 +9,8 @@
 #include "tsp.h"
 
 #include <string.h>
+#include <iostream>
+#include <sstream>
 
 Instance::Instance(u_int32_t size)
 {
@@ -45,24 +47,70 @@ Instance *Instance::generateRandomInstance(u_int32_t size, int seed)
 	return instance;
 }
 
+void Instance::readEdges(Instance *instance, ifstream *instanceFile)
+{
+	int i = 0;
+	int j = 0;
+	int size = instance->_size;
+	int wayLength;
+	char str[255];
+
+	//cout << "size: " << size << endl;
+	instanceFile->getline(str, 255);
+	while(*instanceFile)
+	{
+		//cout << "cala linia: " << str << endl;
+		istringstream iss((string)str, istringstream::in);
+		while (iss >> wayLength)
+		{
+			if (j >= size)
+			{
+				j=0;
+				i++;
+			}
+			//cout << "wpisuje: do " << i << ", " << j << ": " << wayLength << endl;
+			instance->_distanceMatrix[i][j] = wayLength;
+			instance->_distanceMatrix[j][i] = wayLength;
+			j++;
+		}
+		instanceFile->getline(str, 255);
+	}
+}
+
 Instance *Instance::loadFromFile(string &fileName)
 {
-	u_int32_t verticesCount, tmp;
 	Instance *instance = NULL;
+	string word;
+	u_int32_t size;
+
 
     ifstream instanceFile(fileName.c_str());
-    instanceFile >> verticesCount;
-
-    instance = new Instance((u_int32_t)verticesCount);
-
-    for (u_int32_t i = 0; i < verticesCount; i++) {
-        for (u_int32_t j = 0; j < verticesCount; j++)
-        {
-        	instanceFile >> tmp;
-            instance->_distanceMatrix[i][j] = tmp;
-            instance->_distanceMatrix[j][i] = tmp;
-        }
+    if (!instanceFile)
+    {
+    	cout << "Brak pliku do wczytania" << endl;
+    	return NULL;
     }
+    char str[255];
+    while(instanceFile) {
+		instanceFile.getline(str, 255);
+		istringstream iss((string)str, istringstream::in);
+		while (iss >> word)
+		{
+			//wczytaj wielkosc tablicy
+			if (word == "DIMENSION:")
+			{
+				iss >> size;
+			    instance = new Instance((u_int32_t)size);
+			}
+			//wczytaj wartosci polaczen
+			else if (word == "EDGE_WEIGHT_SECTION")
+			{
+				readEdges(instance, &instanceFile);
+			}
+		}
+    }
+    instanceFile.close();
+	//cout << "Wymiar tablicy: " << size << endl;
 
     return instance;
 }
@@ -166,13 +214,14 @@ void Instance::saveToFile(string &fileName)
 
 void Instance::print()
 {
+/*
 	printf("=========== point array =============\n");
 	for (u_int32_t i = 0; i < _size; i++)
 	{
 		printf("%u. ", i);
 		_pointArray[i]->print();
 	}
-
+*/
 	printf("=========== distance matrix =============\n");
 	for (u_int32_t i = 0; i < _size; i++)
 	{
@@ -180,6 +229,8 @@ void Instance::print()
 		{
 			printf("%5u ", _distanceMatrix[i][j]);
 		}
+		printf("\n");
+		printf("\n");
 		printf("\n");
 	}
 }
