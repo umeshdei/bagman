@@ -11,8 +11,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include "../Generate.h"
-#include "../transformations/Transformation2OPT.h"
+#include "../transformations/ChangeMaker.h"
+#include "../DataSaver.h"
 
 class SA {
 public:

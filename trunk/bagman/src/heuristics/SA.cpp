@@ -20,23 +20,36 @@ vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, doubl
 	vector<int> *res = pgenData->getRandomResult();
 	vector<int> *nextOrder;
 	int distance = pgenData->calculateWholeDistance(res);
-
+	DataSaver itSaver(ovFileName + ".vec");
+	DataSaver tmSaver(ovFileName + ".tm");
 
 	double temperature = maxT;
     double absoluteTemperature = 0.00001;
     int iteration = 0;
-    Transformation2OPT tr(res);
+    int pos1, pos2;
 
     int shortest = distance;
     int deltaDistance;
+
+    //would went into deadlock otherwise
+    if (pgenData->getNumberOfCities() < 2) {
+    	return NULL;
+    }
 
     while (temperature > absoluteTemperature)
     {
     	//neighbourhood has been searched completely, and
     	//no better result has been found
-    	if (tr.getNext(&nextOrder) == false) {
-    		break;
-    	}
+
+    	//find next using 2-opt transformation
+    	pos1 = rand()% pgenData->getNumberOfCities();
+
+    	do {
+    		pos2 = rand() % pgenData->getNumberOfCities();
+    	} while (pos1 == pos2);
+
+        nextOrder = new vector<int>(*res);
+        ChangeMaker::transform_2opt(nextOrder, pos1, pos2);
 
         deltaDistance = pgenData->calculateWholeDistance(nextOrder) - distance;
 
@@ -48,7 +61,6 @@ vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, doubl
         {
             delete res;
             res = nextOrder;
-            tr.reset(res);
             distance = deltaDistance + distance;
             if (deltaDistance < 0) {
 				shortest = distance;
