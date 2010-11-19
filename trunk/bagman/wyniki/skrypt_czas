@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Podaj jako parametr plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $1 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+awk " BEGIN {look = 0; czas = 0;}
+ 	   {
+	if (\$3 < look) {
+		czas = 0;
+	} else if (\$2 < 0) {
+		czas = 4294.97;
+	}
+	look = \$3;
+	 test = \$2 + czas;		
+	 print \$1 \"\t\" test \"\t\" \$3 \"\t\" \$4 \"\t\" \$5 i;	}
+	" $1
