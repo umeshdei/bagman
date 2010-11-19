@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Podaj jako parametr plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $1 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+awk "BEGIN	{ max = 10000000000; nazwa = \"\"; czas = 0.0; iter = 0; look = 0; }
+		{ if ( \$5 <= max && (nazwa == \$1 || nazwa ==\"\") ) {
+			max = \$5;
+			nazwa = \$1;
+			czas = \$2;
+			iter = \$4;
+			look = \$5;
+		} else {
+			print nazwa, \"\t\", max, \"\t\", iter, \"\t\", look ;
+			max = 10000000000;
+			nazwa = \"\";
+			czas = 0.0;
+			iter = 0;
+			look = 0;
+		}
+		}
+	" $1
