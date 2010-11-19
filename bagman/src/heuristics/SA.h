@@ -15,6 +15,7 @@
 #include "../Generate.h"
 #include "../transformations/ChangeMaker.h"
 #include "../DataSaver.h"
+#include "../utilities/Timer.h"
 
 class SA {
 public:

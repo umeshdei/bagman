@@ -20,8 +20,10 @@ vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, doubl
 	vector<int> *res = pgenData->getRandomResult();
 	vector<int> *nextOrder;
 	int distance = pgenData->calculateWholeDistance(res);
-	DataSaver itSaver(ovFileName + ".vec");
-	DataSaver tmSaver(ovFileName + ".tm");
+	DataSaver itSaver(ovFileName + ".sa.vec");
+	DataSaver tmSaver(ovFileName + ".sa.tm");
+	DataSaver ovallSaver("results_ecu_2d/sa.all", ios_base::out|ios_base::app);
+	Timer tm;
 
 	double temperature = maxT;
     double absoluteTemperature = 0.00001;
@@ -30,6 +32,8 @@ vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, doubl
 
     int shortest = distance;
     int deltaDistance;
+
+    tm.start();
 
     //would went into deadlock otherwise
     if (pgenData->getNumberOfCities() < 2) {
@@ -69,6 +73,10 @@ vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, doubl
 
         //cool down the temperature
         temperature *= cRate;
+
+        ovallSaver.saveOverallLine(ovFileName, tm.getRunTime(), iteration, iteration+1, distance);
+        tmSaver.saveLine(tm.getRunTime(), distance);
+        itSaver.saveLine(iteration, distance);
 
         iteration++;
     }
