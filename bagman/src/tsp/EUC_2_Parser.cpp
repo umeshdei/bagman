@@ -25,6 +25,7 @@ bool EUC_2_Parser::parse(string pstrFile, vector<Point*> *cord) {
 	ifs.open(pstrFile.c_str(), ios_base::in);
 
 	if (!ifs.good()) {
+		ifs.close();
 		return false;
 	}
 
@@ -34,8 +35,10 @@ bool EUC_2_Parser::parse(string pstrFile, vector<Point*> *cord) {
 			break;
 		}
 	}
-	if (ifs.eof())
+	if (ifs.eof()) {
+		ifs.close();
 		return false;
+	}
 
 	while (getline(ifs, line)) {
 		if (line.compare(0, strlen("NODE_COORD_SECTION"),"NODE_COORD_SECTION") == 0) {
@@ -43,8 +46,11 @@ bool EUC_2_Parser::parse(string pstrFile, vector<Point*> *cord) {
 			break;
 		}
 	}
-	if (ifs.eof())
+	if (ifs.eof()) {
+		ifs.close();
 		return false;
+	}
+
 
 	int i, x, y;
 
@@ -56,5 +62,6 @@ bool EUC_2_Parser::parse(string pstrFile, vector<Point*> *cord) {
 		}
 	}
 
+	ifs.close();
 	return true;
 }
