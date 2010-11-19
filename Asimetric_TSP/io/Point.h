@@ -26,6 +26,7 @@ public:
 	u_int32_t getNum() { return _num; };
 	float calcDistance(Point &p);
 	static Point *generatePoint(u_int32_t num);
+	static Point *createNoCoordinatePoint(u_int32_t num);
 	void print();
 	virtual ~Point();
 

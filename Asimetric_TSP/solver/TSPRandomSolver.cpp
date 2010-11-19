@@ -10,6 +10,7 @@
 TSPRandomSolver::TSPRandomSolver(Instance *inst)
 {
 	TSPSolver::_instance = inst;
+	saver = new TSPDataSaver("random", inst);
 }
 
 TSPRandomSolver::TSPRandomSolver(u_int32_t size)
@@ -49,7 +50,11 @@ Result *TSPRandomSolver::solve()
 		//cout << a << endl;
 		if(a == 0)
 		{
-			cout << i << " " << best.getCalculatedDistance() << endl;
+			std::stringstream out;
+			out << i;
+			out << " ";
+			out << best.getCalculatedDistance();
+			saver->saveLine(out.str());
 		}
 	}
 
@@ -62,5 +67,5 @@ Result *TSPRandomSolver::solve()
 
 TSPRandomSolver::~TSPRandomSolver()
 {
-
+	delete saver;
 }

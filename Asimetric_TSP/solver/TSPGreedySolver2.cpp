@@ -10,6 +10,7 @@
 TSPGreedySolver2::TSPGreedySolver2(Instance *instance)
 {
 	_instance = instance;
+	saver = new TSPDataSaver("greedy2", instance);
 }
 
 Result *TSPGreedySolver2::solve()
@@ -45,7 +46,11 @@ Result *TSPGreedySolver2::solve()
 		//cout << a << endl;
 		if(a == 0)
 		{
-			cout << i << " " << best->getCalculatedDistance() << endl;
+			std::stringstream out;
+			out << i;
+			out << " ";
+			out << best->getCalculatedDistance();
+			saver->saveLine(out.str());
 		}
 	}
 	best->setCalculatedDistance(calculateDistance(best));
@@ -55,5 +60,5 @@ Result *TSPGreedySolver2::solve()
 
 TSPGreedySolver2::~TSPGreedySolver2()
 {
-
+	delete saver;
 }
