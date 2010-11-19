@@ -10,6 +10,7 @@
 
 #include "io/Instance.h"
 #include "io/Result.h"
+#include "TSPDataSaver.h"
 
 #include <algorithm>
 #include <map>
@@ -37,6 +38,7 @@ protected:
 	u_int32_t neighorsVisited;
 	map<double, u_int32_t> scores;
 
+	TSPDataSaver *saver;
 	Instance *_instance;
 };
 

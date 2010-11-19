@@ -45,9 +45,10 @@ Result *run_greedy(Instance *instance, u_int32_t stepsCount)
 	TSPGreedySolver *greedySolver;
 	Result *res;
 
+	cout << "GREEDY" << endl;
 	greedySolver = new TSPGreedySolver(instance, stepsCount);
 	res = greedySolver->solve();
-	res->print();
+	//res->print();
 	delete greedySolver;
 
 	return res;
@@ -58,9 +59,10 @@ Result *run_greedy2(Instance *instance)
 	TSPGreedySolver2 *greedySolver2;
 	Result *res;
 
+	cout << "GREEDY2" << endl;
 	greedySolver2 = new TSPGreedySolver2(instance);
 	res = greedySolver2->solve();
-	res->print();
+	//res->print();
 	delete greedySolver2;
 
 	return res;
@@ -71,10 +73,12 @@ Result *run_steepest(Instance *instance, u_int32_t stepsCount)
 	TSPSteepestSolver *steepestSolver;
 	Result *res;
 
+	cout << "STEEPEST" << endl;
+
 	steepestSolver = new TSPSteepestSolver(instance);
 	steepestSolver->setStepsCount(stepsCount);
 	res = steepestSolver->solve();
-	res->print();
+	//res->print();
 	delete steepestSolver;
 
 	return res;
@@ -85,10 +89,12 @@ Result *run_random(Instance *instance, u_int32_t randomStepsCount)
 	TSPRandomSolver *randomSolver;
 	Result *res;
 
+	cout << "RANDOM" << endl;
+
 	randomSolver = new TSPRandomSolver(instance);
 	randomSolver->setStepsCount(randomStepsCount);
 	res = randomSolver->solve();
-	res->print();
+	//res->print();
 	delete randomSolver;
 
 	return res;
@@ -226,10 +232,12 @@ void command_line_parameters(int argc, char *argv[])
 		{
 			instance = Instance::loadFromFile(params.filename);
 		}
+		instance->setName(params.filename);
 	}
 	else
 	{
 		instance = Instance::generateRandomInstance(params.size, time(NULL));
+		instance->setName("random");
 	}
 
 	params.instance = instance;
@@ -239,8 +247,8 @@ void command_line_parameters(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
 	command_line_parameters(argc, argv);
-	Instance *instance;
-	string str;
+//	Instance *instance;
+//	string str;
 //	Instance *instance;
 //	u_int32_t randomStepsCount = 100000;
 //	u_int32_t stepsCount = 1000;
@@ -254,6 +262,7 @@ int main(int argc, char *argv[])
 //
 //	delete instance;
 
+	/*
 	if (argc == 2)
 		str = (string)argv[1];
 	else
@@ -266,5 +275,6 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 	instance->print();
+	*/
 	return 0;
 }

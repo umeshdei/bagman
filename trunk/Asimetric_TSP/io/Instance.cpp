@@ -109,6 +109,13 @@ Instance *Instance::loadFromFile(string &fileName)
 			}
 		}
     }
+
+
+    for(u_int32_t i = 0; i < size; i++)
+    {
+    	instance->_pointArray[i] = Point::createNoCoordinatePoint(i);
+    }
+
     instanceFile.close();
 	//cout << "Wymiar tablicy: " << size << endl;
 
@@ -241,4 +248,14 @@ Instance::~Instance()
 		delete _distanceMatrix[i];
 	delete _distanceMatrix;
 	delete _pointArray;
+}
+
+void Instance::setName(string name)
+{
+	_name = name;
+}
+
+string Instance::getName()
+{
+	return _name;
 }

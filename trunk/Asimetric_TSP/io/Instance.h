@@ -40,6 +40,9 @@ public:
 	u_int32_t getSize();
 	void saveToFile(string &fileName);
 
+	void setName(string name);
+	string getName();
+
 	void print();
 	static Instance *generateRandomInstance(u_int32_t size, int seed = 0);
 	static Instance *loadFromFile(string &fileName);
@@ -49,6 +52,7 @@ private:
 	u_int32_t _minLimit;
 	u_int32_t **_distanceMatrix;
 	Point **_pointArray;
+	string _name;
 
 	static void readEdges(Instance *instance, ifstream *instanceFile);
 };

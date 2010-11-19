@@ -11,12 +11,14 @@ TSPGreedySolver::TSPGreedySolver(Instance *instance, u_int32_t stepsCount)
 {
 	_instance = instance;
 	_stepsCount = stepsCount;
+	saver = new TSPDataSaver("greedy", _instance);
 }
 
 TSPGreedySolver::TSPGreedySolver(u_int32_t instanceSize, u_int32_t stepsCount)
 {
 	_instance = Instance::generateRandomInstance(instanceSize, time(NULL));
 	_stepsCount = stepsCount;
+	saver = new TSPDataSaver("greedy", _instance);
 }
 
 Result *TSPGreedySolver::solve()
@@ -71,7 +73,11 @@ Result *TSPGreedySolver::solve()
 		//cout << a << endl;
 		if(a == 0)
 		{
-			cout << i << " " << best->getCalculatedDistance() << endl;
+			std::stringstream out;
+			out << i;
+			out << " ";
+			out << best->getCalculatedDistance();
+			saver->saveLine(out.str());
 		}
 	}
 
@@ -80,5 +86,5 @@ Result *TSPGreedySolver::solve()
 
 TSPGreedySolver::~TSPGreedySolver()
 {
-
+	delete saver;
 }

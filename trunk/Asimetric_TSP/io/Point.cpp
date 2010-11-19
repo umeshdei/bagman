@@ -39,6 +39,18 @@ Point *Point::generatePoint(u_int32_t num)
 	return p;
 }
 
+Point *Point::createNoCoordinatePoint(u_int32_t num)
+{
+	u_int32_t x, y;
+	Point *p;
+
+	x = -1;
+	y = -1;
+
+	p = new Point(x, y);
+	p->setNum(num);
+	return p;
+}
 
 Point::~Point()
 {

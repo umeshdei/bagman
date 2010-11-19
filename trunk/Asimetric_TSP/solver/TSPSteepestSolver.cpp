@@ -7,14 +7,17 @@
 
 #include "TSPSteepestSolver.h"
 
+
 TSPSteepestSolver::TSPSteepestSolver(Instance *inst)
 {
 	TSPSolver::_instance = inst;
+	saver = new TSPDataSaver("steepest", inst);
 }
 
 TSPSteepestSolver::TSPSteepestSolver(u_int32_t size)
 {
 	_instance = Instance::generateRandomInstance(size);
+	saver = new TSPDataSaver("steepest", _instance);
 }
 
 void TSPSteepestSolver::setStepsCount(u_int32_t stepsCount)
@@ -97,7 +100,11 @@ Result *TSPSteepestSolver::solve()
 		//cout << a << endl;
 		if(a == 0)
 		{
-			cout << i << " " << best->getCalculatedDistance() << endl;
+			std::stringstream out;
+			out << i;
+			out << " ";
+			out << best->getCalculatedDistance();
+			saver->saveLine(out.str());
 		}
 	}
 
@@ -111,5 +118,5 @@ Result *TSPSteepestSolver::solve()
 
 TSPSteepestSolver::~TSPSteepestSolver()
 {
-
+	delete saver;
 }
