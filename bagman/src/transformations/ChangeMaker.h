@@ -13,7 +13,7 @@
 class ChangeMaker {
 public:
 	ChangeMaker(Generate *topology);
-	void transform_2opt(vector<int> *tour, int pos1, int pos2);
+	static void transform_2opt(vector<int> *tour, int pos1, int pos2);
 	void transform_kopt(vector<int> *tour, int poses[], int k);
 	void transform_kopt(vector<int> *tour, vector<int> *poses);
 

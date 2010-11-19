@@ -15,6 +15,7 @@ using namespace std;
 
 class DataSaver {
 public:
+	DataSaver(string pstrFName, ios_base::openmode pMode = ios_base::out|ios_base::trunc);
 	virtual ~DataSaver();
 
 	/**
@@ -55,7 +56,7 @@ public:
 	void saveOverallLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score);
 
 private:
-	DataSaver(string pstrFName, ios_base::openmode pMode = ios_base::out|ios_base::trunc);
+
 	ofstream _WorkingFile;
 	string _FileName;
 
