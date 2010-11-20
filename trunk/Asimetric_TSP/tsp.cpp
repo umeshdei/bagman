@@ -129,13 +129,7 @@ void run_heuristics(cmd_parameters_t params)
 
 	if (params.instance == NULL)
 	{
-		if (params.size > 0)
-			instance = Instance::generateRandomInstance(params.size);
-		else
-			instance = Instance::generateRandomInstance(0);
-	}
-	else
-	{
+		printf("0 TSP LIB: %d\n", params.tspLib);
 		if (!params.filename.empty())
 		{
 			if (params.tspLib)
@@ -143,6 +137,17 @@ void run_heuristics(cmd_parameters_t params)
 			else
 				instance = Instance::loadFromFile(params.filename);
 		}
+		else
+		{
+			if (params.size > 0)
+				instance = Instance::generateRandomInstance(params.size);
+			else
+				instance = Instance::generateRandomInstance(0);
+		}
+	}
+	else
+	{
+		instance = params.instance;
 	}
 
 	for (int i = 0; i < 10; i++)
@@ -256,6 +261,7 @@ void command_line_parameters(int argc, char *argv[])
 
 	if (!params.filename.empty())
 	{
+/*
 		instance = Instance::loadFromFile(params.filename);
 		if (instance)
 			instance->setName(params.filename);
@@ -264,6 +270,8 @@ void command_line_parameters(int argc, char *argv[])
 			printf("Instance is null. Aborting...\n");
 			abort();
 		}
+*/
+		instance = NULL;
 	}
 	else
 	{
