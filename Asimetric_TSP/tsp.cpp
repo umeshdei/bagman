@@ -129,7 +129,6 @@ void run_heuristics(cmd_parameters_t params)
 
 	if (params.instance == NULL)
 	{
-		printf("0 TSP LIB: %d\n", params.tspLib);
 		if (!params.filename.empty())
 		{
 			if (params.tspLib)
