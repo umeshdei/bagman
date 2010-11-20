@@ -61,10 +61,11 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 		}
 		numberOfSteps++;
 	}
+	bestResult = new Result(best);
+
 	bestResult->setNeighborsVisited(neighorsVisited);
 	bestResult->setStepsCount(numberOfSteps);
 	bestResult->setBetterSolutionsCount(betterSolutionsCount);
-	bestResult = new Result(best);
 	//bestResult->print();
 	delete pure;
 
