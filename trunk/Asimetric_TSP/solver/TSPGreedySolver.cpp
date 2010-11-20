@@ -6,25 +6,28 @@
  */
 
 #include "TSPGreedySolver.h"
+#include "DataSaver.h"
 
-TSPGreedySolver::TSPGreedySolver(Instance *instance, u_int32_t stepsCount)
+TSPGreedySolver::TSPGreedySolver(Instance *instance, u_int32_t stepsCount, string output) : TSPSolver(output)
 {
 	_instance = instance;
 	_stepsCount = stepsCount;
-	saver = new TSPDataSaver("greedy", _instance);
+	saver = new TSPDataSaver(output.c_str(), _instance);
 }
 
-TSPGreedySolver::TSPGreedySolver(u_int32_t instanceSize, u_int32_t stepsCount)
+TSPGreedySolver::TSPGreedySolver(u_int32_t instanceSize, u_int32_t stepsCount, string output) : TSPSolver(output)
 {
 	_instance = Instance::generateRandomInstance(instanceSize, time(NULL));
 	_stepsCount = stepsCount;
-	saver = new TSPDataSaver("greedy", _instance);
+	saver = new TSPDataSaver(output.c_str(), _instance);
 }
 
 Result *TSPGreedySolver::solve()
 {
+	Timer timer;
 	bool foundBetter = false;
 	u_int32_t bestDistance, changedDistance;
+	u_int32_t neighorsVisited = 0, betterSolutionsCount = 0;
 	Result *best, changed;
 
 	best = generateRandomResult();
@@ -33,6 +36,7 @@ Result *TSPGreedySolver::solve()
 	//best->print();
 	changed = *best;
 
+	timer.start();
 	for (u_int32_t i = 0; i < _stepsCount; i++)
 	{
 		foundBetter = false;
@@ -48,6 +52,7 @@ Result *TSPGreedySolver::solve()
 				changedDistance = calculateDistance(&changed);
 				if (changedDistance < bestDistance)
 				{
+					betterSolutionsCount++;
 					bestDistance = changedDistance;
 					*best = changed;
 					best->setCalculatedDistance(bestDistance);
@@ -63,13 +68,17 @@ Result *TSPGreedySolver::solve()
 				break;
 		}
 
+		best->setNeighborsVisited(neighorsVisited);
+		best->setStepsCount(numberOfSteps);
+		best->setBetterSolutionsCount(betterSolutionsCount);
+
 		//Nie ma sensu szukac dalej - w sasiedztwie nie ma lepszych rozwiazan
 		if (!foundBetter)
 		{
 			return best;
 		}
 //		printf("lepsze rozwiazanie: %d\n", best->getCalculatedDistance());
-		u_int32_t a = i%(u_int32_t)FREQUENCY_SAVER;
+		u_int32_t a = i % (u_int32_t)FREQUENCY_SAVER;
 		//cout << a << endl;
 		if(a == 0)
 		{
@@ -77,6 +86,7 @@ Result *TSPGreedySolver::solve()
 			out << i;
 			out << " ";
 			out << best->getCalculatedDistance();
+			out << " " << timer.getRunTime();
 			saver->saveLine(out.str());
 		}
 	}

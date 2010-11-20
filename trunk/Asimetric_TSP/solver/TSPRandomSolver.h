@@ -10,12 +10,13 @@
 
 #include <stdlib.h>
 #include "TSPSolver.h"
+#include "Timer.h"
 
 class TSPRandomSolver : public TSPSolver
 {
 public:
-	TSPRandomSolver(Instance *inst);
-	TSPRandomSolver(u_int32_t);
+	TSPRandomSolver(Instance *inst, string output);
+	TSPRandomSolver(u_int32_t, string output);
 	void setStepsCount(u_int32_t);
 	u_int32_t getStepsCount();
 	virtual ~TSPRandomSolver();

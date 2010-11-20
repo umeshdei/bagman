@@ -19,7 +19,7 @@ using namespace std;
 class TSPGreedySolver2: public TSPSolver
 {
 public:
-	TSPGreedySolver2(Instance *instance);
+	TSPGreedySolver2(Instance *instance, string output);
 	Result *solve();
 	virtual ~TSPGreedySolver2();
 };

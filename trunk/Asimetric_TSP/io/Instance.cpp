@@ -20,7 +20,7 @@ Instance::Instance(u_int32_t size)
 	for (u_int32_t i = 0; i < size; i++)
 	{
 		_distanceMatrix[i] = new u_int32_t[size];
-		_distanceMatrix[i][i] = 1;
+		_distanceMatrix[i][i] = 1000000000;
 	}
 	_minLimit = 0;
 }
@@ -78,6 +78,30 @@ void Instance::readEdges(Instance *instance, ifstream *instanceFile)
 }
 
 Instance *Instance::loadFromFile(string &fileName)
+{
+	u_int32_t size;
+	Instance *instance = NULL;
+    ifstream inputFile(fileName.c_str());
+    if (!inputFile.is_open())
+    	return NULL;
+    inputFile >> size;
+
+    instance = new Instance(size);
+    int tmp;
+    for (int i = 0; i < (int)instance->getSize(); i++) {
+        instance->_pointArray[i] = Point::createNoCoordinatePoint(i);
+        for (int j = 0; j < (int)instance->getSize(); j++)
+        {
+            inputFile >> tmp;
+            instance->_distanceMatrix[i][j] = tmp;
+        }
+        //_iaDistanceBetweenCities[i][i] = 0;
+    }
+    return instance;
+}
+
+
+Instance *Instance::loadFromFileTSPLib(string &fileName)
 {
 	Instance *instance = NULL;
 	string word;
@@ -252,7 +276,7 @@ Instance::~Instance()
 
 void Instance::setName(string name)
 {
-	_name = name;
+	_name = string(name);
 }
 
 string Instance::getName()

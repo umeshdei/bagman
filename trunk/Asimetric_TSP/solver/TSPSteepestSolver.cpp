@@ -8,16 +8,16 @@
 #include "TSPSteepestSolver.h"
 
 
-TSPSteepestSolver::TSPSteepestSolver(Instance *inst)
+TSPSteepestSolver::TSPSteepestSolver(Instance *inst, string output) : TSPSolver(output)
 {
 	TSPSolver::_instance = inst;
-	saver = new TSPDataSaver("steepest", inst);
+	saver = new TSPDataSaver(output.c_str(), inst);
 }
 
-TSPSteepestSolver::TSPSteepestSolver(u_int32_t size)
+TSPSteepestSolver::TSPSteepestSolver(u_int32_t size, string output) : TSPSolver(output)
 {
 	_instance = Instance::generateRandomInstance(size);
-	saver = new TSPDataSaver("steepest", _instance);
+	saver = new TSPDataSaver(output.c_str(), _instance);
 }
 
 void TSPSteepestSolver::setStepsCount(u_int32_t stepsCount)
@@ -31,6 +31,7 @@ void TSPSteepestSolver::setStepsCount(u_int32_t stepsCount)
 Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 {
 	u_int32_t bestDistance, changedDistance;
+	u_int32_t neighorsVisited = 0, betterSolutionsCount = 0;
 	Result *bestResult;
 	Result best, changed;
 	best = *pure;
@@ -49,6 +50,7 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 			//jezeli natrafilismy na lepsze rozwiazanie
 			if (changedDistance < bestDistance)
 			{
+				betterSolutionsCount++;
 				bestDistance = changedDistance;
 				best = changed;
 				best.setCalculatedDistance(bestDistance);
@@ -59,6 +61,9 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 		}
 		numberOfSteps++;
 	}
+	bestResult->setNeighborsVisited(neighorsVisited);
+	bestResult->setStepsCount(numberOfSteps);
+	bestResult->setBetterSolutionsCount(betterSolutionsCount);
 	bestResult = new Result(best);
 	//bestResult->print();
 	delete pure;
@@ -68,6 +73,7 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 
 Result *TSPSteepestSolver::solve()
 {
+	Timer timer;
 	u_int32_t bestDistance;
 	Result *curr;
 	Result *best;
@@ -79,6 +85,7 @@ Result *TSPSteepestSolver::solve()
 
 	//cout << "Rozwiazuje steepest" << endl;
 
+	timer.start();
 	for (u_int32_t i = 0; i < _stepsCount; i++)
 	{
 		best = checkNeighbours(curr);
@@ -104,6 +111,7 @@ Result *TSPSteepestSolver::solve()
 			out << i;
 			out << " ";
 			out << best->getCalculatedDistance();
+			out << " " << timer.getRunTime();
 			saver->saveLine(out.str());
 		}
 	}

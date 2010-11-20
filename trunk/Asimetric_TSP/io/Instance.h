@@ -46,6 +46,7 @@ public:
 	void print();
 	static Instance *generateRandomInstance(u_int32_t size, int seed = 0);
 	static Instance *loadFromFile(string &fileName);
+	static Instance *loadFromFileTSPLib(string &fileName);
 
 private:
 	u_int32_t _size;

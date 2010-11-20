@@ -9,23 +9,23 @@
 
 bool TSPDataSaver::fexists(const char *filename)
 {
-  ifstream ifile(filename);
-  return ifile;
+	ifstream ifile(filename);
+	return ifile;
 }
 
 bool TSPDataSaver::checkIfExist(string *pstrFName)
 {
 	int suffix = 0;
-	if(fexists(pstrFName->c_str()))
-	{	//plik istnieje
+	if (fexists(pstrFName->c_str()))
+	{ //plik istnieje
 		size_t underline = pstrFName->rfind('_');
 		int len = pstrFName->length();
 
 		string number = *pstrFName;
-		number.erase(0, underline+1);
+		number.erase(0, underline + 1);
 		//cout << number << endl;
 		suffix = atoi(number.c_str());
-		suffix ++;
+		suffix++;
 
 		//cout << "mam sufiks: " << suffix << endl;
 		pstrFName->erase(underline, len);
@@ -39,27 +39,30 @@ bool TSPDataSaver::checkIfExist(string *pstrFName)
 	return false;
 }
 
-TSPDataSaver::TSPDataSaver(string pstrAlgName, Instance* pInstance, ios_base::openmode pMode) {
+TSPDataSaver::TSPDataSaver(string pstrAlgName, Instance* pInstance,
+		ios_base::openmode pMode)
+{
 	string fName;
-	fName = "out/";
+	//fName = "out/";
 	fName.append(pstrAlgName);
 	fName.append("_");
 	std::stringstream out;
 	out << pInstance->getSize();
 	fName.append(out.str());
-	fName.append("_");
 
 	//wytnij tylko nazwe pliku zrodlowego bez sciezki
 	string instanceName = pInstance->getName();
 	int slashPlace = instanceName.rfind('/');
 	//cout << "slash: " << slashPlace << "w stringu: " << instanceName << endl;
 	if (slashPlace != -1)
-		instanceName.erase(0, slashPlace+1);
+		instanceName.erase(0, slashPlace + 1);
 	fName.append(instanceName);
 
 	fName.append("_0");
-	while(checkIfExist(&fName));
+	while (checkIfExist(&fName))
+		;
 	_FileName = fName;
+	cout << fName << endl;
 	_WorkingFile.open(fName.c_str(), pMode);
 	//_WorkingFile.setf(ios::left);
 	//cout << "tworze plik do zapisu: " << fName << endl;
@@ -71,8 +74,9 @@ void TSPDataSaver::saveLine(string line)
 	_WorkingFile << line << endl;
 }
 
-TSPDataSaver::~TSPDataSaver() {
-	if(_WorkingFile.is_open())
+TSPDataSaver::~TSPDataSaver()
+{
+	if (_WorkingFile.is_open())
 	{
 		//_WorkingFile << endf;
 		_WorkingFile.close();

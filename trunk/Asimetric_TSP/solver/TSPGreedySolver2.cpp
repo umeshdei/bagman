@@ -7,16 +7,16 @@
 
 #include "TSPGreedySolver2.h"
 
-TSPGreedySolver2::TSPGreedySolver2(Instance *instance)
+TSPGreedySolver2::TSPGreedySolver2(Instance *instance, string output) : TSPSolver(output)
 {
 	_instance = instance;
-	saver = new TSPDataSaver("greedy2", instance);
+	saver = new TSPDataSaver(output_filename.c_str(), instance);
 }
 
 Result *TSPGreedySolver2::solve()
 {
 	Result *best;
-	u_int32_t lastId;
+	u_int32_t lastId, stepsCount = 0;
 	set<u_int32_t> usedVertices;
 	vertex_dist_t *vect;
 
@@ -52,8 +52,10 @@ Result *TSPGreedySolver2::solve()
 			out << best->getCalculatedDistance();
 			saver->saveLine(out.str());
 		}
+		stepsCount++;
 	}
 	best->setCalculatedDistance(calculateDistance(best));
+	best->setStepsCount(stepsCount);
 
 	return best;
 }
