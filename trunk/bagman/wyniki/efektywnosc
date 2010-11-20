@@ -44,8 +44,6 @@ awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max =
 			}
 		}
 	END { 
-		wyniki[count] = max;
-		czasy[count++] = czas;
 		avg = 0;
 		for (i in wyniki)
 			avg += wyniki[i];
