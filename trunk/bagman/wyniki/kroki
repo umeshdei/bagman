@@ -1,0 +1,70 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Podaj jako parametr plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $1 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+
+dane=`cat $1 | tr -s ' ' '\t' | cut -f1 | uniq`
+
+for i in $dane
+do
+
+tmp=s;
+
+# 	echo $i
+# // (small - `hget rat99`) / (`hget $tmp`) * 100;
+awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max = 10000000000000000000000000; count = 0;
+
+	split(\"a280 berlin52 bier127 eil51 eil76 eil101 gil262 kroA100 kroB100 kroC100 kroD100 kroE100 kroA150 kroB150 kroA200 kroB200 lin105 lin318 linhp318 pr76 pr107 pr124 pr136 pr144 pr152 pr226 pr264 pr299 pr439 rat99 rat575 rat783\", a);
+	split(\"2579 7542 118282 426 538 629 2378 21282 22141 20749 21294 22068 26524 26130 29368 29437 14379 42029 41345 108159 44303 59030 96772 58537 73682 80369 49135 48191 107217 1211 6773 8806\", b);
+	for(i=1;i in a;i++){c[a[i]]=b[i]};
+
+}
+\$1 == \"$i\"	{ 
+			if ( \$5 < max && czas <= \$2) {
+				max = \$5;
+				nazwa = \$1;
+				czas = \$2;
+				iter = \$4;
+				look = \$5;
+			} else {
+				iters[count] = iter;
+				looks[count++] = look;
+				max = 10000000000000000000000000;
+				czas = -1.0;
+				iter = 0;
+				look = 0;
+			}
+		}
+	END { 
+		avg = 0;
+		for (i in iters)
+			avg += iters[i];
+		odch = 0;
+		avg /= (count);
+		for (i in iters)
+			odch += (iters[i] - avg) * (iters[i] - avg);
+		odch /= (count - 1);
+		odch = sqrt(odch);
+		avg_look = 0;
+		for (i in looks) {
+			avg_look += looks[i];
+		}
+		avg_look /= (count);	
+		odch_look = 0;
+		for (i in looks)
+			odch_look += (looks[i] - avg_look) * (looks[i] - avg_look);
+		odch_look /= (count - 1);
+		odch_look = sqrt(odch_look);		
+	
+		printf \"%s\t%f\t%f\t%f\t%f\n\", nazwa, avg, odch, avg_look, odch_look
+	
+	}" $1
+done
