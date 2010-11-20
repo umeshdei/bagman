@@ -1,5 +1,14 @@
 #!/bin/bash
 
+hput () {
+  eval hash"$1"='$2'
+}
+
+hget () {
+  eval echo '${hash'"$1"'#hash}'
+}
+
+
 if [ $# -lt 1 ]; then
 	echo "Podaj jako parametr plik wejsciowyi!";
 	exit;
@@ -10,14 +19,49 @@ if [ ! -f $1 ]; then
 	exit;
 fi;
 
+hput a280 2579
+hput berlin52 7542
+hput bier127 118282
+hput eil51 426
+hput eil76 538
+hput eil101 629
+hput gil262 2378
+hput kroA100 21282
+hput kroB100 22141
+hput kroC100 20749
+hput kroD100 21294
+hput kroE100 22068
+hput kroA150 26524
+hput kroB150 26130
+hput kroA200 29368	
+hput kroB200 29437
+hput lin105 14379
+hput lin318 42029
+hput linhp318 41345
+hput pr76 108159
+hput pr107 44303
+hput pr124 59030
+hput pr136 96772
+hput pr144 58537
+hput pr152 73682
+hput pr226 80369
+hput pr264 49135
+hput pr299 48191
+hput pr439 107217
+hput rat99 1211
+hput rat575 6773
+hput rat783 8806
+
 
 dane=`cat $1 | tr -s ' ' '\t' | cut -f1 | uniq`
 
 for i in $dane
 do
 
-# 	echo $i
+tmp="s";
 
+# 	echo $i
+# // (small - `hget rat99`) / (`hget $tmp`) * 100;
 awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max = 10000000000000000000000000; count = 0;}
 \$1 == \"$i\"	{ 
 			if ( \$5 < max && czas <= \$2) {
@@ -46,7 +90,10 @@ awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max =
 			avg += wyniki[i];
 		}
 		avg /= (count);
-		print nazwa \"\t\" small \"\t\" avg \"\t\" big
+		`tmp=rat99`
+		print $tmp
+		small_p = 0 ;
+		print nazwa \"\t\" small \"\t\" small_p \"\t\" avg \"\t\" big
 	
 	}" $1
 done

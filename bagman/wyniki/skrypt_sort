@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Podaj jako parametr plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $1 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+awk "
+	\$1 ~ /[a-z]*([0-9]*).tsp/	{ numer = \$1
+					match(numer, /[a-zA-Z]*([0-9]*)/, arr)
+					 print arr[1] \"\t\" \$0  }
+" $1 | tr -s ' ' '\t' | sort -n | cut -f2-100
+
