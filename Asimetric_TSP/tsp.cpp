@@ -28,72 +28,94 @@ typedef struct cmd_parameters_t_
 	int max_iterations;
 	int size;
 	string filename;
+	string output_filename;
 	Instance *instance;
+	bool tspLib;
 
 	cmd_parameters_t_()
 	{
+		tspLib = false;
 		solution = 0;
 		max_iterations = 1000;
 		size = 100;
 		filename = string("");
+		output_filename = string("output");
 		instance = NULL;
 	}
 } cmd_parameters_t;
 
-Result *run_greedy(Instance *instance, u_int32_t stepsCount)
+Result *run_greedy(Instance *instance, u_int32_t stepsCount, string &output)
 {
 	TSPGreedySolver *greedySolver;
 	Result *res;
+	Timer timer;
 
-	cout << "GREEDY" << endl;
-	greedySolver = new TSPGreedySolver(instance, stepsCount);
+//	cout << "GREEDY" << endl;
+	greedySolver = new TSPGreedySolver(instance, stepsCount, output);
+	timer.start();
 	res = greedySolver->solve();
+	printf("%f %d %d %d %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
+			instance->calculateMinLimit(), res->getBetterSolutionsCount(), res->getStepsCount(),
+			res->getNeighborsVisited());
 	//res->print();
 	delete greedySolver;
 
 	return res;
 }
 
-Result *run_greedy2(Instance *instance)
+Result *run_greedy2(Instance *instance, string &output)
 {
 	TSPGreedySolver2 *greedySolver2;
 	Result *res;
+	Timer timer;
 
-	cout << "GREEDY2" << endl;
-	greedySolver2 = new TSPGreedySolver2(instance);
+//	cout << "GREEDY2" << endl;
+	greedySolver2 = new TSPGreedySolver2(instance, output);
+	timer.start();
 	res = greedySolver2->solve();
+	printf("%f %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
+			instance->calculateMinLimit());
 	//res->print();
 	delete greedySolver2;
 
 	return res;
 }
 
-Result *run_steepest(Instance *instance, u_int32_t stepsCount)
+Result *run_steepest(Instance *instance, u_int32_t stepsCount, string &output)
 {
 	TSPSteepestSolver *steepestSolver;
 	Result *res;
+	Timer timer;
 
-	cout << "STEEPEST" << endl;
+//	cout << "STEEPEST" << endl;
 
-	steepestSolver = new TSPSteepestSolver(instance);
+	steepestSolver = new TSPSteepestSolver(instance, output);
 	steepestSolver->setStepsCount(stepsCount);
+	timer.start();
 	res = steepestSolver->solve();
+	printf("%f %d %d %d %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
+			instance->calculateMinLimit(), res->getBetterSolutionsCount(), res->getStepsCount(),
+			res->getNeighborsVisited());
 	//res->print();
 	delete steepestSolver;
 
 	return res;
 }
 
-Result *run_random(Instance *instance, u_int32_t randomStepsCount)
+Result *run_random(Instance *instance, u_int32_t randomStepsCount, string &output)
 {
 	TSPRandomSolver *randomSolver;
 	Result *res;
+	Timer timer;
 
-	cout << "RANDOM" << endl;
+//	cout << "RANDOM" << endl;
 
-	randomSolver = new TSPRandomSolver(instance);
+	randomSolver = new TSPRandomSolver(instance, output);
 	randomSolver->setStepsCount(randomStepsCount);
+	timer.start();
 	res = randomSolver->solve();
+	printf("%f %d %d %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
+			instance->calculateMinLimit(), res->getBetterSolutionsCount(), res->getStepsCount());
 	//res->print();
 	delete randomSolver;
 
@@ -104,7 +126,6 @@ void run_heuristics(cmd_parameters_t params)
 {
 	Instance *instance;
 	Result *res;
-	Timer timer;
 
 	if (params.instance == NULL)
 	{
@@ -115,40 +136,38 @@ void run_heuristics(cmd_parameters_t params)
 	}
 	else
 	{
-		instance = params.instance;
+		if (!params.filename.empty())
+		{
+			if (params.tspLib)
+				instance = Instance::loadFromFileTSPLib(params.filename);
+			else
+				instance = Instance::loadFromFile(params.filename);
+		}
 	}
 
 	for (int i = 0; i < 10; i++)
 	{
 		if (params.solution & GREEDY)
 		{
-			timer.start();
-			res = run_greedy(instance, params.max_iterations);
-			timer.getRunTime(); // TODO: to zapisac przy, do tego pobrac oczywiscie wynik, neighorsVisited oraz numberOfSteps
+			res = run_greedy(instance, params.max_iterations, params.output_filename);
 			delete res;
 		}
 
 		if (params.solution & GREEDY2)
 		{
-			timer.start();
-			res = run_greedy2(instance);
-			timer.getRunTime();
+			res = run_greedy2(instance, params.output_filename);
 			delete res;
 		}
 
 		if (params.solution & STEEPEST)
 		{
-			timer.start();
-			res = run_steepest(instance, params.max_iterations);
-			timer.getRunTime();
+			res = run_steepest(instance, params.max_iterations, params.output_filename);
 			delete res;
 		}
 
 		if (params.solution & RANDOM)
 		{
-			timer.start();
-			res = run_random(instance, params.max_iterations);
-			timer.getRunTime();
+			res = run_random(instance, params.max_iterations, params.output_filename);
 			delete res;
 		}
 	}
@@ -156,10 +175,11 @@ void run_heuristics(cmd_parameters_t params)
 	//instance->saveToFile("jakis_plik")
 	delete instance;
 }
+
 void command_line_parameters(int argc, char *argv[])
 {
 	cmd_parameters_t params;
-	Instance *instance;
+	Instance *instance = NULL;
 	bool generate = false;
 	int c;
 
@@ -174,18 +194,22 @@ void command_line_parameters(int argc, char *argv[])
 	while (1) {
 		int option_index = 0;
 		static struct option long_options[] = {
-			{ "help", 0, 0, 0 }, { 0, 0, 0, 0 },
-			{ "generate", 0, 0, 0 }, { 0, 0, 0, 0 }
+			{ "help", 0, 0, 0 },
+			{ "generate", 0, 0, 0 },
+			{ "tsp", 0, 0, 0 },
+			{ 0, 0, 0, 0 },
 		};
 
-		c = getopt_long(argc, argv, "l:s:i:gteroa:dw", long_options, &option_index);
+		c = getopt_long(argc, argv, "l:o:s:i:gteradw", long_options, &option_index);
 		if (c == -1)
 			break;
 
 		switch (c) {
 		case 0:
-			if (!strcmp(long_options[option_index].name, "generate"))
+			if (strcmp(long_options[option_index].name, "generate") == 0)
 				generate = true;
+			else if (strcmp(long_options[option_index].name, "tsp") == 0)
+				params.tspLib = true;
 			break;
 		case 'g':
 			params.solution = params.solution | GREEDY;
@@ -202,6 +226,7 @@ void command_line_parameters(int argc, char *argv[])
 		case 'a':
 			params.solution = params.solution | GREEDY | GREEDY2 | RANDOM | STEEPEST;
 		case 'o':
+			params.output_filename = string(optarg);
 			break;
 		case 'l':
 			params.filename = string(optarg);
@@ -223,16 +248,24 @@ void command_line_parameters(int argc, char *argv[])
 
 	if (!params.filename.empty())
 	{
+		srand(time(NULL) + params.size);
 		if (generate)
 		{
 			instance = Instance::generateRandomInstance(params.size, time(NULL));
 			instance->saveToFile(params.filename);
+			exit(0);
 		}
 		else
 		{
-			instance = Instance::loadFromFile(params.filename);
 		}
-		instance->setName(params.filename);
+		instance = Instance::loadFromFile(params.filename);
+		if (instance)
+			instance->setName(params.filename);
+		else
+		{
+			printf("Instance is null. Aborting...\n");
+			abort();
+		}
 	}
 	else
 	{

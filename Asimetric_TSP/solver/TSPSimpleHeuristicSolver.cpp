@@ -7,7 +7,7 @@
 
 #include "TSPSimpleHeuristicSolver.h"
 
-TSPSimpleHeuristicSolver::TSPSimpleHeuristicSolver()
+TSPSimpleHeuristicSolver::TSPSimpleHeuristicSolver() : TSPSolver(string())
 {
 
 }

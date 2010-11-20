@@ -9,12 +9,13 @@
 #define TSPSTEEPESTSOLVER_H_
 
 #include "TSPSolver.h"
+#include "Timer.h"
 
 class TSPSteepestSolver: public TSPSolver
 {
 public:
-	TSPSteepestSolver(Instance *inst);
-	TSPSteepestSolver(u_int32_t);
+	TSPSteepestSolver(Instance *inst, string output);
+	TSPSteepestSolver(u_int32_t, string output);
 	void setStepsCount(u_int32_t);
 	u_int32_t getStepsCount();
 	virtual ~TSPSteepestSolver();

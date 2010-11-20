@@ -7,7 +7,7 @@
 
 #include "TSPLocalSearch.h"
 
-TSPLocalSearch::TSPLocalSearch()
+TSPLocalSearch::TSPLocalSearch() : TSPSolver(string())
 {
 
 }

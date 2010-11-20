@@ -7,11 +7,11 @@
 
 #include "TSPSolver.h"
 
-TSPSolver::TSPSolver()
+TSPSolver::TSPSolver(string output)
 {
 	_instance = NULL;
 	numberOfSteps = 0;
-	neighorsVisited = 0;
+	output_filename = output;
 }
 
 Result *TSPSolver::generateRandomResult()
