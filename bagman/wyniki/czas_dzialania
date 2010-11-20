@@ -1,0 +1,56 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Podaj jako parametr plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $1 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+
+dane=`cat $1 | tr -s ' ' '\t' | cut -f1 | uniq`
+
+for i in $dane
+do
+
+tmp=s;
+
+# 	echo $i
+# // (small - `hget rat99`) / (`hget $tmp`) * 100;
+awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max = 10000000000000000000000000; count = 0;
+
+}
+\$1 == \"$i\"	{ 
+			if ( \$5 < max && czas <= \$2) {
+				max = \$5;
+				nazwa = \$1;
+				czas = \$2;
+				iter = \$4;
+				look = \$5;
+			} else {
+				wyniki[count++] = czas;
+				max = 10000000000000000000000000;
+				czas = -1.0;
+				iter = 0;
+				look = 0;
+			}
+		}
+	END { 
+		small = 10000000000000000000000000;
+		big = 0;
+		avg = 0;
+		for (i in wyniki) {
+			if (big < wyniki[i])
+				big = wyniki[i];
+			if (small > wyniki[i])
+				small = wyniki[i];
+			avg += wyniki[i];
+		}
+		avg /= (count);	
+		print nazwa \"\t\" small \"\t\"  avg \"\t\"  big
+	
+	}" $1
+done
