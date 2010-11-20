@@ -27,7 +27,7 @@ void TSPRandomSolver::setStepsCount(u_int32_t stepsCount)
 Result *TSPRandomSolver::solve()
 {
 	Timer timer;
-	u_int32_t bestDistance, currDistance;
+	u_int32_t bestDistance, currDistance, frequency;
 	u_int32_t betterSolutionsCount = 0;
 	Result *curr, *bestResult;
 	Result best;
@@ -37,6 +37,10 @@ Result *TSPRandomSolver::solve()
 	curr->setCalculatedDistance(bestDistance);
 	//curr->print(true);
 	best = *curr;
+
+	frequency = _stepsCount / 100;
+	if (frequency < FREQUENCY_SAVER)
+		frequency = FREQUENCY_SAVER;
 
 	timer.start();
 	for (u_int32_t i = 0; i < _stepsCount; i++)
@@ -51,7 +55,7 @@ Result *TSPRandomSolver::solve()
 			bestDistance = currDistance;
 			best = *curr;
 		}
-		u_int32_t a = i%(u_int32_t)FREQUENCY_SAVER;
+		u_int32_t a = i % frequency;
 		//cout << a << endl;
 		if(a == 0)
 		{

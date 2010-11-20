@@ -62,7 +62,6 @@ TSPDataSaver::TSPDataSaver(string pstrAlgName, Instance* pInstance,
 	while (checkIfExist(&fName))
 		;
 	_FileName = fName;
-	cout << fName << endl;
 	_WorkingFile.open(fName.c_str(), pMode);
 	//_WorkingFile.setf(ios::left);
 	//cout << "tworze plik do zapisu: " << fName << endl;

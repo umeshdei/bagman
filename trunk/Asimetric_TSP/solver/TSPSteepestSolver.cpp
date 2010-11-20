@@ -73,17 +73,19 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 
 Result *TSPSteepestSolver::solve()
 {
+	u_int32_t frequency;
 	Timer timer;
 	u_int32_t bestDistance;
 	Result *curr;
 	Result *best;
 
+	frequency = _stepsCount / 100;
+	if (frequency < FREQUENCY_SAVER)
+		frequency = FREQUENCY_SAVER;
+
 	curr = generateRandomResult();
 	bestDistance = calculateDistance(curr);
 	curr->setCalculatedDistance(bestDistance);
-	//curr->print();
-
-	//cout << "Rozwiazuje steepest" << endl;
 
 	timer.start();
 	for (u_int32_t i = 0; i < _stepsCount; i++)
@@ -93,19 +95,10 @@ Result *TSPSteepestSolver::solve()
 		if (curr->getCalculatedDistance() <= best->getCalculatedDistance())
 		{
 			return best;
-			/*
-			 bestResult = new Result(best);
-			 bestResult->print();
-			 delete best;
-
-			 return bestResult;
-			 */
 		}
 		curr = best;
-		//printf("lepsze rozwiazanie: %d\n", best->getCalculatedDistance());
-		u_int32_t a = i%(u_int32_t)FREQUENCY_SAVER;
-		//cout << a << endl;
-		if(a == 0)
+		u_int32_t a = i % (u_int32_t)frequency;
+		if (a == 0)
 		{
 			std::stringstream out;
 			out << i;
