@@ -246,18 +246,16 @@ void command_line_parameters(int argc, char *argv[])
 		}
 	}
 
+	srand(time(NULL) + params.size);
+	if (generate && !params.output_filename.empty())
+	{
+		instance = Instance::generateRandomInstance(params.size, time(NULL));
+		instance->saveToFile(params.output_filename);
+		exit(0);
+	}
+
 	if (!params.filename.empty())
 	{
-		srand(time(NULL) + params.size);
-		if (generate)
-		{
-			instance = Instance::generateRandomInstance(params.size, time(NULL));
-			instance->saveToFile(params.filename);
-			exit(0);
-		}
-		else
-		{
-		}
 		instance = Instance::loadFromFile(params.filename);
 		if (instance)
 			instance->setName(params.filename);
