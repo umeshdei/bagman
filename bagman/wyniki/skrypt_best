@@ -15,8 +15,8 @@ awk "BEGIN	{ max = 10000000000; nazwa = \"\"; czas = 0.0; iter = 0; look = 0; }
 			max = \$5;
 			nazwa = \$1;
 			czas = \$2;
-			iter = \$4;
-			look = \$5;
+			iter = \$3;
+			look = \$4;
 		} else {
 			print nazwa, \"\t\", max, \"\t\", iter, \"\t\", look ;
 			max = 10000000000;
