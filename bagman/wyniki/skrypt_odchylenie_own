@@ -1,0 +1,61 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Podaj jako parametr plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $1 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+
+	awk "BEGIN 	{nazwa = \"\"; avg = 0; liczba = 0; odchylenie = 0; wyniki[0] = 0;}
+				{ if (nazwa == \"\") {
+					nazwa = \$1;
+					delete wyniki[0];	
+				}
+	
+			  if (nazwa != \$1) {
+					avg = 0;
+					for (x in wyniki) {
+						avg += wyniki[x];
+					}
+					odchylenie = 0;
+					avg /= liczba;
+					for (x in wyniki) {
+						odchylenie += (wyniki[x] - avg) * (wyniki[x] - avg);
+					}
+					odchylenie /= (liczba - 1);
+					odchylenie = sqrt(odchylenie);
+					
+					for (x in wyniki) 
+						delete wyniki[x];
+
+					liczba = 0;
+					print nazwa \"\t\" avg \"\t\" odchylenie;
+		m $plik
+		}
+				wyniki[liczba++] = \$5;
+				nazwa = \$1;
+				} 
+		END {  
+					avg = 0;
+					for (x in wyniki) {
+						avg += wyniki[x];
+					}
+					odchylenie = 0;
+					avg /= liczba;
+					for (x in wyniki) {
+						odchylenie = (wyniki[x] - avg) * (wyniki[x] - avg);
+					}
+					odchylenie /= liczba;
+					odchylenie = sqrt(odchylenie);
+					
+					for (x in wyniki) 
+						delete wyniki[x];
+
+					liczba = 0;
+					print nazwa \"\t\" avg \"\t\" odchylenie;
+} " $1  		
