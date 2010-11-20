@@ -12,18 +12,19 @@ for s in `seq 1 10`
 do
 	for i in `seq 1 10`
 	do
-		echo generating $i $((s * 50))
-		./Debug/Asimetric_TSP --generate -s $((s * 50)) -o data/input_$((s * 50))_$i.txt
 
-		continue;				
+#		echo generating $i $((s * 50))
+#		./Debug/Asimetric_TSP --generate -s $((s * 50)) -o data/input_$((s * 50))_$i.txt
+
+#		continue;				
 		echo greedy $i $((s * 50))
-		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -e -o results/greedy/$((s * 50))_$i.txt
+		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -g -o results/greedy/$((s * 50))_$i.txt -i  2000000 > resulst/greedy/console_out_$((s * 50))_$i.txt
 		echo steepest $i $((s * 50))
-		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -t -o results/steepest/$i.$((s * 50)).$j.txt
+		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -t -o results/steepest/$i.$((s * 50)).$j.txt -i 2000000 > results/steepest/console_out_$((s * 50))_$i.txt
 		echo random $i $((s * 50))
-		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -r -o results/random/$i.$(($s * 50)).$j.txt -i $(($j * 20000))
+		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -r -o results/random/$i.$(($s * 50)).$j.txt -i 2000000 > results/random/console_out_$((s * 50))_$i.txt
 		echo greedy2 $i $((s * 50))
-		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -w -o results/greedy2/$i.$((s * 50)).$j.txt
+		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -e -o results/greedy2/$i.$((s * 50)).$j.txt -i 2000000 > results/greedy2/console_out_$((s * 50))_$i.txt
 	done
 done
 
