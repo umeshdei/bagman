@@ -1,20 +1,21 @@
 #!/bin/bash
 
-mkdir data
-mkdir results
+mkdir data 2>&-
+mkdir results 2>&-
 
-mkdir results/greedy
-mkdir results/steepest
-mkdir results/random
-mkdir results/greedy2
+mkdir results/greedy 2>&-
+mkdir results/steepest 2>&-
+mkdir results/random 2>&-
+mkdir results/greedy2 2>&-
 
-exit;
 for s in `seq 1 10`
 do
 	for i in `seq 1 10`
 	do
-		./Debug/Asimetric_TSP -g -s $((s * 50)) -o data/input_$((s * 50))_$i.txt
-				
+		echo generating $i $((s * 50))
+		./Debug/Asimetric_TSP --generate -s $((s * 50)) -o data/input_$((s * 50))_$i.txt
+
+		continue;				
 		echo greedy $i $((s * 50))
 		./Debug/Asimetric_TSP -l data/input_$((s * 50))_$i.txt -e -o results/greedy/$((s * 50))_$i.txt
 		echo steepest $i $((s * 50))
