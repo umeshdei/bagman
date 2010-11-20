@@ -42,16 +42,16 @@ Result *TSPGreedySolver2::solve()
 				break;
 			}
 		}
-		u_int32_t a = i%(u_int32_t)FREQUENCY_SAVER;
-		//cout << a << endl;
-		if(a == 0)
-		{
-			std::stringstream out;
-			out << i;
-			out << " ";
-			out << best->getCalculatedDistance();
-			saver->saveLine(out.str());
-		}
+//		u_int32_t a = i%(u_int32_t)FREQUENCY_SAVER;
+//		//cout << a << endl;
+//		if(a == 0)
+//		{
+//			std::stringstream out;
+//			out << i;
+//			out << " ";
+//			out << best->getCalculatedDistance();
+//			saver->saveLine(out.str());
+//		}
 		stepsCount++;
 	}
 	best->setCalculatedDistance(calculateDistance(best));

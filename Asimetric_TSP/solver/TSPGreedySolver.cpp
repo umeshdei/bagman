@@ -26,7 +26,7 @@ Result *TSPGreedySolver::solve()
 {
 	Timer timer;
 	bool foundBetter = false;
-	u_int32_t bestDistance, changedDistance;
+	u_int32_t bestDistance, changedDistance, frequency;
 	u_int32_t neighorsVisited = 0, betterSolutionsCount = 0;
 	Result *best, changed;
 
@@ -35,6 +35,10 @@ Result *TSPGreedySolver::solve()
 	best->setCalculatedDistance(bestDistance);
 	//best->print();
 	changed = *best;
+
+	frequency = _stepsCount / 100;
+	if (frequency < FREQUENCY_SAVER)
+		frequency = FREQUENCY_SAVER;
 
 	timer.start();
 	for (u_int32_t i = 0; i < _stepsCount; i++)
@@ -78,7 +82,7 @@ Result *TSPGreedySolver::solve()
 			return best;
 		}
 //		printf("lepsze rozwiazanie: %d\n", best->getCalculatedDistance());
-		u_int32_t a = i % (u_int32_t)FREQUENCY_SAVER;
+		u_int32_t a = i % frequency;
 		//cout << a << endl;
 		if(a == 0)
 		{
