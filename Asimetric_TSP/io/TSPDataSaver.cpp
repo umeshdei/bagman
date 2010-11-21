@@ -43,8 +43,9 @@ TSPDataSaver::TSPDataSaver(string pstrAlgName, Instance* pInstance,
 		ios_base::openmode pMode)
 {
 	string fName;
-	//fName = "out/";
+	fName = "results/atsp/";
 	fName.append(pstrAlgName);
+
 	fName.append("_");
 	std::stringstream out;
 	out << pInstance->getSize();
