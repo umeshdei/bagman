@@ -90,7 +90,7 @@ Result *TSPSteepestSolver::solve()
 	{
 		best = checkNeighbours(curr);
 		//co zrobic jak nie znalazlo wsrod sasiadow polepszenia rozwiazania?
-		if (bestDistance < best->getCalculatedDistance())
+		if (bestDistance <= best->getCalculatedDistance())
 		{
 			break;
 		}
