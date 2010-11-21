@@ -1,0 +1,230 @@
+#!/bin/bash
+
+
+hput () {
+  eval hash"$1"='$2'
+}
+
+hget () {
+  eval echo '${hash'"$1"'#hash}'
+}
+
+hput a280 2579
+hput berlin52 7542
+hput bier127 118282
+hput eil51 426
+hput eil76 538
+hput eil101 629
+hput gil262 2378
+hput kroA100 21282
+hput kroB100 22141
+hput kroC100 20749
+hput kroD100 21294
+hput kroE100 22068
+hput kroA150 26524
+hput kroB150 26130
+hput kroA200 29368	
+hput kroB200 29437
+hput lin105 14379
+hput lin318 42029
+hput linhp318 41345
+hput pr76 108159
+hput pr107 44303
+hput pr124 59030
+hput pr136 96772
+hput pr144 58537
+hput pr152 73682
+hput pr226 80369
+hput pr264 49135
+hput pr299 48191
+hput pr439 107217
+hput rat99 1211
+hput rat575 6773
+hput rat783 8806
+
+
+echo "\hline
+ \multirow{2}{*}{Dane TSP} & \multirow{2}{*}{Rozmiar} & \multirow{2}{*}{Optimum} & \multicolumn{2}{|c|}{Greedy} & \multicolumn{2}{|c|}{Steepest} & \multicolumn{2}{|c|}{Autorski} & \multicolumn{2}{|c|}{Losowy} \\\\
+\cline{4-11}
+ & & & Wynik & \% & Wynik & \% & Wynik & \% & Wynik & \% \\\\
+\hline"
+
+dane=`cat greedy.all | tr -s ' ' '\t' | cut -f1 | uniq`
+
+# echo $dane
+
+for i in $dane
+do
+	echo -n "\\multirow{3}{*}{"
+
+	tmp=`echo $i | awk ' {match(\$1, /([a-zA-Z0-9]*).*/, arr)
+		printf "%s", arr[1]
+		}'`
+	echo -n $tmp
+	echo -n "} & \\multirow{3}{*}{"	
+
+	echo $i | awk " {match(\$1, /[a-zA-Z]*([0-9]*).*/, arr)
+		printf \"%s\", arr[1]
+		}"
+
+	echo -n "} & \\multirow{3}{*}{"
+
+	echo -n `hget $tmp` 
+	echo -n "}"
+
+	for j in $* 
+	do	
+
+		awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max = 10000000000000000000000000; count = 0;
+
+				split(\"a280 berlin52 bier127 eil51 eil76 eil101 gil262 kroA100 kroB100 kroC100 kroD100 kroE100 kroA150 kroB150 kroA200 kroB200 lin105 lin318 linhp318 pr76 pr107 pr124 pr136 pr144 pr152 pr226 pr264 pr299 pr439 rat99 rat575 rat783\", a);
+				split(\"2579 7542 118282 426 538 629 2378 21282 22141 20749 21294 22068 26524 26130 29368 29437 14379 42029 41345 108159 44303 59030 96772 58537 73682 80369 49135 48191 107217 1211 6773 8806\", b);
+				for(i=1;i in a;i++){c[a[i]]=b[i]};
+
+			}
+	\$1 == \"$i\"	{ 
+			if ( \$5 < max && czas <= \$2) {
+				max = \$5;
+				nazwa = \$1;
+				czas = \$2;
+				iter = \$4;
+				look = \$5;
+			} else {
+				wyniki[count++] = max;
+				max = 10000000000000000000000000;
+				czas = -1.0;
+				iter = 0;
+				look = 0;
+			}
+		}
+	END { 
+		small = 10000000000000000000000000;
+		big = 0;
+		avg = 0;
+		for (i in wyniki) {
+			if (big < wyniki[i])
+				big = wyniki[i];
+			if (small > wyniki[i])
+				small = wyniki[i];
+			avg += wyniki[i];
+		}
+		avg /= (count);	
+		match(nazwa, /([a-zA-Z0-9]*).*/, arr)
+		small_p = (small - c[arr[1]]) / c[arr[1]] * 100 ;
+		avg_p = (avg - c[arr[1]]) / c[arr[1]] * 100 ;
+		big_p = (big - c[arr[1]]) / c[arr[1]] * 100 ;
+		printf \" & %0.1f & %0.1f \", small, small_p
+	
+	}" $j
+
+	done
+
+	echo "\\\\"
+	echo -n " & & "
+
+	for j in $* 
+	do	
+
+		awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max = 10000000000000000000000000; count = 0;
+
+				split(\"a280 berlin52 bier127 eil51 eil76 eil101 gil262 kroA100 kroB100 kroC100 kroD100 kroE100 kroA150 kroB150 kroA200 kroB200 lin105 lin318 linhp318 pr76 pr107 pr124 pr136 pr144 pr152 pr226 pr264 pr299 pr439 rat99 rat575 rat783\", a);
+				split(\"2579 7542 118282 426 538 629 2378 21282 22141 20749 21294 22068 26524 26130 29368 29437 14379 42029 41345 108159 44303 59030 96772 58537 73682 80369 49135 48191 107217 1211 6773 8806\", b);
+				for(i=1;i in a;i++){c[a[i]]=b[i]};
+
+			}
+	\$1 == \"$i\"	{ 
+			if ( \$5 < max && czas <= \$2) {
+				max = \$5;
+				nazwa = \$1;
+				czas = \$2;
+				iter = \$4;
+				look = \$5;
+			} else {
+				wyniki[count++] = max;
+				max = 10000000000000000000000000;
+				czas = -1.0;
+				iter = 0;
+				look = 0;
+			}
+		}
+	END { 
+		small = 10000000000000000000000000;
+		big = 0;
+		avg = 0;
+		for (i in wyniki) {
+			if (big < wyniki[i])
+				big = wyniki[i];
+			if (small > wyniki[i])
+				small = wyniki[i];
+			avg += wyniki[i];
+		}
+		avg /= (count);	
+		match(nazwa, /([a-zA-Z0-9]*).*/, arr)
+		small_p = (small - c[arr[1]]) / c[arr[1]] * 100 ;
+		avg_p = (avg - c[arr[1]]) / c[arr[1]] * 100 ;
+		big_p = (big - c[arr[1]]) / c[arr[1]] * 100 ;
+		printf \" & %0.1f & %0.1f \", avg, avg_p
+	
+	}" $j
+
+	done
+
+	echo "\\\\"
+	echo -n " & & "
+
+	for j in $* 
+	do	
+
+		awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max = 10000000000000000000000000; count = 0;
+
+				split(\"a280 berlin52 bier127 eil51 eil76 eil101 gil262 kroA100 kroB100 kroC100 kroD100 kroE100 kroA150 kroB150 kroA200 kroB200 lin105 lin318 linhp318 pr76 pr107 pr124 pr136 pr144 pr152 pr226 pr264 pr299 pr439 rat99 rat575 rat783\", a);
+				split(\"2579 7542 118282 426 538 629 2378 21282 22141 20749 21294 22068 26524 26130 29368 29437 14379 42029 41345 108159 44303 59030 96772 58537 73682 80369 49135 48191 107217 1211 6773 8806\", b);
+				for(i=1;i in a;i++){c[a[i]]=b[i]};
+
+			}
+	\$1 == \"$i\"	{ 
+			if ( \$5 < max && czas <= \$2) {
+				max = \$5;
+				nazwa = \$1;
+				czas = \$2;
+				iter = \$4;
+				look = \$5;
+			} else {
+				wyniki[count++] = max;
+				max = 10000000000000000000000000;
+				czas = -1.0;
+				iter = 0;
+				look = 0;
+			}
+		}
+	END { 
+		small = 10000000000000000000000000;
+		big = 0;
+		avg = 0;
+		for (i in wyniki) {
+			if (big < wyniki[i])
+				big = wyniki[i];
+			if (small > wyniki[i])
+				small = wyniki[i];
+			avg += wyniki[i];
+		}
+		avg /= (count);	
+		match(nazwa, /([a-zA-Z0-9]*).*/, arr)
+		small_p = (small - c[arr[1]]) / c[arr[1]] * 100 ;
+		avg_p = (avg - c[arr[1]]) / c[arr[1]] * 100 ;
+		big_p = (big - c[arr[1]]) / c[arr[1]] * 100 ;
+		printf \" & %0.1f & %0.1f \", big, big_p
+	
+	}" $j
+
+	done
+
+
+	echo "\\\\"
+	echo "\\hline"
+done	
+
+
+echo "\multicolumn{3}{|c|}{\multirow{2}{*}{Średnie wyniki [\%]}} & \multicolumn{2}{|c|}{165,5} & \multicolumn{2}{|c|}{180,8} & \multicolumn{2}{|c|}{124,1} & \multicolumn{2}{|c|}{501,2} \\\\
+\multicolumn{3}{|c|}{} & \multicolumn{2}{|c|}{184,5} & \multicolumn{2}{|c|}{207,6} & \multicolumn{2}{|c|}{124,2} & \multicolumn{2}{|c|}{510,7} \\\\
+\hline"
