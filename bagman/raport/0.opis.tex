@@ -1,29 +1,37 @@
 \section{Opis}
 
-Problem komiwojażera polega na znalezieniu minimalnego cyklu Hamiltona
-w grafie pełnym. Należy on do klasy problemów NP-trudnych. 
+Symetryczny problem komiwojażera polega na znalezieniu minimalnego cyklu Hamiltona
+w nieskierowanym grafie pełnym. Należy on do klasy problemów NP-trudnych. 
+
+Danymi wejściowymi jest $ n $ miast. Z każdego z miasta można przejechać do dowolnego
+innego miasta nie odwiedzając innych miast po drodze.
+
+Rozwiązaniem problemu komiwajażera jest permutacja miast. Funkcję celu można przedstawić
+następująco, jako funkcję:
+
+$$ (min) \sum_{i=1}^{i < n - 1} dist(i, i+1) $$
 
 W poniższym projekcie użyto czterech algorytów metaheurystycznych rozwiązująych 
 dany problem. 
 
 \begin{enumerate}
 
-\item Algorytm losowy (R) --- polega na losowym wybieraniu kolejności odiwedzanych punktów i 
+\item Algorytm losowy (R) --- polega na losowym wybieraniu kolejności odwiedzanych punktów i 
 porównywaniu otrzymanego wyniku z dotychczasowo najlepszym.
 
-\item Algorytm Greedy (G) --- algorytm ten startując z losowego ustawienia przeszukuje 
-sąsiedztwo celem znalezienia lepszego rozwiązania. Po znalezieniu takiego zaprzestaje 
+\item Algorytm Greedy (G) --- algorytm ten startuje z losowego ustawienia. Przeszukuje 
+sąsiedztwo w celu znalezienia lepszego rozwiązania. Po znalezieniu takiego, zaprzestaje 
 poszukiwań i przechodzi do lepszego rozwiązania rozpoczynając od nowa przeglądanie sąsiedztwa.
 Zaprzestaje swoje obliczenia, gdy nie znajduje lepszego rozwiązania.
 
-\item Algorytm Steepest (S) --- algorytm ten startując z losowego ustawienia przeszukuje 
-sąsiedztwo celem znalezienia lepszego rozwiązania. Po przejrzeniu całego sąsiedztwa przechodzi 
+\item Algorytm Steepest (S) --- algorytm ten startuje z losowego ustawienia. Przeszukuje 
+sąsiedztwo celem znalezienia lepszego rozwiązania. Po przejrzeniu całego sąsiedztwa, przechodzi 
 do najlepszego znalezionego rozwiązania rozpoczynając od nowa przeglądanie sąsiedztwa.
 Zaprzestaje swoje obliczenia, gdy nie znajduje lepszego rozwiązania.
 
-\item Algorytm autorski (H) --- algorytm ten wybiera losowy punkt, od którego rozpoczyna obliczenia.
+\item Prostą heurystyka(H) --- algorytm ten wybiera losowy punkt, od którego rozpoczyna obliczenia.
 Następnie dodaje kolejne odwiedzane punkty, jako kryterium stosując odległość punktu od punktu, w 
-którym obecnie się znajduje. Jest to przykład programowania dynamicznego.
+którym obecnie się znajduje. Jest to algorytm Nearest Neighbour.
 
 \end{enumerate}
 
