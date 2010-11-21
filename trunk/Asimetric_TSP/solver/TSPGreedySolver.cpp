@@ -36,9 +36,9 @@ Result *TSPGreedySolver::solve()
 	//best->print();
 	changed = *best;
 
-	frequency = _stepsCount / 100;
-	if (frequency < FREQUENCY_SAVER)
-		frequency = FREQUENCY_SAVER;
+//	frequency = _stepsCount / 100;
+//	if (frequency < FREQUENCY_SAVER)
+	frequency = FREQUENCY_SAVER;
 
 	timer.start();
 	for (u_int32_t i = 0; i < _stepsCount; i++)
@@ -54,7 +54,7 @@ Result *TSPGreedySolver::solve()
 				std::swap(changed[j], changed[k]);
 				neighorsVisited++;
 				changedDistance = calculateDistance(&changed);
-				if (changedDistance < bestDistance)
+				if (changedDistance <= bestDistance)
 				{
 					betterSolutionsCount++;
 					bestDistance = changedDistance;
@@ -71,10 +71,6 @@ Result *TSPGreedySolver::solve()
 			if (foundBetter)
 				break;
 		}
-
-		best->setNeighborsVisited(neighorsVisited);
-		best->setStepsCount(numberOfSteps);
-		best->setBetterSolutionsCount(betterSolutionsCount);
 
 		//Nie ma sensu szukac dalej - w sasiedztwie nie ma lepszych rozwiazan
 		if (!foundBetter)
@@ -94,6 +90,10 @@ Result *TSPGreedySolver::solve()
 			saver->saveLine(out.str());
 		}
 	}
+
+	best->setNeighborsVisited(neighorsVisited);
+	best->setStepsCount(numberOfSteps);
+	best->setBetterSolutionsCount(betterSolutionsCount);
 
 	return best;
 }

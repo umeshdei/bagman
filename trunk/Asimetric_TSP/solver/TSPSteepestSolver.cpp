@@ -25,13 +25,14 @@ void TSPSteepestSolver::setStepsCount(u_int32_t stepsCount)
 	_stepsCount = stepsCount;
 }
 
+
+u_int32_t neighorsVisited = 0, betterSolutionsCount = 0;
 /**
  * funkcja wybierajaca najlepszego z sasiadujacych rozwiazan
  */
 Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 {
 	u_int32_t bestDistance, changedDistance;
-	u_int32_t neighorsVisited = 0, betterSolutionsCount = 0;
 	Result *bestResult;
 	Result best, changed;
 	best = *pure;
@@ -63,10 +64,6 @@ Result *TSPSteepestSolver::checkNeighbours(Result* pure)
 	}
 	bestResult = new Result(best);
 
-	bestResult->setNeighborsVisited(neighorsVisited);
-	bestResult->setStepsCount(numberOfSteps);
-	bestResult->setBetterSolutionsCount(betterSolutionsCount);
-	//bestResult->print();
 	delete pure;
 
 	return bestResult;
@@ -79,10 +76,10 @@ Result *TSPSteepestSolver::solve()
 	u_int32_t bestDistance;
 	Result *curr;
 	Result *best;
+	neighorsVisited = 0;
+	betterSolutionsCount = 0;
 
-	frequency = _stepsCount / 100;
-	if (frequency < FREQUENCY_SAVER)
-		frequency = FREQUENCY_SAVER;
+	frequency = FREQUENCY_SAVER;
 
 	curr = generateRandomResult();
 	bestDistance = calculateDistance(curr);
@@ -93,7 +90,7 @@ Result *TSPSteepestSolver::solve()
 	{
 		best = checkNeighbours(curr);
 		//co zrobic jak nie znalazlo wsrod sasiadow polepszenia rozwiazania?
-		if (curr->getCalculatedDistance() <= best->getCalculatedDistance())
+		if (curr->getCalculatedDistance() < best->getCalculatedDistance())
 		{
 			return best;
 		}
@@ -109,6 +106,10 @@ Result *TSPSteepestSolver::solve()
 			saver->saveLine(out.str());
 		}
 	}
+
+	best->setNeighborsVisited(neighorsVisited);
+	best->setStepsCount(numberOfSteps);
+	best->setBetterSolutionsCount(betterSolutionsCount);
 
 	/*
 	 bestResult = new Result(best);
