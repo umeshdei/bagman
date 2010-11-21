@@ -49,8 +49,9 @@ awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max =
 				small = wyniki[i];
 			avg += wyniki[i];
 		}
+		match(nazwa, /[a-zA-Z]*([0-9]*).*/, arr)
 		avg /= (count);	
-		print nazwa \"\t\" small \"\t\"  avg \"\t\"  big
+		print nazwa \"\t\" arr[1] \"\t\" small \"\t\"  avg \"\t\"  big
 	
 	}" $1
 done
