@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0.85
-lastDocument=2.porownanie.tex
+lastDocument=6.wnioski.tex
 masterDocument=
 name=raport
 pkg_extIsRegExp=false
@@ -82,17 +82,17 @@ ReadWrite=true
 
 [item:0.opis.tex]
 archive=true
-column=73
+column=84
 encoding=UTF-8
 highlight=LaTeX
-line=25
+line=19
 mode=LaTeX
 open=true
 order=1
 
 [item:1.sasiedztwo.tex]
 archive=true
-column=68
+column=20
 encoding=UTF-8
 highlight=LaTeX
 line=11
@@ -102,20 +102,20 @@ order=2
 
 [item:2.porownanie.tex]
 archive=true
-column=13
+column=48
 encoding=UTF-8
 highlight=LaTeX
-line=32
+line=103
 mode=LaTeX
 open=true
 order=5
 
 [item:6.wnioski.tex]
 archive=true
-column=59
+column=6
 encoding=UTF-8
 highlight=LaTeX
-line=29
+line=32
 mode=LaTeX
 open=true
 order=7
@@ -142,10 +142,10 @@ order=-1
 
 [item:raport.tex]
 archive=true
-column=21
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=10
+line=66
 mode=LaTeX
 open=true
 order=0
@@ -171,28 +171,28 @@ open=true
 order=4
 
 [view-settings,view=0,item:0.opis.tex]
-CursorColumn=73
-CursorLine=25
+CursorColumn=84
+CursorLine=19
 
 [view-settings,view=0,item:1.sasiedztwo.tex]
-CursorColumn=68
+CursorColumn=20
 CursorLine=11
 
 [view-settings,view=0,item:2.porownanie.tex]
-CursorColumn=13
-CursorLine=32
+CursorColumn=48
+CursorLine=103
 
 [view-settings,view=0,item:6.wnioski.tex]
-CursorColumn=59
-CursorLine=29
+CursorColumn=6
+CursorLine=32
 
 [view-settings,view=0,item:7.trudnosci.tex]
 CursorColumn=56
 CursorLine=9
 
 [view-settings,view=0,item:raport.tex]
-CursorColumn=21
-CursorLine=10
+CursorColumn=0
+CursorLine=66
 
 [view-settings,view=0,item:tytulowa.tex]
 CursorColumn=21

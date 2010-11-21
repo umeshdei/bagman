@@ -21,16 +21,19 @@ optimów i dzięki temu polepszenie wyniku.
 
 Przedstawione wyniki prezentują, że odległość od optimum dla wykonanych obliczeń 
 są bardzo zróżnicowane. Najbardziej stalinie prezentuje się algorytm autorski 
-dając średnio 20\% nadłożenie trasy. Algorytmy Steepest i Greedy lepiej działają dla 
-większych instancji, przy małych natomiast znajdowane rozwiązania są dalekie od optimum
-nawet ponad 2-krotnie.
+dając średnio 20\% nadłożenie trasy. 
 
-Najbardziej zmienny jest algorytm losowy. Dane uzyskane za jego pomocą dla małych instancji
-potrafią być bliskie optimum, a dla dużych instancji potrafiż byc bardzo odległe. Rozwiązanie
-tego specyficznego zachowania zostało wytłumaczone poniżej.
+Algorytmy Steepest i Greedy lepiej działają dla mniejszych instancji, przy dużych 
+znalezione rozwiązanie jest drukrotnie gorsze od znanego optimum. Dla małych instancji
+odległość wacha się na poziomie 150\%, by w największych osiągnąć prawie 300\%.
+
+Najbardziej zmienny jest algorytm losowy. Uzyskane dane są niedeterministyczne. Średnia
+odległość od optimum wynosi ponad 500\%, ale zdażają się przypadki, w których algorytm ten 
+zwracał najlepsze wyniki (ok. 108\%). Ale zdażały sie również przypadki o odległości ponad
+900\%.
 
 \subsection{Uzyskane wyniki}
-
+                                                                       
 Zgodnie z uzyskanymi obliczeniami najlepszy algorytmem okazał się prosty algorytm 
 heurystyczny. Uyzkuje on, w niektórych przypadkach, wyniki lepsze o ponad 50\% od
 drugiego w zestawieniu algorytmu Greedy. Kolejnym algorytmem jest Steepest z wynikami 
