@@ -1,0 +1,12 @@
+\section{Sąsiedztwo}
+
+W badaniach do określenia sąsiedztwa użyto algorytmu
+2-OPT. Zasada jego działania wydaje się najbardziej intuicyjna i oczywista.
+W prezentowanej trasie jeden wierzchołek zostaje zamieniany
+z innym wierzchołkiem i dzięki temu otrzywyane jest nowe rozwiązanie, które
+jest dalej analizowane. Dzięki tak prostej konstrukcji reprezentacji
+sąsiedztwa bardzo łatwo określić rozmiar sąsiedztwa. Wielkość ta jest
+równa uzależniona od $n$, które oznacza rozmiar instancji, a więc ilość
+wierzchołków w grafie. Wielkość sąsiedztwa można określić jako:
+
+$$ C_{n}^{2} = {n\choose 2} = \frac{n!}{2(n-2)!} = \frac{n \cdot (n-1)}{2}$$

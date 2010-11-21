@@ -1,0 +1,47 @@
+\section{Porówannie wykorzystanych algorytmów}
+
+\subsection{Parametry sprzętowe}
+
+Badania zostały przeprowadzone na kilku węzłach spośród dostępnego na
+Politechnice klastra obliczeniowego. Jednakże każdy pojedynczy pomiar
+odbywał się przy obliczeniach wykonywanych na jednaj maszynie.
+Każda z jednostek klastra posiada następujące parametry sprzętowe:
+\begin{itemize}
+ \item CPU : Intel(R) Xeon(R) CPU X3230@2.66GHz
+ \item Pamięć : 4GB
+\end{itemize}
+Pomimo, że procesory dysponowały czterema rdzeniami, nie zdecydowano się
+na zrównoleglenie procesu obliczeń oraz zrównolelenie samego procesu
+wykonywania testów. W zamian za to, każdy typ algorytmu testowany był
+na innej maszynie fizycznej.
+
+\subsection{Dane wejściowe}
+
+Wygenerowane na potrzeby testów dane charakterysowały się
+losowym rozmieszczeniem punktów. Generator instancji ze względu na
+asymetrię problemu musiał uwzględniać różne odległości między punktami
+w zależności od kierunku łuku w grafie. Tak więc początkowo losowane były
+pozycje punktów. Na podstawie pozycji wyznaczana była odległość
+zgodnie z kierunkiem wierzchołków od $u$ do $v$. Odległość od $v$ do $u$
+z kolei była wyznaczana na podstawie poprzednio wyliczonej wartości
+jednakże była modyfikowana o pewną losową wartość $\pm rand()$.
+
+
+Dane wejściowe posiadały w zależności od konfiguracji od 50 do 400
+wierzchołków. Przygotowane dane były wczytywane przez program z wcześniej
+utworzonych plików, a na podstawie położenia zaczytanych wierzchołków
+oraz odległości między nimi wykonywane były 
+obliczenia. Wszystkie testowane algorytmy uruchamiane
+były po 10 razy dla każdej z testowanych instancji. Kolejne uruchomienia
+różniły się rozwiązaniem początkowym, dlatego można się było spodziewać
+różnych wyników dla każdego spośród wywołań. Algorytm 
+losowy był uruchamiony dodatkowo dla każdej instancji po 10 razy ze zmiennym
+limitem losowań w granicach 20~000 do 200~000 powtórzeń.
+
+\subsection{Odległość od optimum}
+
+\subsection{Czas działania}
+
+\subsection{Jakość/czas}
+
+\subsection{Średnia ilość kroków algorytmów}
