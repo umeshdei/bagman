@@ -90,11 +90,12 @@ Result *TSPSteepestSolver::solve()
 	{
 		best = checkNeighbours(curr);
 		//co zrobic jak nie znalazlo wsrod sasiadow polepszenia rozwiazania?
-		if (curr->getCalculatedDistance() < best->getCalculatedDistance())
+		if (bestDistance < best->getCalculatedDistance())
 		{
-			return best;
+			break;
 		}
 		curr = best;
+		bestDistance = best->getCalculatedDistance();
 		u_int32_t a = i % (u_int32_t)frequency;
 		if (a == 0)
 		{
