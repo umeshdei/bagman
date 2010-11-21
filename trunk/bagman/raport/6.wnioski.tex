@@ -98,9 +98,9 @@ raczej przeszukuje obszar tak długo, aż znajdzie ślepy zaułek.
 \subsection{Czas działania}
 
 \it
-W zestawieniu nie został ujęty prosty algorytm heurystyczny z poowdu zbyt krótkich czasów 
-działania, dla 400 elementów nie został zmierzony (obliczenia pokazywały 0,00), podczas 
-gdy najwolniejszy algorytm Steepest wymagał ponad 7 min.
+W zestawieniu nie został ujęty prosty algorytm heurystyczny z powodu zbyt krótkich czasów 
+działania. Dla instancji o rozmiarach ponad 700 elementów pokazywał on czas działania 0.00, 
+podczas gdy alogrytm Steepest potrzebował podan 1,5h.
 \rm
 
 \subsubsection{Algorytm Greedy}
@@ -123,5 +123,8 @@ większych instancji.
 \subsection{Ilość iteracji}
 
 Porównując ilość iteracji algorytmów Greedy i Steepest można zauważyć, że algorytm 
-Steepest wykonyje ok. 4 razy mniej kroków od algorytmu Greedy. Jest to spowodowane 
+Steepest wykonuje ok. 4 razy mniej kroków od algorytmu Greedy. Jest to spowodowane 
 dokładnym przeglądaniem przestrzeni sąsiedztwa i wybierania najleprzego rozwiązania.
+
+Nawiązując jednak do ilości przejrzajnych rozwiązań można zauważyć, że algorytm
+Greedy przegląda ich ok. 50\% mniej, co istotnie wpływa na szybkość obliczeń.

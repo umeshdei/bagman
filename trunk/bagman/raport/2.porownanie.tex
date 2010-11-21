@@ -1,16 +1,13 @@
 \section{Porówannie wykorzystanych algorytmów}
 
 Badania zostały przeprowadzone na komputerze Politechniki Poznańskiej przygotowanym do 
-wykonywania dużych obliczeń (HPC --- High Performance Compuning). Dane generowane były 
-poprzez losowe rozmieszczenie punktów (od 50 do 400), a następnie obliczenie odległości 
-między nimi. Tak przygotowane dane były wczytywane przez program i na nich wykonywane były 
+wykonywania dużych obliczeń (HPC --- High Performance Compuning). Dane pochodzą z plików
+TSP ze strony http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/ ponieważ znane są dla
+nich rozwiązania optymalne. Dane te były wczytywane przez program i na nich wykonywane były 
 obliczenia. Algorytmy Greedy i Steepest uruchamiane były 10 razy, za każdym razem i innym 
 runktem początkowym. Algorytm Random uruchamiany był 10 razy, za każdym razem z innym 
 limitem powtórzeń (od 20~000 do 200~000). Ostatnim alogrytmem była prosta Heurystyna naszego
 autorstwa, również uruchamiana 10 razy, za każdym razem z innym miastem początkowym.
-
-Wyżej wymienione obliczenia były przeprowadzana 10 razy dla każdej z instancji, aby dzięki temu 
-uniknąc przekłamania wyników uzyskanych poprzez specyficzny układ danych wejściowych.
 
 \subsection{Odległość od optimum}
 
@@ -194,17 +191,12 @@ $$ \frac{f_{obliczone} - f_{optymalne}}{f_{optymalne}} * 100 \% $$
 \end{adjustwidth}
 
 
-
-
-\subsection{Czas działania}
-
-
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{wykresy/greedy_sort_best.pdf}
+\includegraphics[width=0.9\textwidth]{wykresy/greedy_sort_best}
 \end{center}
-\caption{Średnia odległość od optimum dla aglorytmu Greedy.}
-\label{fig-3d}
+\caption{Najlepsza odległość od optimum dla algorytmu Greedy.}
+\label{greedy_sort_best}
 \end{figure}
 
 
@@ -212,8 +204,8 @@ $$ \frac{f_{obliczone} - f_{optymalne}}{f_{optymalne}} * 100 \% $$
 \begin{center}
 \includegraphics[width=0.9\textwidth]{wykresy/steepest_sort_best}
 \end{center}
-\caption{Średnia odległość od optimum dla aglorytmu Steepest.}
-\label{fig-3d}
+\caption{Najlepsza odległość od optimum dla algorytmu Steepest.}
+\label{steepest_sort_best}
 \end{figure}
 
 
@@ -221,10 +213,78 @@ $$ \frac{f_{obliczone} - f_{optymalne}}{f_{optymalne}} * 100 \% $$
 \begin{center}
 \includegraphics[width=0.9\textwidth]{wykresy/random_sort_best}
 \end{center}
-\caption{Średnia odległość od optimum dla aglorytmu Random.}
-\label{fig-3d}
+\caption{Najlepsza odległość od optimum dla algorytmu Random.}
+\label{random_sort_best}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/greedy_sort_worst}
+\end{center}
+\caption{Najgorsza odległość od optimum dla algorytmu Greedy.}
+\label{greedy_sort_worst}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/steepest_sort_worst}
+\end{center}
+\caption{Najgorsza odległość od optimum dla algorytmu Steepest.}
+\label{steepest_sort_worst}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/random_sort_worst}
+\end{center}
+\caption{Najgorsza odległość od optimum dla algorytmu Random.}
+\label{random_sort_worst}
 \end{figure}
 
 \subsection{Jakość/czas}
 
+
+\subsection{Czas działania}
+
+
+
 \subsection{Średnia ilość kroków algorytmów}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/greedy_kroki}
+\end{center}
+\caption{Średnia ilość kroków wykonanych przez algorytm Greedy wraz z odchyleniem standardowym.}
+\label{greedy_kroki}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/greedy_sasiedzi}
+\end{center}
+\caption{Średnia ilość rozwiązań przejrzanych przez algorytm Greedy wraz z odchyleniem standardowym.}
+\label{greedy_sasiedzi}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/steepest_kroki}
+\end{center}
+\caption{Średnia ilość kroków wykonanych przez algorytm Steepest wraz z odchyleniem standardowym.}
+\label{steepest_kroki}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/steepest_sasiedzi}
+\end{center}
+\caption{Średnia ilość rozwiązań przejrzanych przez algorytm Steepest wraz z odchyleniem standardowym.}
+\label{steepest_sasiedzi}
+\end{figure}
+
