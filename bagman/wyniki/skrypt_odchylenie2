@@ -1,0 +1,82 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Podaj jako parametr plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $1 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+
+awk "BEGIN	{ max = 10000000000; nazwa = \"\"; czas = 0.0; iter = 0; look = 0; }
+		{ if ( \$5 <= max && (nazwa == \$1 || nazwa ==\"\") ) {
+			max = \$5;
+			nazwa = \$1;
+			czas = \$2;
+			iter = \$4;
+			look = \$5;
+		} else {
+			print nazwa, \"\t\", max, \"\t\", iter, \"\t\", look ;
+			max = 10000000000;
+			nazwa = \"\";
+			czas = 0.0;
+			iter = 0;
+			look = 0;
+		}
+		}
+	" $1 | awk "BEGIN 	{nazwa = \"\"; avg = 0; liczba = 0; odchylenie = 0; 
+
+	split(\"a280 berlin52 bier127 eil51 eil76 eil101 gil262 kroA100 kroB100 kroC100 kroD100 kroE100 kroA150 kroB150 kroA200 kroB200 lin105 lin318 linhp318 pr76 pr107 pr124 pr136 pr144 pr152 pr226 pr264 pr299 pr439 rat99 rat575 rat783\", a);
+	split(\"2579 7542 118282 426 538 629 2378 21282 22141 20749 21294 22068 26524 26130 29368 29437 14379 42029 41345 108159 44303 59030 96772 58537 73682 80369 49135 48191 107217 1211 6773 8806\", b);
+	for(i=1;i in a;i++){c[a[i]]=b[i]};
+				}
+				{ if (nazwa == \"\") {
+					nazwa = \$1;
+				}
+	
+			  if (nazwa != \$1) {
+					avg = 0;
+					for (x in wyniki) {
+						avg += wyniki[x];
+					}
+					odchylenie = 0;
+					avg /= liczba;
+					for (x in wyniki) {
+						odchylenie += (wyniki[x] - avg) * (wyniki[x] - avg);
+					}
+					odchylenie /= (liczba - 1);
+					odchylenie = sqrt(odchylenie);
+					
+					for (x in wyniki) 
+						delete wyniki[x];
+
+					liczba = 0;
+					print nazwa \"\t\" avg \"\t\" odchylenie;
+		m $plik
+		}
+				nazwa = \$1;
+				match(nazwa, /([a-zA-Z0-9]*).*/, arr)				
+				wyniki[liczba++] = ((\$2 - c[arr[1]]) / c[arr[1]] * 100);
+				} 
+		END {  
+					avg = 0;
+					for (x in wyniki) {
+						avg += wyniki[x];
+					}
+					odchylenie = 0;
+					avg /= liczba;
+					for (x in wyniki) {
+						odchylenie = (wyniki[x] - avg) * (wyniki[x] - avg);
+					}
+					odchylenie /= liczba;
+					odchylenie = sqrt(odchylenie);
+					
+					for (x in wyniki) 
+						delete wyniki[x];
+
+					liczba = 0;
+					print nazwa \"\t\" avg \"\t\" odchylenie;
+} "  		
