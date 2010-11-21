@@ -1,0 +1,49 @@
+\section{Opis}
+
+Celem w asymetrycznym problemie komiwojażera jest odnalezienie
+minimalnego cyklu Hamiltona w grafie pełnym skierowanym.
+Asymetria w takim grafie związana jest z różnymi wagami
+umieszczonymi na poszczególnych łukach. Tak więc łuk wychodzący z wierzchołka
+$u$ do wierzchołka $v$ może mieć inną wagę niż łuk
+od wierchołka $v$ do wierchołka $u$. Problem komiwojażera w rozpatrywanej
+formie jest problemem optymalizacyjnym należącym do klasy problemów
+\emph{NP-trudnych}.
+
+Zadanie, którego dotyczy niniejszy raport polegało na utworzeniu czterech
+algorytmów, które w sposób niedokładny będą rozwiązywać wspomniany
+wcześniej problem. Takie rozwiązania mają być alternatywą dla żmudnych
+i bardzo długich obliczeń związanych ze znajdowaniem rozwiązania
+dokładnego w ogromnej przestrzeni rozwiązań.
+W rozwiazaniu opisywanego zadania użyto następujących algorytmów.
+
+\begin{enumerate}
+
+\item Algorytm losowy (R) --- polega na losowym wyborze kolejności
+odwiedzanych wierzhołków i wyborze punktu dla, którego funkcja
+oceny jest osiąga wartość minimalną.
+
+\item Algorytm Greedy (G) --- punktem startowym dla tego algorytmu jest
+rozwiązanie losowe. W kolejnych iteracjach przebiegu algorytmu przeszukiwane
+jest sąsiedztwo celem znalezienia lepszego rozwiązania. Znalezienie takiego
+rozwiązanie związane jest z przerwaniem dalszego przeszukiwania sąsiedztwa
+oraz przeszukiwaniem nowopowstałego rozwiązania.
+Algorytm przerywa działanie, jeżeli nie znajduje lepszego rozwiązania w
+całym obszarze sąsiedztwa.
+
+\item Algorytm Steepest (S) --- punktem startowym dla tego algorytmu jest
+rozwiązanie losowe. W kolejnych iteracjach przebiegu algorytmu przeszukiwane
+jest sąsiedztwo celem znalezienia lepszego rozwiązania. Znalezienie takiego
+rozwiązanie nie związane jest z przerwaniem dalszego przeszukiwania sąsiedztwa
+jak to miało miejsce w przypadku rozwiązania Greedy. Przeszukiwane jest
+całe sąsiedztwo i spośród niego wybierane rozwiązanie o minimalnej wartości
+funkcji oceny.
+Algorytm przerywa działanie, jeżeli nie znajduje lepszego rozwiązania w
+całym obszarze sąsiedztwa.
+
+\item Własny algorytm (H) --- algorytm wybiera losowy punkt spośród wszystkich
+wierzchołków grafu skierowanego, i od tego punktu rozpoczyna się
+przetwarzanie. Do listy odwiedzanych wierzchołków dodawane są kolejno
+punkty, które są najbliższe aktualnemu i jeszcze nie zostały odwiedzone.
+
+\end{enumerate}
+

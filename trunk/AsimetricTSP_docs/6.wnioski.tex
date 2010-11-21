@@ -1,0 +1,153 @@
+\section{Wnioski}
+
+% Złożność algorytmów
+\subsection{Złożoność obliczeniowa prostego algorytmu heurystycznego}
+
+Zaproponowany przez autorów algorytm charakteryzuje się bardzo niewielkim
+czasem wykonania obliczeń. Złożoność tą można bardzo łatwo wyznaczyć.
+Działanie algorytmu opierasię, jak wspomniano we wstępie na wyborze
+odpowiedniego punktu spośród dostępnych. Przy początkowym punkcie, gdy
+dostępnych jest $n - 1$ punktów (ponieważ jeden już jest wykorzystany - 
+został wylosowany). Spośród tych punktów należy wybrać minimum i
+z nowego punktu ponownie wybrać najbliższy punkt na podstawie wag
+poszczególnych łuków w grafie. Należy wykonać kolejno $n - 1$
+takich operacji ze względu, na fakt że dla ostatniego 
+wierzchołka takiej operacji wykonywać już nie trzeba. Prowadzi to do
+złożoności kwadratowej, którą można opisać jako $ O(n^{2}) $.
+Dla analizowanych małych instancji problemu komiwojażera, złożoność ta
+skutkuje błyskawicznym czasem wykonywania obliczeń.
+
+Warto zwrócić uwagę na fakt, iż można dokonać niewielkiej optymalizacji,
+która wpradzie nie zmniejszy rzędu wielkości złożoności problemu, jednak
+może skutkować nieznacznym zmniejszeniem złożoności. W przypadku gdy został
+wybrany wierzchołek pewne jest, że nie może zostać on odwiedzony ponownie
+dlatego możliwe jest usunięcie z macierzy odległości między
+wierzchołkami usunięcie kolumny oraz wiersza powiązanych z
+analizowanym wierzchołkiem. Jeżeli pominąć czas wykonania
+operacji usuwania wierzy i kolumn, skutkowałoby to wykonaniem dla pierwszego
+wierzchołka $n - 1$ operacji przy wyznaczaniu minimum, ale dla kolejnego
+wierzchołka byłyoby tych elementów $n - 2$, a dla następnego $n - 3$.
+Można zauważyć, że złożoność wyniosłaby wówczas $\frac{n \cdot (n - 1)}{2})$.
+Złożoność jest więc określona, a więc wiadomo, że w jakim czasie
+można się spodziewać rozwiązania takiego problemu.
+
+
+wynikami można zauważyć bardzo którki czas działania prostej
+heurystki zaproponowanej przez autorów. Jest to spowodowane kwadratową złożonością 
+czasową $ O(n^{2}) $, ponieważ musimy $ n $ razy przejrzeć $ n $ punktów, aby znaleźć
+nalbliższy. Otrzymujemy dzięki temu bardzo sybki algorytm. Jego wadą jest 
+możliwość otrzymania wyniku bardzo oddalonego od optimum. Dzieje się tak dlatego, 
+że przy końcowych obliczeniach nie mamy już dużego wyboru następnych odwiedzanych 
+punktów, więc ostatnie ścieżki do wyboru mogę być bardzo długie. Wynik działania 
+tego algorytmu mógłby być podstawą do uruchomienia algorymtów Steepest lub Greedy, 
+które sprawdziłyby, czy w sąsiedztwie nie leżą lepsze rozwiązania. Znacznie skróciło
+by to ich czas działania, poprzez start w miejscu, które jest blisko optimium.
+Jest jednak możliwość, że punkt początkowy leżałby w pobliżu jakiegoś optimum 
+lokalnego, i zawsze zwracany były ten sam wynik, uniemożliwiając odkrycie innych 
+optimów i dzięki temu polepszenie wyniku.
+
+\subsection{Odległość od optimum}
+
+Przedstawione wyniki prezentują, że odległość od optimum dla wykonanych obliczeń 
+są bardzo zróżnicowane. Najbardziej stalinie prezentuje się algorytm autorski 
+dając średnio 20\% nadłożenie trasy. Algorytmy Steepest i Greedy lepiej działają dla 
+większych instancji, przy małych natomiast znajdowane rozwiązania są dalekie od optimum
+nawet ponad 2-krotnie.
+
+Najbardziej zmienny jest algorytm losowy. Dane uzyskane za jego pomocą dla małych instancji
+potrafią być bliskie optimum, a dla dużych instancji potrafiż byc bardzo odległe. Rozwiązanie
+tego specyficznego zachowania zostało wytłumaczone poniżej.
+
+\subsection{Uzyskane wyniki}
+
+Zgodnie z uzyskanymi obliczeniami najlepszy algorytmem okazał się prosty algorytm 
+heurystyczny. Uyzkuje on, w niektórych przypadkach, wyniki lepsze o ponad 50\% od
+drugiego w zestawieniu algorytmu Greedy. Kolejnym algorytmem jest Steepest z wynikami 
+nieznacznie gorszymi od algorytmu Greedy. Ostatni w zestawieniu znalazł się algorytm 
+losowy.
+
+\subsubsection{Prosty algorytm heurystyczny}
+
+Sukces algorytmu autorskiego opiera się w dużej części na podejściu do problemu. 
+Programowanie dynamiczne wybiera w daej chwili najbardziej optymalne rozwiązanie, 
+dzięki czemu osiąga w ogólności bardzo dobre wyniki. Istnieją jednak sytuacje, gdy 
+rozwiązania zaproponowane przez prosty algorytm heurystyczny może być ponad 2 razy 
+gorsze od pozostałych algorytmów. Dzieje się tak w przypadku, gdy ostatnia wybrana 
+trasa jest bardzo długa. Dlatego po otrzymaniu rozwiązania należałoby przejrzeć 
+sąsiedztwo w poszukiawaniu rozwiązania lepszego umożliwiając, w niektórych przypadkach
+usinięci najdłużeszej trasy.
+
+\subsubsection{Algorytm losowy}
+
+Słaby wynik algorytmu wiąże się z jego niedeterminizmem, jak i brakiem wykorzystania 
+już osiągniętych informacji. Jest to jedyny algorytm, dla którego nie można określić 
+złożoności, gdyż będzie on działał tak długo, aż jego praca zostanie przerwana. Losując 
+rozwiązania na bardzo dużych danych wejściowych ciężko osiąnąć jest wynik nawet zbliżony 
+do optimum. 
+
+W przypadku małych instancji algorytm ten zwracał wyniki porównywalne z 
+pozostałymi algorytmami w o wiele krótszym czasie (nie licząc czasu działania algorytmu
+autorskiego). Dla $ n = 10 $ ilość permutacji wynosi:
+
+$$ n! = 10! = 3~628~800 $$
+
+co przy przykładowych 200~000 powtórzeń daje szansę w trafienie w rozwiązanie optymalne:
+
+$$ \frac{200~000}{10!} * 100\% = 5,51\%  $$
+
+Natomiast jeśli podniesiemy $ n = 50 $ otrzymujemy wyniki:
+
+$$ n! = 50! = 3,04 * 10^{64} $$
+$$ \frac{200~000}{50!} * 100\% = 6,58 * 10^{-58}\%  $$
+
+A przy $ n = 400 $, czyli górnej granicy obliczeń:
+
+$$ n! = 400! = 6,40 * 10^{870} $$
+$$ \frac{200~000}{400!} * 100\% = 3,13 * 10^{-864}\%  $$
+
+Jak więc widać dla dużych $ n $ szanse trafienia w rozwiązanie optymalne są równe $ 0 $.
+
+Algorytm ten nie wykorzystuje różwnież informacji o już znalezionych rozwiązaniach 
+w przypadku generowania nowego, dzięki czemu wygenerowane rozwiązania nie przybliżają
+go do optimum.
+
+\subsubsection{Algorytm Greedy i Steepest}
+
+Wyniki uzyskane przez algorytm Greedy są lepsze niż uzyskane przez algorytm Steepest. 
+Jest to spowodowane przechodzeniem do najlepszego rozwiązania przez algorytm Steepest. 
+Dzięki temu wybiera on najczęściej ścieżkę do najbliższego optimum lokalnego. Algorytm
+Greedy natomiast wybiera pierwsze znalezione rozwiązanie, które jest lepsze od dotychczas 
+znalezionego. dzięki temu nie zbliża się gwałtownie do żadnego z optimów lokalnych, lecz 
+raczej przeszukuje obszar tak długo, aż znajdzie ślepy zaułek.
+
+
+\subsection{Czas działania}
+
+\it
+W zestawieniu nie został ujęty prosty algorytm heurystyczny z poowdu zbyt krótkich czasów 
+działania, dla 400 elementów nie został zmierzony (obliczenia pokazywały 0,00), podczas 
+gdy najwolniejszy algorytm Steepest wymagał ponad 7 min.
+\rm
+
+\subsubsection{Algorytm Greedy}
+
+Czas działania tego algorytmu dla większych instancji jest lepszy o ok. 50 - 70 \% w porównaniu 
+do algorytmu Steepest. Pomimo, że potrzebuje on więcej iteracji, przejście do następnego kroku 
+zajmuje mniej czasu, gdyż następuje od razu po znalezieniu lepszego rozwiązania. Jego złożoność 
+wynosi następująco:
+
+\subsubsection{Algorytm Steepest}
+
+Algorytm ten jest ok. 2 razy gorszy od algorytmu Greedy.Wynika to głównie z fakty, że przegląda on
+wszystkie rozwiązania zanim podejmie decyzję o następnym kroku. 
+
+\subsubsection{Algorytm losowy}
+
+Algorytm ten działa niederministycznie, dlatego potrafi osiągnąć szybsze czasy działania dla 
+większych instancji. 
+
+\subsection{Ilość iteracji}
+
+Porównując ilość iteracji algorytmów Greedy i Steepest można zauważyć, że algorytm 
+Steepest wykonyje ok. 4 razy mniej kroków od algorytmu Greedy. Jest to spowodowane 
+dokładnym przeglądaniem przestrzeni sąsiedztwa i wybierania najleprzego rozwiązania.
