@@ -19,6 +19,13 @@ Procentową odległość od optimum wyliczono dzięki nastepującemu wzorowi:
 
 $$ \frac{f_{obliczone} - f_{optymalne}}{f_{optymalne}} * 100 \% $$
 
+
+Uzystane wyniki przedstawiono na rysunkach \ref{greedy_sort_best}, \ref{own_results}, \ref{steepest_sort_best}, 
+\ref{random_sort_best}, \ref{greedy_av_sort},  \ref{steepest_av_sort}, 
+\ref{random_av_sort}, \ref{greedy_sort_worst},
+\ref{steepest_sort_worst} i
+\ref{random_sort_worst}.
+
 \begin{adjustwidth}{-1in}{-1in}%
 
 \begin{center}
@@ -190,6 +197,14 @@ $$ \frac{f_{obliczone} - f_{optymalne}}{f_{optymalne}} * 100 \% $$
 
 \end{adjustwidth}
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/own_results}
+\end{center}
+\caption{Wyniki odległości od optimum dla prostej heurystyki.}
+\label{own_results}
+\end{figure}
+
 
 \begin{figure}
 \begin{center}
@@ -220,6 +235,32 @@ $$ \frac{f_{obliczone} - f_{optymalne}}{f_{optymalne}} * 100 \% $$
 
 \begin{figure}
 \begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/greedy_av_sort}
+\end{center}
+\caption{Średnia odległość od optimum dla algorytmu Greedy.}
+\label{greedy_av_sort}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/steepest_av_sort}
+\end{center}
+\caption{Średnia odległość od optimum dla algorytmu Steepest.}
+\label{steepest_av_sort}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/random_av_sort}
+\end{center}
+\caption{Średnia odległość od optimum dla algorytmu Random.}
+\label{random_av_sort}
+\end{figure}
+
+\begin{figure}
+\begin{center}
 \includegraphics[width=0.9\textwidth]{wykresy/greedy_sort_worst}
 \end{center}
 \caption{Najgorsza odległość od optimum dla algorytmu Greedy.}
@@ -246,13 +287,64 @@ $$ \frac{f_{obliczone} - f_{optymalne}}{f_{optymalne}} * 100 \% $$
 
 \subsection{Jakość/czas}
 
+Zależność jakoś czas postanowiono zmierzyć wg nastepującego wzoru:
+
+$$ czas\_dzialania * procentowa\_odleglosc\_od\_optimum $$
+
+Uzystane wyniki przedstawiono na rysunkach \ref{greedy_ef}, \ref{steepest_ef} i
+\ref{random_ef}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/greedy_ef}
+\end{center}
+\caption{Średnia efektywność algorymtu  algorymtu Greedy.}
+\label{greedy_ef}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/steepest_ef}
+\end{center}
+\caption{Średnia efektywność algorymtu Steepest.}
+\label{steepest_ef}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/random_ef}
+\end{center}
+\caption{Średnia efektywność algorymtu Random.}
+\label{random_ef}
+\end{figure}
 
 \subsection{Czas działania}
 
+Wyniki badań przedstawione zostały na rysunkach \ref{greedy_time} i \ref{steepest_time}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/greedy_time}
+\end{center}
+\caption{Średni czas działania algorytmu Greedy w odniesieniu do rozmiaru instancji.}
+\label{greedy_time}
+\end{figure}
 
 
-\subsection{Średnia ilość kroków algorytmów}
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{wykresy/steepest_time}
+\end{center}
+\caption{Średni czas działania algorytmu Steepest w odniesieniu do rozmiaru instancji.}
+\label{steepest_time}
+\end{figure}
 
+\subsection{Średnia ilość kroków i przejrzanych algorytmów}
+
+Badania przeprowadzone tylko dla algorytmów Greedy i Steepest. Wyniki uzyskane przedstawione 
+zostały na rysunkach \ref{greedy_kroki}, \ref{greedy_sasiedzi}, \ref{steepest_kroki} i \ref{steepest_sasiedzi}. 
 
 \begin{figure}
 \begin{center}
