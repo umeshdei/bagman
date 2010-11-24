@@ -1,7 +1,7 @@
 \section{Wnioski}
 
 % Złożność algorytmów
-\subsection{Złożoność obliczeniowa prostego algorytmu heurystycznego}
+\subsection{Złożoność obliczeniowa zaproponowanego algorytmu heurystycznego}
 
 Zaproponowany przez autorów algorytm charakteryzuje się bardzo niewielkim
 czasem wykonania obliczeń. Złożoność tą można bardzo łatwo wyznaczyć.
@@ -60,15 +60,16 @@ tego specyficznego zachowania zostało wytłumaczone poniżej.
 
 \subsection{Uzyskane wyniki}
 
-Zgodnie z uzyskanymi obliczeniami najlepszy algorytmem okazał się prosty algorytm 
-heurystyczny. Uyzkuje on, w niektórych przypadkach, wyniki lepsze o ponad 50\% od
-drugiego w zestawieniu algorytmu Greedy. Kolejnym algorytmem jest Steepest z wynikami 
-nieznacznie gorszymi od algorytmu Greedy. Ostatni w zestawieniu znalazł się algorytm 
-losowy.
+Pomiary jakości oraz szybkości wykonywania poszczególnych algorytmów
+pozwalają stwierdzić, że najlepiej zarówno pod względem czasowym, jak i
+jakościowym najlepiej poradził sie zaproponowany
+przez autorów algorytm heurystyczny. Pozostałe algorytmy poradziły sobie
+nieco gorzej. Najsłabsze rezultaty uzyskano w przypadku algorytmu
+opartego o losowanie rozwiązań z całej przestrzeni rozwiązań dopuszczalnych.
 
-\subsubsection{Prosty algorytm heurystyczny}
+\subsubsection{Zaproponowany algorytm heurystyczny}
 
-Sukces algorytmu autorskiego opiera się w dużej części na podejściu do problemu. 
+ algorytmu autorskiego opiera się w dużej części na podejściu do problemu. 
 Programowanie dynamiczne wybiera w daej chwili najbardziej optymalne rozwiązanie, 
 dzięki czemu osiąga w ogólności bardzo dobre wyniki. Istnieją jednak sytuacje, gdy 
 rozwiązania zaproponowane przez prosty algorytm heurystyczny może być ponad 2 razy 
@@ -76,40 +77,6 @@ gorsze od pozostałych algorytmów. Dzieje się tak w przypadku, gdy ostatnia wy
 trasa jest bardzo długa. Dlatego po otrzymaniu rozwiązania należałoby przejrzeć 
 sąsiedztwo w poszukiawaniu rozwiązania lepszego umożliwiając, w niektórych przypadkach
 usinięci najdłużeszej trasy.
-
-\subsubsection{Algorytm losowy}
-
-Słaby wynik algorytmu wiąże się z jego niedeterminizmem, jak i brakiem wykorzystania 
-już osiągniętych informacji. Jest to jedyny algorytm, dla którego nie można określić 
-złożoności, gdyż będzie on działał tak długo, aż jego praca zostanie przerwana. Losując 
-rozwiązania na bardzo dużych danych wejściowych ciężko osiąnąć jest wynik nawet zbliżony 
-do optimum. 
-
-W przypadku małych instancji algorytm ten zwracał wyniki porównywalne z 
-pozostałymi algorytmami w o wiele krótszym czasie (nie licząc czasu działania algorytmu
-autorskiego). Dla $ n = 10 $ ilość permutacji wynosi:
-
-$$ n! = 10! = 3~628~800 $$
-
-co przy przykładowych 200~000 powtórzeń daje szansę w trafienie w rozwiązanie optymalne:
-
-$$ \frac{200~000}{10!} * 100\% = 5,51\%  $$
-
-Natomiast jeśli podniesiemy $ n = 50 $ otrzymujemy wyniki:
-
-$$ n! = 50! = 3,04 * 10^{64} $$
-$$ \frac{200~000}{50!} * 100\% = 6,58 * 10^{-58}\%  $$
-
-A przy $ n = 400 $, czyli górnej granicy obliczeń:
-
-$$ n! = 400! = 6,40 * 10^{870} $$
-$$ \frac{200~000}{400!} * 100\% = 3,13 * 10^{-864}\%  $$
-
-Jak więc widać dla dużych $ n $ szanse trafienia w rozwiązanie optymalne są równe $ 0 $.
-
-Algorytm ten nie wykorzystuje różwnież informacji o już znalezionych rozwiązaniach 
-w przypadku generowania nowego, dzięki czemu wygenerowane rozwiązania nie przybliżają
-go do optimum.
 
 \subsubsection{Algorytm Greedy i Steepest}
 
@@ -121,7 +88,30 @@ znalezionego. dzięki temu nie zbliża się gwałtownie do żadnego z optimów l
 raczej przeszukuje obszar tak długo, aż znajdzie ślepy zaułek.
 
 
-\subsection{Czas działania}
+\subsubsection{Algorytm losowy}
+
+Jak wspomniano wczesniej, algorytm losowy zwracał najgorsze rozwiązania spośród
+opisywanych algorytmów. Słabość tego algorytmu wiąże się z jego niedeterminizmem
+oraz brak możliwości wykorzystania sprawdzonych rozwiązań do poprawy jakości
+rozwiązań. Algorytm ten nie oferuje przeszukiwania lokalnego. Każde rozwiązanie
+generowane jest od nowa, co skutkuje brakiem systematycznego przybliżania
+się do optimum, zarówno lokalnego, jak i rozwiązania optymalnego.
+
+W przypadku małych instancji danych wejściowych algorytm zwraca wyniki, które
+dużo bardziej pasują do oczekiwanych rezultatów. Niestety wzrost rozmiaru
+instancji powoduje, że otrzymywane rozwiązania stają się co raz gorsze
+pomimo zwiększania ilości losowań. Taki stan rzeczy jest ściśle
+związany z bardzo dużą przestrzenią rozwiązań, która rośnie wykładniczo
+w zależności od rozmiaru instancji.
+
+Prawdopodobieństwo znalezienia rozwiązania optymalnego przez algorytm
+losowy w przypadku dużych instancji problemu wydaje się
+być niemal zerowe. Liczba permutacji ustawień poszczególnych wierzchołków
+z grafu danych wejściowych jest bardzo duża, a osiągnięcie odpowiednich
+rezultatów wiązałoby się z ogromną ilością losowań, co byłoby niezmiernie
+mało efektywne.
+
+\subsection{Czas wykonywania algorytmów}
 
 \it
 W zestawieniu nie został ujęty prosty algorytm heurystyczny z poowdu zbyt krótkich czasów 

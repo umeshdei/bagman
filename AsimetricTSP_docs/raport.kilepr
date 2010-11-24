@@ -3,7 +3,7 @@ def_graphic_ext=eps
 img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
-kileversion=2.0.85
+kileversion=2.0
 lastDocument=2.porownanie.tex
 masterDocument=
 name=raport
@@ -82,17 +82,17 @@ ReadWrite=true
 
 [item:0.opis.tex]
 archive=true
-column=73
+column=72
 encoding=UTF-8
 highlight=LaTeX
-line=25
+line=45
 mode=LaTeX
 open=true
 order=1
 
 [item:1.sasiedztwo.tex]
 archive=true
-column=68
+column=40
 encoding=UTF-8
 highlight=LaTeX
 line=11
@@ -102,32 +102,32 @@ order=2
 
 [item:2.porownanie.tex]
 archive=true
-column=13
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=32
+line=209
 mode=LaTeX
 open=true
 order=5
 
 [item:6.wnioski.tex]
 archive=true
-column=59
+column=28
 encoding=UTF-8
 highlight=LaTeX
-line=29
+line=113
 mode=LaTeX
 open=true
-order=7
+order=6
 
 [item:7.trudnosci.tex]
 archive=true
-column=56
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=9
+line=20
 mode=LaTeX
-open=true
+open=false
 order=6
 
 [item:raport.kilepr]
@@ -152,10 +152,10 @@ order=0
 
 [item:tytulowa.tex]
 archive=true
-column=21
+column=52
 encoding=UTF-8
 highlight=LaTeX
-line=25
+line=8
 mode=LaTeX
 open=true
 order=3
