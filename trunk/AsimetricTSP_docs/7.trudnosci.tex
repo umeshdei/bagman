@@ -1,10 +1,20 @@
 \section{Napotkane trudności}
 
+\subsection{Błędy implementacji}
+
+W czasie implementacji rozwiązania nie obyło się bez problemów. Bardzo
+dużo kłopotów przyspożyły trudne do zlokalizowania bugi. W lokalizacji
+pomogło narzędzie gdb, dzieki któremu można było dokonać krok po kroku
+fragmenty programu, co do których było podejrzenie że działają niepoprawnie.
+Dodatkowo, pomocna okazała się także analiza napisanego wcześniej kodu,
+a także inspekcje kodu przeprowadzone w sposób kontroli krzyżowej
+przez twórców rozwiązania.
+
 \subsection{Format plików TSP}
 
-Jedną z większych trudności napotkanych podczas pracy nad programem 
-była obsługa plików z rozszerzeniem .tsp. Wymagane one były, aby sprawdzić
-jak dokładne wyniki znajdują zaproponowane przez autorów algorytmy. Niestety
-nie istnieje biblioteka, która umożliwiła by łatwe wczytanie tychże plików, 
-jaki dostęp do danych znajdujących w nich. Autorzy byli zmuszeni napisać własny
-parser, który niestety nie obsługiwał wszystkich plików. 
+Spore trudności podczas pracy były również związane z obsługą plików 
+zawierających przykładowe instancjie problemu TSP, pobrane ze strony
+internetowej \url{http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/}.
+Nie można było znaleźć biblioteki umożliwiającej sprawne przetwarzanie
+plików wejściowych pobranych ze wskazanego źródła. Konieczna okazała
+się implementacja własnego modułu pozwalającego zaczytać dane.
