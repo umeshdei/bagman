@@ -12,6 +12,7 @@
 #include "solver/TSPSteepestSolver.h"
 #include "solver/TSPGreedySolver.h"
 #include "solver/TSPGreedySolver2.h"
+#include "solver/TSPSimulatedAnnealing.h"
 
 #include "tsp.h"
 
@@ -19,6 +20,7 @@
 #define GREEDY2    1 << 2
 #define RANDOM     1 << 3
 #define STEEPEST   1 << 4
+#define SIMULATED_ANNEALING 1 << 5
 
 using namespace std;
 
@@ -87,7 +89,7 @@ Result *run_steepest(Instance *instance, u_int32_t stepsCount, string &output)
 	Result *res;
 	Timer timer;
 
-//	cout << "STEEPEST" << endl;
+	//cout << "STEEPEST" << endl;
 
 	steepestSolver = new TSPSteepestSolver(instance, output);
 	steepestSolver->setStepsCount(stepsCount);
@@ -118,6 +120,27 @@ Result *run_random(Instance *instance, u_int32_t randomStepsCount, string &outpu
 			instance->calculateMinLimit(), res->getBetterSolutionsCount(), res->getStepsCount());
 	//res->print();
 	delete randomSolver;
+
+	return res;
+}
+
+Result *run_simulated_annealing(Instance *instance, u_int32_t stepsCount, string &output)
+{
+	TSPSimulatedAnnealing *saSolver;
+	Result *res;
+	Timer timer;
+
+//	cout << "SIMULATED_ANNEALING" << endl;
+
+	saSolver = new TSPSimulatedAnnealing(instance, output);
+	saSolver->setNumberOfSteps(stepsCount);
+	timer.start();
+	res = saSolver->solve();
+	printf("%f %d %d %d %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
+			instance->calculateMinLimit(), res->getBetterSolutionsCount(), res->getStepsCount(),
+			res->getNeighborsVisited());
+	//res->print();
+	delete saSolver;
 
 	return res;
 }
@@ -174,6 +197,10 @@ void run_heuristics(cmd_parameters_t params)
 			res = run_random(instance, params.max_iterations, params.output_filename);
 			delete res;
 		}
+		if (params.solution & SIMULATED_ANNEALING)
+		{
+			res = run_simulated_annealing(instance, params.max_iterations, params.output_filename);
+		}
 	}
 
 	//instance->saveToFile("jakis_plik")
@@ -204,7 +231,7 @@ void command_line_parameters(int argc, char *argv[])
 			{ 0, 0, 0, 0 },
 		};
 
-		c = getopt_long(argc, argv, "l:o:s:i:gteradw", long_options, &option_index);
+		c = getopt_long(argc, argv, "l:o:s:i:mgteradw", long_options, &option_index);
 		if (c == -1)
 			break;
 
@@ -226,6 +253,9 @@ void command_line_parameters(int argc, char *argv[])
 			break;
 		case 't':
 			params.solution = params.solution | STEEPEST;
+			break;
+		case 'm':
+			params.solution = params.solution | SIMULATED_ANNEALING;
 			break;
 		case 'a':
 			params.solution = params.solution | GREEDY | GREEDY2 | RANDOM | STEEPEST;

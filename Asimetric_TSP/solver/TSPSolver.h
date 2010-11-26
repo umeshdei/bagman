@@ -28,7 +28,7 @@ public:
 	virtual Result *solve() = 0;
 
 	u_int32_t getNumberOfSteps() { return numberOfSteps; }
-//	u_int32_t get
+	void setNumberOfSteps(u_int32_t stepsNumber) {numberOfSteps = stepsNumber;}
 
 protected:
 	Result *generateRandomResult();
