@@ -28,6 +28,17 @@ void Result::print(bool only_distance)
 	printf(" (distance: %d)\n", _calculatedDistance);
 }
 
+void Result::swapRandomly() {
+	int i;
+	int j;
+	i = (int)( rand()*this->size() ) % this->size();
+	j = (int)( rand()*this->size() ) % this->size();
+	//cout << this->size() << endl;
+	//cout << (*this)[i] << endl;
+	//cout << "zamieniam: " << i << " z " << j << endl;
+	std::swap((*this)[i], (*this)[j]);
+}
+
 Result::~Result()
 {
 

@@ -29,6 +29,7 @@ public:
 	u_int32_t getBetterSolutionsCount() { return _betterSolutions; }
 	void setStepsCount(u_int32_t n) { _stepsCount = n; }
 	u_int32_t getStepsCount() { return _stepsCount; }
+	void swapRandomly();
 	map<double, u_int32_t> *getScores() { return &_scores; }
 	virtual ~Result();
 
