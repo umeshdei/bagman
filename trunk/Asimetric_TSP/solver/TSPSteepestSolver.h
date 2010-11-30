@@ -26,6 +26,7 @@ protected:
 	u_int32_t _stepsCount;
 private:
 	Result *checkNeighbours(Result*);
+	u_int32_t neighorsVisited, betterSolutionsCount;
 };
 
 #endif /* TSPSTEEPESTSOLVER_H_ */

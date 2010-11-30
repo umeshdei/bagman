@@ -11,6 +11,10 @@ Point::Point(u_int32_t x, u_int32_t y) : _x(x), _y(y)
 {
 }
 
+Point::Point() : _x(-1), _y(-1)
+{
+}
+
 void Point::setLabel(std::string &label)
 {
 	_label = std::string(label);
