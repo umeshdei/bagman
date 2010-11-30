@@ -12,12 +12,14 @@ TSPSteepestSolver::TSPSteepestSolver(Instance *inst, string output) : TSPSolver(
 {
 	TSPSolver::_instance = inst;
 	saver = new TSPDataSaver(output.c_str(), inst);
+	neighorsVisited = 0, betterSolutionsCount = 0;
 }
 
 TSPSteepestSolver::TSPSteepestSolver(u_int32_t size, string output) : TSPSolver(output)
 {
 	_instance = Instance::generateRandomInstance(size);
 	saver = new TSPDataSaver(output.c_str(), _instance);
+	neighorsVisited = 0, betterSolutionsCount = 0;
 }
 
 void TSPSteepestSolver::setStepsCount(u_int32_t stepsCount)
@@ -25,8 +27,6 @@ void TSPSteepestSolver::setStepsCount(u_int32_t stepsCount)
 	_stepsCount = stepsCount;
 }
 
-
-u_int32_t neighorsVisited = 0, betterSolutionsCount = 0;
 /**
  * funkcja wybierajaca najlepszego z sasiadujacych rozwiazan
  */
@@ -76,9 +76,10 @@ Result *TSPSteepestSolver::solve()
 	u_int32_t bestDistance;
 	Result *curr;
 	Result *best;
+	/*
 	neighorsVisited = 0;
 	betterSolutionsCount = 0;
-
+*/
 	frequency = FREQUENCY_SAVER;
 
 	curr = generateRandomResult();

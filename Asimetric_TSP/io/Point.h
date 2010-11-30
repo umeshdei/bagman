@@ -19,9 +19,12 @@ class Point
 {
 public:
 	Point(u_int32_t x, u_int32_t y);
+	Point();
 	void setLabel(std::string &label);
 	u_int32_t getX() { return _x; }
 	u_int32_t getY() { return _y; }
+	void setX(u_int32_t x) { _x = x; }
+	void setY(u_int32_t y) { _y = y; }
 	void setNum(u_int32_t num) { _num = num; }
 	u_int32_t getNum() { return _num; };
 	float calcDistance(Point &p);

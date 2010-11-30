@@ -13,6 +13,7 @@
 #include "solver/TSPGreedySolver.h"
 #include "solver/TSPGreedySolver2.h"
 #include "solver/TSPSimulatedAnnealing.h"
+#include "solver/TSPTabuSearchSolver.h"
 
 #include "tsp.h"
 
@@ -21,6 +22,7 @@
 #define RANDOM     1 << 3
 #define STEEPEST   1 << 4
 #define SIMULATED_ANNEALING 1 << 5
+#define TABU_SEARCH 1 << 6
 
 using namespace std;
 
@@ -145,6 +147,27 @@ Result *run_simulated_annealing(Instance *instance, u_int32_t stepsCount, string
 	return res;
 }
 
+Result *run_tabu_search(Instance *instance, u_int32_t stepsCount, string &output)
+{
+	TSPTabuSearchSolver *tsSolver;
+	Result *res;
+	Timer timer;
+
+//	cout << "TABU_SEARCH" << endl;
+
+	tsSolver = new TSPTabuSearchSolver(instance, output);
+	tsSolver->setNumberOfSteps(stepsCount);
+	timer.start();
+	res = tsSolver->solve();
+	printf("%f %d %d %d %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
+			instance->calculateMinLimit(), res->getBetterSolutionsCount(), res->getStepsCount(),
+			res->getNeighborsVisited());
+	//res->print();
+	delete tsSolver;
+
+	return res;
+}
+
 void run_heuristics(cmd_parameters_t params)
 {
 	Instance *instance;
@@ -201,6 +224,10 @@ void run_heuristics(cmd_parameters_t params)
 		{
 			res = run_simulated_annealing(instance, params.max_iterations, params.output_filename);
 		}
+		if (params.solution & TABU_SEARCH)
+		{
+			res = run_tabu_search(instance, params.max_iterations, params.output_filename);
+		}
 	}
 
 	//instance->saveToFile("jakis_plik")
@@ -231,7 +258,7 @@ void command_line_parameters(int argc, char *argv[])
 			{ 0, 0, 0, 0 },
 		};
 
-		c = getopt_long(argc, argv, "l:o:s:i:mgteradw", long_options, &option_index);
+		c = getopt_long(argc, argv, "l:o:s:i:bmgteradw", long_options, &option_index);
 		if (c == -1)
 			break;
 
@@ -256,6 +283,9 @@ void command_line_parameters(int argc, char *argv[])
 			break;
 		case 'm':
 			params.solution = params.solution | SIMULATED_ANNEALING;
+			break;
+		case 'b':
+			params.solution = params.solution | TABU_SEARCH;
 			break;
 		case 'a':
 			params.solution = params.solution | GREEDY | GREEDY2 | RANDOM | STEEPEST;
