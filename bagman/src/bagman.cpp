@@ -19,6 +19,8 @@
 #include "heuristics/Steepest.h"
 #include "heuristics/Greedy.h"
 #include "heuristics/Own.h"
+#include "heuristics/Tabu.h"
+#include "heuristics/SA.h"
 
 #include "bagman.h"
 #include "tsp/tsplib.h"
@@ -29,6 +31,14 @@ using namespace std;
 int iChosenSolution = -1;
 int iMaxNumberOfIteretion = 0;
 bool DEBUG = false;
+
+char *strjoin(char *c1, char* c2) {
+	char *ret = new char[strlen(c1) + strlen(c2) +1];
+	strcpy(ret, c1);
+	strcpy(ret + strlen(c1), c2);
+	ret[strlen(c1) + strlen(c2)] = '\0';
+	return ret;
+}
 
 int main(int argc, char **argv) {
 	char *caSaveFileName = NULL;
@@ -64,7 +74,7 @@ int main(int argc, char **argv) {
 				//					{ "version", 0, 0, 0 },
 				{ "help", 0, 0, 0 }, { 0, 0, 0, 0 } };
 
-		c = getopt_long(argc, argv, "gl:s:i:terpo:dw", long_options, &option_index);
+		c = getopt_long(argc, argv, "gl:s:i:teabrpo:dw", long_options, &option_index);
 		if (c == -1)
 			break;
 
@@ -96,6 +106,8 @@ int main(int argc, char **argv) {
 				cout << "\t-t \t\t\tUse steepest algorithm." << endl;
 				cout << "\t-e \t\t\tUse greedy algorithm." << endl;
 				cout << "\t-w \t\t\tUse own algorithm." << endl;
+				cout << "\t-a \t\t\tUse SA- algorithm." << endl;
+				cout << "\t-b \t\t\tUse SA- algorithm." << endl;
 				cout << "\t-i \t\t\tNumber of iteration." << endl;
 				cout << "\t-d \t\t\tPrint debug." << endl;
 				exit(0);
@@ -141,6 +153,20 @@ int main(int argc, char **argv) {
 				exit(1);
 			}
 			iChosenSolution = OWNSOLUTION;
+			break;
+		case 'a':
+			if (iChosenSolution != -1) {
+				cerr << "You can choose only one algorithm!" << endl;
+				exit(1);
+			}
+			iChosenSolution = SA_;
+			break;
+		case 'b':
+			if (iChosenSolution != -1) {
+				cerr << "You can choose only one algorithm!" << endl;
+				exit(1);
+			}
+			iChosenSolution = TABU;
 			break;
 		case 'o':
 			caSaveFileName = strdup(optarg);
@@ -213,7 +239,7 @@ int main(int argc, char **argv) {
 	cout << gen->calculateWholeDistance(vec) << endl;
 
 	srand(time(NULL));
-
+	if (iChosenSolution != SA_) {
 	Calculation *calc;
 
 	switch (iChosenSolution) {
@@ -229,6 +255,9 @@ int main(int argc, char **argv) {
 	case RANDOM:
 			calc = new RandomCalculation(caSaveFileName);
 			break;
+	case TABU:
+			calc = new Tabu((unsigned int)(gen->getNumberOfCities() / 10),  70, iMaxNumberOfIteretion, caSaveFileName);
+			break;
 	default:
 		cerr << "Internal ERROR! Unknown algorithm!" << endl;
 		exit(1);
@@ -236,12 +265,23 @@ int main(int argc, char **argv) {
 
 
 	vec = (iMaxNumberOfIteretion) ? calc->solve(gen, iMaxNumberOfIteretion, caLoadTableFileName) : calc->solve(gen, caLoadTableFileName);
+	//delete calc;
+
+	}
+	else
+	{
+		SA *s = new SA();
+		s->solve(gen, caLoadTableFileName, iMaxNumberOfIteretion, 0.95, caSaveFileName);
+		//delete s;
+		//s = new SA();
+		//s->solve(gen, strjoin(caLoadTableFileName, ".95"), iMaxNumberOfIteretion, 0.95, strjoin(caSaveFileName,".99"));
+		//delete s;
+	}
 	if (DEBUG)
 		gen->DEBUG_printTrace(vec);
-	delete calc;
 	cout << "Best known solution: " << gen->calculateWholeDistance(vec) << endl;
 
-	delete gen;
+	//delete gen;
 
 	return 0;
 }
