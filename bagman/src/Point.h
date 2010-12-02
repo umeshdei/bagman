@@ -20,6 +20,8 @@ public:
 	virtual ~Point();
 	int getX();
 	int getY();
+
+	int operator==(Point &cmp) {return (cmp._iX == this->_iX) && (cmp._iY == this->_iY);}
 private:
 	Point();
 	void setX(int piX);

@@ -16,6 +16,9 @@ class Transformation {
 public:
 	virtual bool getNext(vector<int> **outNext) = 0;
 	virtual void reset(vector<int> *baseVec) = 0;
+	virtual bool hasNext() = 0;
+	virtual void moveNext() = 0;
+	virtual void next(vector<int> **outNext) = 0;
 };
 
 #endif /* TRANSFORMATION_H_ */
