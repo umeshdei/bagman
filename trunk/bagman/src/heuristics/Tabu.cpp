@@ -8,8 +8,8 @@
 #include "Tabu.h"
 
 //neighSearched is a unsigned int from <1; 100>. It is a % value, indicates % of neighbourhood searched.
-Tabu::Tabu(unsigned int tabuSize, unsigned int neighSearched, unsigned int iterationsNo):
-_tabuSize(tabuSize), _neighSerchPercent(neighSearched), _iterationsNo(iterationsNo) {
+Tabu::Tabu(unsigned int tabuSize, unsigned int neighSearched, unsigned int iterationsNo, string strSave):
+Calculation(strSave), _tabuSize(tabuSize), _neighSerchPercent(neighSearched), _iterationsNo(iterationsNo) {
 	distanceMax = -10000000;
 }
 

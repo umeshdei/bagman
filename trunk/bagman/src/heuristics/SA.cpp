@@ -6,7 +6,7 @@
  */
 
 #include "SA.h"
-
+#include "string.h"
 SA::SA() {
 	// TODO Auto-generated constructor stub
 
@@ -16,13 +16,13 @@ SA::~SA() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, double cRate) {
+vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, double cRate, string strSave) {
 	vector<int> *res = pgenData->getRandomResult();
 	vector<int> *nextOrder;
 	int distance = pgenData->calculateWholeDistance(res);
 	DataSaver itSaver(ovFileName + ".sa.vec");
 	DataSaver tmSaver(ovFileName + ".sa.tm");
-	DataSaver ovallSaver("results_ecu_2d/sa.all", ios_base::out|ios_base::app);
+	DataSaver ovallSaver(strSave, ios_base::out|ios_base::app);
 	Timer tm;
 
 	double temperature = maxT;
