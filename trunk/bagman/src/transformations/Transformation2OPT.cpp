@@ -22,12 +22,35 @@ Transformation2OPT::~Transformation2OPT() {
 	}
 }
 
+bool Transformation2OPT::hasNext() {
+	if (_end) {
+		return false;
+	}
+	return true;
+}
+
+void Transformation2OPT::moveNext() {
+	if (++_j == _base->size()) {
+		if (++_i == (_base->size()-1)) {
+			_end = true;
+			return;
+		}
+		_j = _i + 1;
+	}
+}
+
 bool Transformation2OPT::getNext(vector<int> **outNext) {
 	if (_end) {
 		outNext = NULL;
 		return false;
 	}
 
+	this->next(outNext);
+
+	return true;
+}
+
+void Transformation2OPT::next(vector<int> **outNext) {
 	//first swap
 	*outNext = new vector<int>(*_base);
 	int tmp;
@@ -39,11 +62,10 @@ bool Transformation2OPT::getNext(vector<int> **outNext) {
     if (++_j == _base->size()) {
     	if (++_i == (_base->size()-1)) {
 			_end = true;
+			return;
     	}
     	_j = _i + 1;
     }
-
-	return true;
 }
 
 void Transformation2OPT::reset(vector<int> *baseVec) {
