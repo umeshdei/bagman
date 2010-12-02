@@ -23,7 +23,7 @@ public:
 	virtual ~SA();
 
 	//cRate = cooling rating
-	vector<int> *solve(Generate *pgenData, string ovFileName, double maxT, double cRate);
+	vector<int> *solve(Generate *pgenData, string ovFileName, double maxT, double cRate, string strSave);
 
 private:
 	//returns random number between <0;1>.

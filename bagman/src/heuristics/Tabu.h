@@ -24,7 +24,7 @@ using namespace std;
 
 class Tabu : public Calculation {
 public:
-	Tabu(unsigned int tabuSize, unsigned int neighSearched, unsigned int iterationsNo);
+	Tabu(unsigned int tabuSize, unsigned int neighSearched, unsigned int iterationsNo, string strSave);
 	virtual ~Tabu();
 
 	virtual vector<int> *solve(Generate *pgenData, string ovFileName);
