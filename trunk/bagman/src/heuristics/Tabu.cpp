@@ -39,6 +39,8 @@ vector<int> *Tabu::solve(Generate *pgenData, string ovFileName) {
 
 	_ovallSaver->saveOverallLine(ovFileName, _timer.getRunTime(), 0, 0, bestScore);
 
+	cout << "%: " << _neighSerchPercent << endl;
+
 	for (unsigned int i = 0; i < _iterationsNo; i++) {
 		t->reset(actualBest);
 		actualBestDist = distanceMax;
@@ -54,8 +56,9 @@ vector<int> *Tabu::solve(Generate *pgenData, string ovFileName) {
 
 				//check tabu list
 				if (!tabuList.checkMove(&move)) {
+					//cout <<"on tabu" <<endl;
 					//check aspiration criteria and continue
-					if ((currScore > bestScore) && (currDist > actualBestDist) ) {
+					if ((currScore < bestScore) && (currDist > actualBestDist) ) {
 						delete actualBest;
 						delete best;
 
@@ -89,12 +92,16 @@ vector<int> *Tabu::solve(Generate *pgenData, string ovFileName) {
 			}
 
 		}
+		//update tabu list
+		tabuList.update(&actualBestSwap);
 
-		if (actualBestScore > bestScore) {
+		//cout <<i << " : " << actualBestDist <<" : " << actualBestScore << " : " <<bestScore << endl;
+		if (actualBestScore < bestScore) {
 			delete best;
+			best = new vector<int>(*actualBest);
 			bestScore = actualBestScore;
 		}
-		_ovallSaver->saveOverallLine(ovFileName, _timer.getRunTime(), i+1, noSeenN, bestScore);
+		_ovallSaver->saveTabuLine(ovFileName, _timer.getRunTime(), i+1, noSeenN, actualBestScore ,bestScore);
 	}
 
 	vSaver->saveLine("tabu", best);

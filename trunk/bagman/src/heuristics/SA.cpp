@@ -16,8 +16,23 @@ SA::~SA() {
 	// TODO Auto-generated destructor stub
 }
 
+bool cmp_vector(vector<int> *p, vector<int> *q) {
+	for (unsigned int i = 0; i < p->size(); i++) {
+		if (p[i] != q[i])
+			return false;
+	}
+	return true;
+}
+
+void printvector(vector<int> *p) {
+	for (vector<int>::iterator it = p->begin(); it != p->end(); it++)
+		cout <<"["<<*it<<"]";
+	cout <<endl;
+}
+
 vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, double cRate, string strSave) {
 	vector<int> *res = pgenData->getRandomResult();
+	vector<int> *best = new vector<int>(*res);
 	vector<int> *nextOrder;
 	int distance = pgenData->calculateWholeDistance(res);
 	DataSaver itSaver(ovFileName + ".sa.vec");
@@ -39,6 +54,9 @@ vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, doubl
     if (pgenData->getNumberOfCities() < 2) {
     	return NULL;
     }
+
+    //cout << fixed << "temperature: " <<temperature << " abs: " << absoluteTemperature << endl;
+    //cout << "cRate: " << cRate << endl;
 
     while (temperature > absoluteTemperature)
     {
@@ -63,26 +81,34 @@ vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, doubl
         if ((deltaDistance < 0) ||
         		(distance > 0 && exp(((double)(-deltaDistance) / temperature)) > SA::nextDouble()))
         {
+        	//cout <<"new result" << endl;
             delete res;
             res = nextOrder;
             distance = deltaDistance + distance;
             if (deltaDistance < 0) {
+            	//cout << "new shortest: " <<distance << endl;
+            	delete best;
+            	best = new vector<int>(*nextOrder);
 				shortest = distance;
             }
+        } else {
+        	delete nextOrder;
         }
 
         //cool down the temperature
         temperature *= cRate;
 
-        ovallSaver.saveOverallLine(ovFileName, tm.getRunTime(), iteration, iteration+1, distance);
+        ovallSaver.saveOverallLine(ovFileName, tm.getRunTime(), iteration +1, iteration+1, distance);
         tmSaver.saveLine(tm.getRunTime(), distance);
         itSaver.saveLine(iteration, distance);
 
         iteration++;
     }
+    cout << "iterations: " << iteration << " : " << shortest << endl;
 
-    shortest = distance;
-	return res;
+
+    delete res;
+	return best;
 }
 
 

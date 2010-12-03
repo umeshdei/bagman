@@ -31,7 +31,7 @@ public:
 	virtual vector<int> *solve(Generate *pgenData, unsigned int pintMaxIterCount, string ovFileName);
 
 private:
-	inline int distanceFromBest(int best, int current) { return current - best; }
+	inline int distanceFromBest(int best, int current) { return best - current; }
 	unsigned int _tabuSize;
 	unsigned int _neighSerchPercent;
 	unsigned int _iterationsNo;

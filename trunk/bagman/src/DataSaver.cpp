@@ -42,6 +42,11 @@ void DataSaver::saveOverallLine(string pstrFName, double pdTime, int piSteps, in
 	_WorkingFile << fixed << pstrFName << "\t" << pdTime << "\t" << piSteps << "\t" << piSeenS << "\t" << score << std::endl;
 }
 
+void DataSaver::saveTabuLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score, int best) {
+	_WorkingFile << fixed << pstrFName << "\t" << pdTime << "\t" << piSteps << "\t" << piSeenS << "\t" << score
+			<< "\t" << best << std::endl;
+}
+
 DataSaver* DataSaver::GetIterationFile(string pstrFName) {
 	DataSaver *result = new DataSaver(pstrFName, ios_base::out|ios_base::app);
 	//result->insIterationTempate();

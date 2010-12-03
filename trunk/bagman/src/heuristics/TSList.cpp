@@ -24,17 +24,16 @@ void TSList::update(TSSwap *move) {
 		delete tmp;
 		_container.pop_front();
 	}
-	_container.push_back(move);
+	_container.push_back(new TSSwap(*move));
 }
 
 bool TSList::checkMove(TSSwap *move) {
 	//if tabu list contains move return false
 	for( list<TSSwap*>::iterator it = _container.begin(); it != _container.end(); it++) {
-		if ( *(*it) == *move) {
+		if ( **it == *move) {
 			return false;
 		}
 	}
-
 	return true;
 }
 
