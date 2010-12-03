@@ -38,7 +38,6 @@ public:
 	 */
 	static DataSaver* GetOverallFile(string pstrFName);
 
-
 	inline void open() {
 		_WorkingFile.open(_FileName.c_str(), ios_base::out|ios_base::app);
 	}
@@ -54,6 +53,8 @@ public:
 	void saveLine(string strAlgorithm, vector<int> *solution);
 
 	void saveOverallLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score);
+
+	void saveTabuLine(string pstrFName, double pdTime, int piSteps, int piSeenS, int score, int best);
 
 private:
 
