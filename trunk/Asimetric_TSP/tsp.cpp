@@ -36,6 +36,13 @@ typedef struct cmd_parameters_t_
 	Instance *instance;
 	bool tspLib;
 
+	//for simulated anealing only
+	double start_temperature;
+	double end_temperature;
+	double alpha;
+	u_int32_t max_bad_moves;
+	u_int32_t tabu_list_size;
+
 	cmd_parameters_t_()
 	{
 		tspLib = false;
@@ -45,6 +52,11 @@ typedef struct cmd_parameters_t_
 		filename = string("");
 		output_filename = string("output");
 		instance = NULL;
+		start_temperature = 0.0;
+		end_temperature = 0.0;
+		alpha = 0.0;
+		max_bad_moves = 0;
+		tabu_list_size = 20;
 	}
 } cmd_parameters_t;
 
@@ -79,7 +91,7 @@ Result *run_greedy2(Instance *instance, string &output)
 	res = greedySolver2->solve();
 	printf("%f %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
 			instance->calculateMinLimit());
-	//res->print();
+//	res->print();
 	delete greedySolver2;
 
 	return res;
@@ -126,7 +138,7 @@ Result *run_random(Instance *instance, u_int32_t randomStepsCount, string &outpu
 	return res;
 }
 
-Result *run_simulated_annealing(Instance *instance, u_int32_t stepsCount, string &output)
+Result *run_simulated_annealing(Instance *instance, u_int32_t stepsCount, string &output, cmd_parameters_t params)
 {
 	TSPSimulatedAnnealing *saSolver;
 	Result *res;
@@ -136,6 +148,14 @@ Result *run_simulated_annealing(Instance *instance, u_int32_t stepsCount, string
 
 	saSolver = new TSPSimulatedAnnealing(instance, output);
 	saSolver->setNumberOfSteps(stepsCount);
+	if (params.start_temperature > 0)
+		saSolver->setStartTemperature(params.start_temperature);
+	if (params.end_temperature > 0)
+		saSolver->setEndTemperature(params.end_temperature);
+	if (params.alpha > 0)
+		saSolver->setAlpha(params.alpha);
+	if (params.max_bad_moves > 0)
+		saSolver->setMaxBadMoves(params.max_bad_moves);
 	timer.start();
 	res = saSolver->solve();
 	printf("%f %d %d %d %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
@@ -147,7 +167,7 @@ Result *run_simulated_annealing(Instance *instance, u_int32_t stepsCount, string
 	return res;
 }
 
-Result *run_tabu_search(Instance *instance, u_int32_t stepsCount, string &output)
+Result *run_tabu_search(Instance *instance, u_int32_t stepsCount, string &output, cmd_parameters_t params)
 {
 	TSPTabuSearchSolver *tsSolver;
 	Result *res;
@@ -155,8 +175,10 @@ Result *run_tabu_search(Instance *instance, u_int32_t stepsCount, string &output
 
 //	cout << "TABU_SEARCH" << endl;
 
-	tsSolver = new TSPTabuSearchSolver(instance, output);
+	tsSolver = new TSPTabuSearchSolver(instance, output, params.tabu_list_size);
 	tsSolver->setNumberOfSteps(stepsCount);
+	if (params.max_bad_moves > 0)
+		tsSolver->setMaxBadMoves(params.max_bad_moves);
 	timer.start();
 	res = tsSolver->solve();
 	printf("%f %d %d %d %d %d\n", timer.getRunTime(), res->getCalculatedDistance(),
@@ -222,11 +244,11 @@ void run_heuristics(cmd_parameters_t params)
 		}
 		if (params.solution & SIMULATED_ANNEALING)
 		{
-			res = run_simulated_annealing(instance, params.max_iterations, params.output_filename);
+			res = run_simulated_annealing(instance, params.max_iterations, params.output_filename, params);
 		}
 		if (params.solution & TABU_SEARCH)
 		{
-			res = run_tabu_search(instance, params.max_iterations, params.output_filename);
+			res = run_tabu_search(instance, params.max_iterations, params.output_filename, params);
 		}
 	}
 
@@ -255,6 +277,11 @@ void command_line_parameters(int argc, char *argv[])
 			{ "help", 0, 0, 0 },
 			{ "generate", 0, 0, 0 },
 			{ "tsp", 0, 0, 0 },
+			{ "start_temperature", 1, 0, 0 },
+			{ "end_temperature", 1, 0, 0 },
+			{ "alpha", 1, 0, 0 },
+			{ "bad_moves", 1, 0, 0 },
+			{ "tabu_size", 1, 0, 0 },
 			{ 0, 0, 0, 0 },
 		};
 
@@ -268,6 +295,16 @@ void command_line_parameters(int argc, char *argv[])
 				generate = true;
 			else if (strcmp(long_options[option_index].name, "tsp") == 0)
 				params.tspLib = true;
+			else if (strcmp(long_options[option_index].name, "start_temperature") == 0)
+				params.start_temperature = atof(optarg);
+			else if (strcmp(long_options[option_index].name, "end_temperature") == 0)
+				params.end_temperature = atof(optarg);
+			else if (strcmp(long_options[option_index].name, "alpha") == 0)
+				params.alpha = atof(optarg);
+			else if (strcmp(long_options[option_index].name, "bad_moves") == 0)
+				params.max_bad_moves = atoi(optarg);
+			else if (strcmp(long_options[option_index].name, "tabu_size") == 0)
+				params.tabu_list_size = atoi(optarg);
 			break;
 		case 'g':
 			params.solution = params.solution | GREEDY;
