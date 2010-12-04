@@ -8,7 +8,7 @@
 #ifndef TABULIST_H_
 #define TABULIST_H_
 
-#define TABU_SIZE 20
+#define DEFAULT_TABU_SIZE 20
 
 #include <list>
 #include "Point.h"
@@ -18,7 +18,7 @@ using namespace std;
 
 class TabuList {
 public:
-	TabuList();
+	TabuList(u_int32_t size = DEFAULT_TABU_SIZE);
 	virtual ~TabuList();
 	void addToList(Point *p);
 	bool isInTabu(Point *p);

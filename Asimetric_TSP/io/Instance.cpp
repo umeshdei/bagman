@@ -70,7 +70,7 @@ void Instance::readEdges(Instance *instance, ifstream *instanceFile)
 			}
 			//cout << "wpisuje: do " << i << ", " << j << ": " << wayLength << endl;
 			instance->_distanceMatrix[i][j] = wayLength;
-			instance->_distanceMatrix[j][i] = wayLength;
+			//instance->_distanceMatrix[j][i] = wayLength;
 			j++;
 		}
 		instanceFile->getline(str, 255);
