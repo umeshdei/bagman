@@ -52,10 +52,10 @@ awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max =
 			avg_czas += czasy[i];
 		}
 		avg /= (count);
-		match(nazwa, /([a-zA-Z0-9]*).*/, arr)
+		match(nazwa, /([a-zA-Z0-9]*).*/, arr);
 		avg_p = (avg - c[arr[1]]) / c[arr[1]] * 100 ; 
 		avg_czas /= (count);	
-		ef = (avg_p * avg_czas)
+		ef = (avg_p * avg_czas);
 		print nazwa \"\t\" avg_p \"\t\" avg_czas \"\t\" ef
 	
 	}" $1
