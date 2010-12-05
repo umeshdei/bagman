@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=2.porownanie.tex
+lastDocument=6.wnioski.tex
 masterDocument=
 name=raport
 pkg_extIsRegExp=false
@@ -82,10 +82,10 @@ ReadWrite=true
 
 [item:0.opis.tex]
 archive=true
-column=72
+column=22
 encoding=UTF-8
 highlight=LaTeX
-line=45
+line=20
 mode=LaTeX
 open=true
 order=1
@@ -102,10 +102,10 @@ order=2
 
 [item:2.porownanie.tex]
 archive=true
-column=0
+column=11
 encoding=UTF-8
 highlight=LaTeX
-line=209
+line=41
 mode=LaTeX
 open=true
 order=5
@@ -115,20 +115,20 @@ archive=true
 column=28
 encoding=UTF-8
 highlight=LaTeX
-line=113
+line=47
 mode=LaTeX
 open=true
 order=6
 
 [item:7.trudnosci.tex]
 archive=true
-column=0
+column=13
 encoding=UTF-8
 highlight=LaTeX
-line=20
+line=16
 mode=LaTeX
-open=false
-order=6
+open=true
+order=7
 
 [item:raport.kilepr]
 archive=true
@@ -142,10 +142,10 @@ order=-1
 
 [item:raport.tex]
 archive=true
-column=21
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=10
+line=32
 mode=LaTeX
 open=true
 order=0
