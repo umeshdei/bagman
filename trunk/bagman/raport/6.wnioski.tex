@@ -96,6 +96,23 @@ Greedy natomiast wybiera pierwsze znalezione rozwiązanie, które jest lepsze od
 znalezionego, dzięki temu nie zbliża się gwałtownie do żadnego z optimów lokalnych, lecz 
 raczej przeszukuje obszar tak długo, aż znajdzie ślepy zaułek.
 
+\subsubsection{Algorytm Tabu search}
+
+Algorytm ten jest w swoim działaniu przybliżony do działania algorytmów Greedy i Steepest.
+Jest on jednak pozbawiony ich głównej wady, a mianowicie łatwej możliwości utknięcia w 
+minimum lokalnym. Zakłada on możliwość pogorszenia wyniku, lecz dzięki posiadanej liście 
+tabu nie będzie on działał na tych samych wierzchołkach, lecz przechodził do jeszcze nie 
+odwiedzanych. Dzięki temu będzie mógł uniknąć utknięcia w minimum lokalnym, celem znalezienia
+minimum globalnego.
+
+\subsubsection{Algorytm symulowane wyżarzanie}
+
+Podobnie jak algorytm Tabu search algorytm ten pozbawiony jest ryzyka utknięcia w minimum 
+lokalnym z powodu wyboru punktu początkowego. W początkowych etapach, gdy temperatura jest 
+wysoka możliwe są duże zmiany w uszeregowaniu punktów. Umożliwia nam to opuszczenia minimum
+lokalnego, celem znalezienia minimum globalnego. Następnie wraz ze spadkiem temperatury, zmiany 
+są coraz mniejsze, aby małymi krokami doprecyzować odnalezione minimum.
+
 \subsection{Efektywność}
 
 Przy porównaniu algorytmów Greedy i Steepest można zauważyć, że algorytm Greedy uzyskuje 
