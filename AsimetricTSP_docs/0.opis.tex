@@ -45,5 +45,27 @@ wierzchołków grafu skierowanego, i od tego punktu rozpoczyna się
 przetwarzanie. Do listy odwiedzanych wierzchołków dodawane są kolejno
 punkty, które są najbliższe aktualnemu i jeszcze nie zostały odwiedzone.
 
+\item Symulowane Wyżarzanie (ang. Simulated Annealing) --- algorytm oparty 
+na idei wyżarzania w metalurgii.
+Na początku wybierane jest losowe rozwiązanie. Każde kolejne jest wyznaczane 
+losowo ze zbioru rozwiązań sąsiadujących. Przechodzimy do nowego rozwiązania,
+jeżeli rozwiązanie to poprawia najlepsze znane rozwiązanie, a jeżeli nie to 
+sprawdzamy prawdopodobieństwo przejścia do tego nowego rozwiązania. 
+Prawdopodobieństwo to jest obliczane
+na podstawie obecnej temperatury, która spada z każdą pętlą algorytmu, oraz
+odległości pomiędzy rozwiązaniem obecnym a kandydatem do przejścia. Im niższa
+temperatura tym prawdopodobieństwa przejścia jest większe, więc częściej 
+algorytm przechodzi do rozwiązań nie poprawiających wyniku, co może spowodować
+wyskoczenie z optimum lokalnego.
+
+\item Tablica Tabu (ang. Tabu Search) --- jest to algorytm, którego przejście do
+następnego rozwiązania ograniczone jest przez tablicę tabu, która zawiera daną
+ilość wykonanych przejść i zakazuje ich powtórzenia. Na początku wybierane jest
+rozwiązanie losowe. Przy przejściu do następnych rozwiązań zawsze wybierany jest
+nalepszy z sąsiadów.
+Przejście jest możliwe, jeżeli nie zawiera się ono w tablicy tabu, lub jest w 
+zbiorze aspiracji (ang. Aspiration Set), czyli zbiorze rozwiązań, 
+które poprawiają nalepsze znane do tej pory rozwiązanie.
+
 \end{enumerate}
 
