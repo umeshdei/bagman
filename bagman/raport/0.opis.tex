@@ -29,17 +29,17 @@ sąsiedztwo celem znalezienia lepszego rozwiązania. Po przejrzeniu całego sąs
 do najlepszego znalezionego rozwiązania rozpoczynając od nowa przeglądanie sąsiedztwa.
 Zaprzestaje swoje obliczenia, gdy nie znajduje lepszego rozwiązania.
 
-\item Prostą heurystyka(H) --- algorytm ten wybiera losowy punkt, od którego rozpoczyna obliczenia.
+\item Prostą heurystyka (H) --- algorytm ten wybiera losowy punkt, od którego rozpoczyna obliczenia.
 Następnie dodaje kolejne odwiedzane punkty, jako kryterium stosując odległość punktu od punktu, w 
 którym obecnie się znajduje. Jest to algorytm Nearest Neighbour.
 
-\item Symulowane wyżarzanie(SA) --- algorytm ten symuluje zachowanie wyżarzania występującego w 
+\item Symulowane wyżarzanie (SA) --- algorytm ten symuluje zachowanie wyżarzania występującego w 
 przyrodzie. Rozpoczyna się z temperaturą, która sukcesywnie się obniża. Im wyższa temperatura, tym
 możliwe większe zmiany uszeregowania (możliwe jest opuszczenie minimum lokalnego). Wraz ze spadkiem 
 temperatury zakres przeszukiwanych rozwiązań jest coraz mniejszy i pozwala dokładniej zlokalizować
 minimum.
 
-\item Tabu search(TS) --- algorytm ten przegląda określoną część sąsiedztwa. Przy czym każdy ruch 
+\item Tabu search (TS) --- algorytm ten przegląda określoną część sąsiedztwa. Przy czym każdy ruch 
 zapisuje na liście tabu. Jeśli nowy ruch występuje na liście tabu, ale poprawia wynik ogólny jest
 on wykonywany. W przeciwnym razie algorytm przechodzi do następnego kroku. Jeśli natomiast krok 
 ten nie występuje na liście, algorytm go wykonuje pomimo możliwości pogorszenia wyniku.
