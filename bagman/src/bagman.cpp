@@ -271,8 +271,8 @@ int main(int argc, char **argv) {
 	else
 	{
 		SA *s = new SA();
-		vec = s->solve(gen, caLoadTableFileName, iMaxNumberOfIteretion, 0.9999, caSaveFileName);
-		//delete s;
+		vec = s->solve(gen, caLoadTableFileName, iMaxNumberOfIteretion, 0.99, caSaveFileName);
+		delete s;
 		//s = new SA();
 		//s->solve(gen, strjoin(caLoadTableFileName, ".95"), iMaxNumberOfIteretion, 0.95, strjoin(caSaveFileName,".99"));
 		//delete s;
