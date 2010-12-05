@@ -3,16 +3,16 @@
 % Złożność algorytmów
 \subsection{Złożoność obliczeniowa prostego algorytmu heurystycznego}
 
-Zgodnie z załączonymi wynikami można zauważyć bardzo którki czas działania prostej
+Zgodnie z załączonymi wynikami można zauważyć bardzo krótki czas działania prostej
 heurystki zaproponowanej przez autorów. Jest to spowodowane kwadratową złożonością 
 czasową $ O(n^{2}) $, ponieważ musimy $ n $ razy przejrzeć $ n $ punktów, aby znaleźć
-nalbliższy. Otrzymujemy dzięki temu bardzo sybki algorytm. Jego wadą jest 
+najbliższy. Otrzymujemy dzięki temu bardzo szybki algorytm. Jego wadą jest 
 możliwość otrzymania wyniku bardzo oddalonego od optimum. Dzieje się tak dlatego, 
 że przy końcowych obliczeniach nie mamy już dużego wyboru następnych odwiedzanych 
 punktów, więc ostatnie ścieżki do wyboru mogę być bardzo długie. Wynik działania 
-tego algorytmu mógłby być podstawą do uruchomienia algorymtów Steepest lub Greedy, 
+tego algorytmu mógłby być podstawą do uruchomienia algorytmów Steepest lub Greedy, 
 które sprawdziłyby, czy w sąsiedztwie nie leżą lepsze rozwiązania. Znacznie skróciło
-by to ich czas działania, poprzez start w miejscu, które jest blisko optimium.
+by to ich czas działania, poprzez start w miejscu, które jest blisko optimum.
 Jest jednak możliwość, że punkt początkowy leżałby w pobliżu jakiegoś optimum 
 lokalnego, i zawsze zwracany były ten sam wynik, uniemożliwiając odkrycie innych 
 optimów i dzięki temu polepszenie wyniku.
@@ -20,22 +20,24 @@ optimów i dzięki temu polepszenie wyniku.
 \subsection{Odległość od optimum}
 
 Przedstawione wyniki prezentują, że odległość od optimum dla wykonanych obliczeń 
-są bardzo zróżnicowane. Najbardziej stalinie prezentuje się algorytm autorski 
-dając średnio 20\% nadłożenie trasy. 
+są bardzo zróżnicowane. Najbardziej stabilne prezentuje się algorytm autorski 
+dając średnio 25\% nadłożenie trasy. 
 
 Algorytmy Steepest i Greedy lepiej działają dla mniejszych instancji, przy dużych 
-znalezione rozwiązanie jest drukrotnie gorsze od znanego optimum. Dla małych instancji
-odległość wacha się na poziomie 150\%, by w największych osiągnąć prawie 300\%.
+znalezione rozwiązanie jest dwukrotnie gorsze od znanego optimum. Dla małych instancji
+Greedy znajduje rozwiązanie odległe od optimum ok. 30\%, by w największych osiągnąć 
+prawie 170\%. Dla algorytmu Steepest wyniki przedstawiają się pomiędzy 25\%, a ok. 250\%.
+W najgorszych uzyskanych przypadkach algorytm Greedy uzyskuje wyniki na poziomie 370\%, 
+a Steepest 470\%.
 
 Najbardziej zmienny jest algorytm losowy. Uzyskane dane są niedeterministyczne. Średnia
-odległość od optimum wynosi ponad 500\%, ale zdażają się przypadki, w których algorytm ten 
-zwracał najlepsze wyniki (ok. 108\%). Ale zdażały sie również przypadki o odległości ponad
-900\%.
+odległość od optimum wynosi ponad 800\%. W najlepszych przypadkach wyniki uzyskiwane były
+na poziomie 500\%, a w najgorszych prawie 2000\% odległości od optimum.
 
 \subsection{Uzyskane wyniki}
                                                                        
 Zgodnie z uzyskanymi obliczeniami najlepszy algorytmem okazał się prosty algorytm 
-heurystyczny. Uyzkuje on, w niektórych przypadkach, wyniki lepsze o ponad 50\% od
+heurystyczny. Uzyskuje on, w niektórych przypadkach, wyniki lepsze o ponad 50\% od
 drugiego w zestawieniu algorytmu Greedy. Kolejnym algorytmem jest Steepest z wynikami 
 nieznacznie gorszymi od algorytmu Greedy. Ostatni w zestawieniu znalazł się algorytm 
 losowy.
@@ -43,20 +45,20 @@ losowy.
 \subsubsection{Prosty algorytm heurystyczny}
 
 Sukces algorytmu autorskiego opiera się w dużej części na podejściu do problemu. 
-Programowanie dynamiczne wybiera w daej chwili najbardziej optymalne rozwiązanie, 
+Programowanie dynamiczne wybiera w danej chwili najbardziej optymalne rozwiązanie, 
 dzięki czemu osiąga w ogólności bardzo dobre wyniki. Istnieją jednak sytuacje, gdy 
 rozwiązania zaproponowane przez prosty algorytm heurystyczny może być ponad 2 razy 
 gorsze od pozostałych algorytmów. Dzieje się tak w przypadku, gdy ostatnia wybrana 
 trasa jest bardzo długa. Dlatego po otrzymaniu rozwiązania należałoby przejrzeć 
-sąsiedztwo w poszukiawaniu rozwiązania lepszego umożliwiając, w niektórych przypadkach
-usinięci najdłużeszej trasy.
+sąsiedztwo w poszukiwaniu rozwiązania lepszego umożliwiając, w niektórych przypadkach
+usunięciu najdłuższej trasy.
 
 \subsubsection{Algorytm losowy}
 
 Słaby wynik algorytmu wiąże się z jego niedeterminizmem, jak i brakiem wykorzystania 
 już osiągniętych informacji. Jest to jedyny algorytm, dla którego nie można określić 
 złożoności, gdyż będzie on działał tak długo, aż jego praca zostanie przerwana. Losując 
-rozwiązania na bardzo dużych danych wejściowych ciężko osiąnąć jest wynik nawet zbliżony 
+rozwiązania na bardzo dużych danych wejściowych ciężko osiągnąć jest wynik nawet zbliżony 
 do optimum. 
 
 W przypadku małych instancji algorytm ten zwracał wyniki porównywalne z 
@@ -79,9 +81,9 @@ A przy $ n = 400 $ wyniki przedstawiają się następująco:
 $$ n! = 400! = 6,40 * 10^{870} $$
 $$ \frac{200~000}{400!} * 100\% = 3,13 * 10^{-864}\%  $$
 
-Jak więc widać dla dużych $ n $ szanse trafienia w rozwiązanie optymalne są równe $ 0 $.
+Jak więc widać dla dużych $ n $ szanse trafienia w rozwiązanie optymalne są zbliżone do $ 0 $.
 
-Algorytm ten nie wykorzystuje różwnież informacji o już znalezionych rozwiązaniach 
+Algorytm ten nie wykorzystuje również informacji o już znalezionych rozwiązaniach 
 w przypadku generowania nowego, dzięki czemu wygenerowane rozwiązania nie przybliżają
 go do optimum.
 
@@ -91,16 +93,23 @@ Wyniki uzyskane przez algorytm Greedy są lepsze niż uzyskane przez algorytm St
 Jest to spowodowane przechodzeniem do najlepszego rozwiązania przez algorytm Steepest. 
 Dzięki temu wybiera on najczęściej ścieżkę do najbliższego optimum lokalnego. Algorytm
 Greedy natomiast wybiera pierwsze znalezione rozwiązanie, które jest lepsze od dotychczas 
-znalezionego. dzięki temu nie zbliża się gwałtownie do żadnego z optimów lokalnych, lecz 
+znalezionego, dzięki temu nie zbliża się gwałtownie do żadnego z optimów lokalnych, lecz 
 raczej przeszukuje obszar tak długo, aż znajdzie ślepy zaułek.
 
+\subsection{Efektywność}
+
+Przy porównaniu algorytmów Greedy i Steepest można zauważyć, że algorytm Greedy uzyskuje 
+zawsze lepsze wyniki. W większości przypadków wyniki są ok. 2 razy lepsze. Wyjątkiem jest 
+zestaw danych \it berlin52 \rm różnica jest minimalna, ok. 4\%. Jest to spowodowane 
+bardzo małymi rozmiarami instancji, więc i dużym prawdopodobieństwem znalezienia podobnych
+rozwiązań przez oba algorytmy.
 
 \subsection{Czas działania}
 
 \it
 W zestawieniu nie został ujęty prosty algorytm heurystyczny z powodu zbyt krótkich czasów 
 działania. Dla instancji o rozmiarach ponad 700 elementów pokazywał on czas działania 0.00, 
-podczas gdy alogrytm Steepest potrzebował podan 1,5h.
+podczas gdy algorytm Steepest potrzebował ponad 1,5h.
 \rm
 
 \subsubsection{Algorytm Greedy}
@@ -112,19 +121,21 @@ wynosi następująco:
 
 \subsubsection{Algorytm Steepest}
 
-Algorytm ten jest ok. 2 razy gorszy od algorytmu Greedy.Wynika to głównie z fakty, że przegląda on
-wszystkie rozwiązania zanim podejmie decyzję o następnym kroku. 
+Algorytm ten jest ok. 2 razy gorszy od algorytmu Greedy. Wynika to głównie z fakty, że przegląda on
+wszystkie rozwiązania zanim podejmie decyzję o następnym kroku. Zyskuje dzięki temu na mniejszej
+ilości iteracji, jednak przeglądając 2 razy więcej rozwiązań sprawia, że każda z iteracji trwa 
+dłużej niż w przypadku algorytmu Greedy.
 
 \subsubsection{Algorytm losowy}
 
 Algorytm ten działa niederministycznie, dlatego potrafi osiągnąć szybsze czasy działania dla 
-większych instancji. 
+większych instancji. Jednak procentowe szanse rozwiązania danego problemu są najmniejsze.
 
 \subsection{Ilość iteracji}
 
 Porównując ilość iteracji algorytmów Greedy i Steepest można zauważyć, że algorytm 
 Steepest wykonuje ok. 4 razy mniej kroków od algorytmu Greedy. Jest to spowodowane 
-dokładnym przeglądaniem przestrzeni sąsiedztwa i wybierania najleprzego rozwiązania.
+dokładnym przeglądaniem przestrzeni sąsiedztwa i wybierania najlepszego rozwiązania.
 
-Nawiązując jednak do ilości przejrzajnych rozwiązań można zauważyć, że algorytm
+Nawiązując jednak do ilości przejrzanych rozwiązań można zauważyć, że algorytm
 Greedy przegląda ich ok. 50\% mniej, co istotnie wpływa na szybkość obliczeń.
