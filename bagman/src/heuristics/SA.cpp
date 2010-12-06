@@ -98,13 +98,13 @@ vector<int> *SA::solve(Generate *pgenData, string ovFileName, double maxT, doubl
         //cool down the temperature
         temperature *= cRate;
 
-        ovallSaver.saveOverallLine(ovFileName, tm.getRunTime(), iteration +1, iteration+1, distance);
-        tmSaver.saveLine(tm.getRunTime(), distance);
-        itSaver.saveLine(iteration, distance);
+        //tmSaver.saveLine(tm.getRunTime(), distance);
+        //itSaver.saveLine(iteration, distance);
 
         iteration++;
     }
     cout << "iterations: " << iteration << " : " << shortest << endl;
+    ovallSaver.saveOverallLine(ovFileName, tm.getRunTime(), iteration +1, iteration+1, distance);
 
 
     delete res;
