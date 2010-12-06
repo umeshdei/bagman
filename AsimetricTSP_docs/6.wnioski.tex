@@ -131,6 +131,73 @@ z grafu danych wejściowych jest bardzo duża, a osiągnięcie odpowiednich
 rezultatów wiązałoby się z ogromną ilością losowań, co byłoby niezmiernie
 mało efektywne.
 
+\subsection {Algorytm Tabu Search}
+
+Algorytm $Tabu Search$ w ogólności zwracał wyniki bliższe optimum od
+prezentowanych wcześniej algorytmów przeszukiwania lokalnego. Może to być
+zwizane z mechanizmem, który ma zapobiegać przed wpadaniem w minimum
+lokalne. Podczas analizy algorytmu wykonano także eksperymenty, w których
+w różny w różny sposób traktowano rozwiązanie początkowe. W rozwiązaniu
+klasycznym, jako punkt startowy wybierane było rozwiązanie losowe,
+natomiast drugie podejście opierało się na wykorzystaniu algorytmu,
+przedstawionego w poprzedniej części nazwanego jako utorska heurystyka.
+Jak można zaobserwować na rysunku \ref{tabu_quality_2} różnica w
+zwracanych wynikach jest znacząca, na korzyść rozwiązania z wprowadzoną
+optymalizacją (na wykresie opisane jako ``tabu search 2''.
+Taki stan rzeczy związany jest z wyborem rozwiąznaia początkowego,
+które z dużym prawdopodobieństwem znajduje się blisko rozwiązania
+optymalnego i być może jest jednym z minimów lokalnych. Zasotosowanie
+algorytmu opartego o listę tabu pozwala jednak ``wyskoczyć'' z lolalnego
+minimum i skupić się na innych fragmentach obszaru poszukiwania
+rozwiązania optymalnego.
+
+Oprócz analizy różnego punktu startowego, dla algorytmu $Tabu Search$
+przeprowadzono także eksperyment w którym porównano jakość rozwiązań
+w zależności od rozmiaru listy tabu. Niestety w czasie przeprowadzania
+eksperymentu popełniono pomyłkę i uruchomiony został algorytm w wersji,
+w której za rozwiązanie początkowe wybierane było rozwiązanie zwracane
+przez własną heurystykę opisaną we wcześniejszej części.
+
+
+\subsection {Algorytm Simulated Anealing}
+
+Algorytm $Tabu Search$ w ogólności zwracał wyniki bliższe optimum od
+prezentowanych wcześniej algorytmów przeszukiwania lokalnego.
+
+Wykonano także analizę działania algorytmu w zależności od temperatury
+początkowej. W przypadku małej wartości temperatury początkowej,
+działanie algorytmu nie satysfakcjonuje. Można zaobserwować słabe
+rezultaty, a więc dużą odległość od rozwiązania optymalnego. Wraz
+ze wzrostem temperatury początkowej rośnie czas przetwarzania, ilość
+odwiedzonych rozwiązań dopuszczalnych oraz rezultaty zwracane przez
+algorytm stają się bliższe optymalnym wynikom.
+
+Czas działania algorytmu jest zbliżony dla wszystkich instancji problemu.
+Nie trudno zauważyć, że skoro głównym warunkiem stopu algorytmu jest
+spadek temperatury do progowej wartości. Jeżeli założyć, że temperatura
+początkowa jest taka sama dla każdej instancji problemu, bez względu
+na jej rozmiar, czas osiągnięcia warunku stopu w postaci spadku
+temperatury jest więc zbliżony.
+
+\subsection {Simulated Anealing i Tabu Search}
+
+Na rysunku nr \ref{anealing_tabu_quality} przedstawiono porównanie
+wyników algorytmów $Simulated Anealing$ oraz $Tabu Search$ dla wersji
+bez optymalizacji doboru rozwiązania początkowego, a więc w
+formie, w której rozwiązanie początkowe jest losowane. Trudno
+jednoznacznie określić, które z zaprezentowanych rozwiązań zwraca
+lepsze rezultaty rozwiązań. Nie ulega jednak wątpliwości, że
+algorytm $Tabu Search$ zakończył działanie w czasie krótszym od
+algorytmu $Simulated Anealing$. Można to zaobserwować na rysunku nr
+\ref{anealing_tabu_greedy_time_log}. Warto również zauważyć, że oba
+algorytmy wykazują dłuższy czas przetwarzania niż badane uprzednio
+algorytmy przeszukiwania lokalnego. Należy jednak zwrócić uwagę,
+że uzyskane rezultaty są ściśle zależne od parametrów charakteryzujących
+poszczególne algorytmy. Trudno jest w takiej sytuacji porównywać
+rozwiązania, które nie mają wspólnych parametrów, odpowiadających np.
+za warunek stopu.
+
+
 \subsection{Czas wykonywania algorytmów}
 
 W zestawieniu nie został ujęty prosty algorytm heurystyczny z
@@ -167,6 +234,12 @@ jest z kolei łatwy do przewidzenia, gdyż jest ściśle uzależniony
 od ilości losowań, które muszą zostać wykonane. Dodatkowo na czas
 działania algorytmu wpływa także rozmiar instancji. Od rozmiaru
 instancji zależy szybkość wykonywania funkcji oceniającej.
+
+\subsection {Algorytm Tabu Search}
+
+
+
+\subsection {Algorytm Simulated Anealing}
 
 \subsection{Ilość iteracji}
 
