@@ -131,7 +131,7 @@ z grafu danych wejściowych jest bardzo duża, a osiągnięcie odpowiednich
 rezultatów wiązałoby się z ogromną ilością losowań, co byłoby niezmiernie
 mało efektywne.
 
-\subsection {Algorytm Tabu Search}
+\subsubsection {Algorytm Tabu Search}
 
 Algorytm $Tabu Search$ w ogólności zwracał wyniki bliższe optimum od
 prezentowanych wcześniej algorytmów przeszukiwania lokalnego. Może to być
@@ -156,22 +156,52 @@ przeprowadzono także eksperyment w którym porównano jakość rozwiązań
 w zależności od rozmiaru listy tabu. Niestety w czasie przeprowadzania
 eksperymentu popełniono pomyłkę i uruchomiony został algorytm w wersji,
 w której za rozwiązanie początkowe wybierane było rozwiązanie zwracane
-przez własną heurystykę opisaną we wcześniejszej części.
+przez własną heurystykę opisaną we wcześniejszej części. Wyniki
+zaprezentowane w tabeli nr \ref{diferent_tabu_size_table} oraz
+na wykresach nr \ref{tabu_quality_size_1}, \ref{tabu_quality_size_2},
+\ref{tabu_quality_size_3}, \ref{tabu_quality_size_4} pozwalają
+zauważyć, że rozmiar listy tabu ma wpływ na jakoś uzyskiwanych 
+rezultatów. Być może, gdyby zastosować wersję, w której rozwiązaniem
+początkowym jest rozwiązanie losowe. Jak jednak wspomniano, wiadać że
+dla pewnych rozmiarów instancji uzyskiwane rezultaty są dokładniejsze.
+Analizując wyniki z tabeli nr \ref{diferent_tabu_size_table}
+zaobserować można, że najlepsze wyniki uzyskano w momencie gdy rozmiar
+listy tabu osiągnąła wartość 80. Nie da się również ukryć że stosowanie
+dużych list tabu odbija się negatywnie na czasie wykonywania się
+algorytmu. Zwiększenie rozmiaru listy wiąże się ze wzrostem ilości
+operacji związanych z jej przeglądaniem. Złożoność
+przeszukiwania listy jest liniowa (O(n)). Warto zauważyć że jest to
+jednak ściśle związane ze sposobem implementacji przeszukiwania
+na liście tabu i interpretacji dosłownej. Lista tabu może być przecież
+reprezentowana w innej strukturze niż struktura listowa. Wystarczy,
+że lista będzie reprezentowana w postaci tablicy hasho'owej oraz
+kolejki FIFO. Do tablicy hash'owej trafiałyby kolejne rekordy
+reprezentujące zakazane ruchy, a kolejka FIFO służyłaby do określania,
+które elementy z tablicy hasho'wej należy usunąć. Złożoność takiego
+rozwiązania byłaby wówczas stała O(1). Bez względu na rozmiar długość
+tabu sprawdzanie dostęp do każdego elementu w przypadku średnim
+jest stały. Należy jendka pamiętać o nieco większym narzucie pamięciowym,
+gdyż oprócz tablicy hash'owej przechowywana musib być także kolejka FIFO.
 
 
-\subsection {Algorytm Simulated Anealing}
+\subsubsection {Algorytm Simulated Anealing}
 
 Algorytm $Tabu Search$ w ogólności zwracał wyniki bliższe optimum od
-prezentowanych wcześniej algorytmów przeszukiwania lokalnego.
+prezentowanych wcześniej algorytmów przeszukiwania lokalnego. Symulowane
+wyrzażanie pozwala na wyjście z minimum lokalnego w przypadku
+kiedy algorytm na takie rozwiązanie się natknie. Prezentowane wcześniej
+algorytmy przeszukiwania lokalnego kończą działanie w przypadku
+odnalezienia minimum lokalnego, z czym związany jest także krótszy
+czas działania.
 
-Wykonano także analizę działania algorytmu w zależności od temperatury
+Dla przedstawianego algorytmu wykonano także analizę działania
+w zależności od wartości temperatury
 początkowej. W przypadku małej wartości temperatury początkowej,
 działanie algorytmu nie satysfakcjonuje. Można zaobserwować słabe
 rezultaty, a więc dużą odległość od rozwiązania optymalnego. Wraz
 ze wzrostem temperatury początkowej rośnie czas przetwarzania, ilość
 odwiedzonych rozwiązań dopuszczalnych oraz rezultaty zwracane przez
 algorytm stają się bliższe optymalnym wynikom.
-
 Czas działania algorytmu jest zbliżony dla wszystkich instancji problemu.
 Nie trudno zauważyć, że skoro głównym warunkiem stopu algorytmu jest
 spadek temperatury do progowej wartości. Jeżeli założyć, że temperatura
@@ -179,7 +209,7 @@ początkowa jest taka sama dla każdej instancji problemu, bez względu
 na jej rozmiar, czas osiągnięcia warunku stopu w postaci spadku
 temperatury jest więc zbliżony.
 
-\subsection {Simulated Anealing i Tabu Search}
+\subsubsection {Simulated Anealing i Tabu Search}
 
 Na rysunku nr \ref{anealing_tabu_quality} przedstawiono porównanie
 wyników algorytmów $Simulated Anealing$ oraz $Tabu Search$ dla wersji
@@ -197,6 +227,17 @@ poszczególne algorytmy. Trudno jest w takiej sytuacji porównywać
 rozwiązania, które nie mają wspólnych parametrów, odpowiadających np.
 za warunek stopu.
 
+W przypadku prezentowanych algorytmów można zauważyć jeszcze
+jedną prawidłowość
+odnośnie ilości popraw rozwiązań w czasie przebiegu działania
+algorytmu. Porównując te liczby z przedstawionymi wcześniej
+algorytmami przeszukiwania lokalnego, można zauważyć, że algorytm
+$Tabu Search$ dokonuje odnalezienia podobnej ilości popraw
+bieżącego najlepszego rozwiązania jak w przypadku algorytmu $Steepest$.
+Algorytm $Simulated Anealing$ pozwala na odnalezienie dużo mniejszej
+liczby rozwiązań poprawiających obecnie najlepszą wartość. Wygląda
+jednak na to, że nie przeszkadza to w znajdywaniu rozwiązań
+dokładniejszych niż wspomniany algorytm $Steepest$.
 
 \subsection{Czas wykonywania algorytmów}
 
