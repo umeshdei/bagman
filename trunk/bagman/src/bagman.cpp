@@ -46,6 +46,8 @@ int main(int argc, char **argv) {
 	char *caSizeOfTable = NULL;
 	bool bGenerate = false;
 	bool bTspFile = false;
+	int iParam = 1;
+	int iParam2 = 1;
 
 	//PRZYKLAD WYKORZYSTANIA EUC_2_PARSER
 	/*
@@ -74,7 +76,7 @@ int main(int argc, char **argv) {
 				//					{ "version", 0, 0, 0 },
 				{ "help", 0, 0, 0 }, { 0, 0, 0, 0 } };
 
-		c = getopt_long(argc, argv, "gl:s:i:teabrpo:dw", long_options, &option_index);
+		c = getopt_long(argc, argv, "gl:s:i:teab12rpo:dw", long_options, &option_index);
 		if (c == -1)
 			break;
 
@@ -109,6 +111,8 @@ int main(int argc, char **argv) {
 				cout << "\t-a \t\t\tUse SA- algorithm." << endl;
 				cout << "\t-b \t\t\tUse SA- algorithm." << endl;
 				cout << "\t-i \t\t\tNumber of iteration." << endl;
+				cout << "\t-1 [parameter]\t\t\tAdditionalparameters." << endl;
+				cout << "\t-2 [parameter]\t\t\tAdditionalparameters." << endl;
 				cout << "\t-d \t\t\tPrint debug." << endl;
 				exit(0);
 			} else
@@ -186,6 +190,12 @@ int main(int argc, char **argv) {
 		case 'i':
 			iMaxNumberOfIteretion = atoi(optarg);
 			break;
+		case '1':
+			iParam = atoi(optarg);
+			break;
+		case '2':
+			iParam2 = atoi(optarg);
+			break;
 		case '?':
 		default:
 			break;
@@ -256,7 +266,7 @@ int main(int argc, char **argv) {
 			calc = new RandomCalculation(caSaveFileName);
 			break;
 	case TABU:
-			calc = new Tabu((unsigned int)(gen->getNumberOfCities() / 10),  70, iMaxNumberOfIteretion, caSaveFileName);
+			calc = new Tabu((unsigned int)(gen->getNumberOfCities() / iParam),  iParam2, iMaxNumberOfIteretion, caSaveFileName);
 			break;
 	default:
 		cerr << "Internal ERROR! Unknown algorithm!" << endl;
@@ -271,7 +281,7 @@ int main(int argc, char **argv) {
 	else
 	{
 		SA *s = new SA();
-		vec = s->solve(gen, caLoadTableFileName, iMaxNumberOfIteretion, 0.99, caSaveFileName);
+		vec = s->solve(gen, caLoadTableFileName, iMaxNumberOfIteretion, (double)((double)(iParam)/(double)1000000), caSaveFileName);
 		delete s;
 		//s = new SA();
 		//s->solve(gen, strjoin(caLoadTableFileName, ".95"), iMaxNumberOfIteretion, 0.95, strjoin(caSaveFileName,".99"));
