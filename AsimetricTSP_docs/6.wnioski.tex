@@ -276,11 +276,32 @@ od ilości losowań, które muszą zostać wykonane. Dodatkowo na czas
 działania algorytmu wpływa także rozmiar instancji. Od rozmiaru
 instancji zależy szybkość wykonywania funkcji oceniającej.
 
-\subsection {Algorytm Tabu Search}
+\subsubsection {Algorytm Simulated Annealing}
 
+Algorytm Simulated Annealing posiada trzy warunki zakończenia: osiągnięcie 
+założonej ilości kroków, osiągnięcie założonej liczby kroków bez poprawy 
+rozwiązania oraz opadnięcie temperatury do określonej wartości. Ograniczenia na
+ilość kroków autorzy dobrali mniej wiecej tak, żeby to temperatura determinowała
+zakończenie algorytmu. Zaprezentowane jest to na wykresie \ref{annealing1}, na
+którym to widać, jak temperatura wpływała na czas działania algorytmu. 
+Przetestowano ten algorytm dla tej samej instancji wejściowej przyjmując różne
+wartości temperatury. Widać więc, że wraz ze wzrostem temperatury rośnie czas
+działania tego algorytmu.
+Na wykresie \ref{anealing_tabu_greedy_time_log} widać natomiast, że w przypadku, 
+gdy temperatura jest stała, a zmienia się instancja wejściowa czas działania 
+algorytmu zmienia się nieznacznie, co jest uzależnione od wielkości instancji
+wejściowej i jej skomplikowania.
 
+\subsubsection {Algorytm Tabu Search}
 
-\subsection {Algorytm Simulated Anealing}
+Za warunek stopu algorytmu Tabu Search uważa się określoną ilość kroków, jakie
+musi przebiec algorytm. Jak wiadomo im więcej kroków algorytm musi wykonać tym
+czas działania algorytmu jest większy. 
+Na działanie tego algorytmu ma także wpływ wielkość tablicy tabu,
+którą algorytm musi przejrzeć w każdym kroku aby stwierdzić, czy może przejść
+do wyznaczonego rozwiązania sąsiedniego. Pokazuje to tabela 
+\ref{diferent_tabu_size_table}. Im większa tablica tabu tym dłużej działa 
+algorytm.
 
 \subsection{Ilość iteracji}
 
