@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+	echo "Podaj jako parametr ilosc iteracji i plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $2 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+awk "\$3 == $1 { print }" $2
+
