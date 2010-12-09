@@ -34,6 +34,9 @@ Najbardziej zmienny jest algorytm losowy. Uzyskane dane są niedeterministyczne.
 odległość od optimum wynosi ponad 800\%. W najlepszych przypadkach wyniki uzyskiwane były
 na poziomie 500\%, a w najgorszych prawie 2000\% odległości od optimum.
 
+W przypadku alogrytmu Simulated Annealing do testów została wybrana instancja z
+$ t_{pocz} = 2~000~000 $ i $ c_{rate} = 0,999999 $ z powodu najlepszych uzyskanych wyników.
+
 \subsection{Uzyskane wyniki}
                                                                        
 Zgodnie z uzyskanymi obliczeniami najlepszy algorytmem okazał się prosty algorytm 
@@ -69,17 +72,17 @@ $$ n! = 10! = 3~628~800 $$
 
 co przy przykładowych 200~000 powtórzeń daje szansę w trafienie w rozwiązanie optymalne:
 
-$$ \frac{200~000}{10!} * 100\% = 5,51\%  $$
+$$ \frac{200~000}{10!} \cdot 100\% = 5,51\%  $$
 
 Natomiast jeśli podniesiemy $ n = 50 $ otrzymujemy wyniki:
 
 $$ n! = 50! = 3,04 * 10^{64} $$
-$$ \frac{200~000}{50!} * 100\% = 6,58 * 10^{-58}\%  $$
+$$ \frac{200~000}{50!} \cdot 100\% = 6,58 * 10^{-58}\%  $$
 
 A przy $ n = 400 $ wyniki przedstawiają się następująco:
 
 $$ n! = 400! = 6,40 * 10^{870} $$
-$$ \frac{200~000}{400!} * 100\% = 3,13 * 10^{-864}\%  $$
+$$ \frac{200~000}{400!} \cdot 100\% = 3,13 * 10^{-864}\%  $$
 
 Jak więc widać dla dużych $ n $ szanse trafienia w rozwiązanie optymalne są zbliżone do $ 0 $.
 
@@ -99,7 +102,7 @@ raczej przeszukuje obszar tak długo, aż znajdzie ślepy zaułek.
 \subsubsection{Algorytm Tabu search}
 
 Algorytm ten jest w swoim działaniu przybliżony do działania algorytmów Greedy i Steepest.
-Jest on jednak pozbawiony ich głównej wady, a mianowicie łatwej możliwości utknięcia w 
+Jest on jednak minimalizuje ich główną wady, a mianowicie łatwej możliwości utknięcia w 
 minimum lokalnym. Zakłada on możliwość pogorszenia wyniku, lecz dzięki posiadanej liście 
 tabu nie będzie on działał na tych samych wierzchołkach, lecz przechodził do jeszcze nie 
 odwiedzanych. Dzięki temu będzie mógł uniknąć utknięcia w minimum lokalnym, celem znalezienia
@@ -107,11 +110,27 @@ minimum globalnego.
 
 \subsubsection{Algorytm symulowane wyżarzanie}
 
-Podobnie jak algorytm Tabu search algorytm ten pozbawiony jest ryzyka utknięcia w minimum 
+Podobnie jak algorytm Tabu search algorytm ten minimalizuje ryzyko utknięcia w minimum 
 lokalnym z powodu wyboru punktu początkowego. W początkowych etapach, gdy temperatura jest 
 wysoka możliwe są duże zmiany w uszeregowaniu punktów. Umożliwia nam to opuszczenia minimum
 lokalnego, celem znalezienia minimum globalnego. Następnie wraz ze spadkiem temperatury, zmiany 
-są coraz mniejsze, aby małymi krokami doprecyzować odnalezione minimum.
+są coraz mniejsze, aby małymi krokami doprecyzować odnalezione minimum. 
+
+Jak widzimy na wykresach w niektórych przypadkach odległość od optimum jest bardzo mała, znacznie 
+mniejsza niż w przypadku algorytmów Greedy i Steepest, i wynosi mniej niż 10\%. 
+
+Algorytm ten wrażliwy jest na zmianę temperatury początkowej oraz jej spadku, gdyż ma to znaczący 
+wpływ na ilość iteracji. Jest ona kluczowa przy wprawnym rozwiązywaniu problemu i powinna być 
+uzależniona od wielkości instancji. W przypadku danych wziętych do obliczeń uzyskujemy:
+
+$$ 2~000~000 \cdot 0,999999^{n} < 0,00001 $$
+$$ 0,999999^{n} < 5 \cdot 10^{-12} $$
+$$ n > \log_{0,999999}10^{-12} $$
+$$ n > 26~021~570.19 $$
+
+Jak możemy zauważyć w tym przypadku ilość iteracji wynosi ponad 26 milionów, co pozwala przejrzeć 
+dużą ilość rozwiązań i znaleźć rozwiązanie bliskie optimum globalnemu.
+
 
 \subsection{Efektywność}
 
