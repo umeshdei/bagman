@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Podaj jako parametr plik wejsciowyi!";
+	exit;
+fi;
+
+if [ ! -f $1 ]; then
+	echo "Podany plik nie istnieje!";
+	exit;
+fi;
+
+
+dane=`cat $1 | tr -s ' ' '\t' | cut -f1 | uniq`
+
+for i in $dane
+do
+
+tmp=s;
+
+# 	echo $i
+# // (small - `hget rat99`) / (`hget $tmp`) * 100;
+awk "BEGIN	{ test = 10000000000; czas = -1.0; iter = 0; look = 0; min = 0; max = 10000000000000000000000000; count = 0;
+
+	split(\"a280 berlin52 bier127 eil51 eil76 eil101 gil262 kroA100 kroB100 kroC100 kroD100 kroE100 kroA150 kroB150 kroA200 kroB200 lin105 lin318 linhp318 pr76 pr107 pr124 pr136 pr144 pr152 pr226 pr264 pr299 pr439 rat99 rat575 rat783\", a);
+	split(\"2579 7542 118282 426 538 629 2378 21282 22141 20749 21294 22068 26524 26130 29368 29437 14379 42029 41345 108159 44303 59030 96772 58537 73682 80369 49135 48191 107217 1211 6773 8806\", b);
+	for(i=1;i in a;i++){c[a[i]]=b[i]};
+
+}
+\$1 == \"$i\"	{ 
+			wyniki[count++] = \$2;
+		}
+	END { 
+		avg = 0;
+		for (i in wyniki) {
+			avg += wyniki[i];
+		}
+		avg /= (count);	
+		match(\"$i\", /([a-zA-Z]+([0-9]+)).*/, arr)
+		avg_p = (avg - c[arr[1]]) / c[arr[1]] * 100 ;
+		ssd = avg / arr[2];
+		print  \"$i\t\" arr[2] \"\t\" avg \"\t\" ssd
+	
+	}" $1
+done
