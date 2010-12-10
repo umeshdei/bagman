@@ -108,6 +108,8 @@ tabu nie będzie on działał na tych samych wierzchołkach, lecz przechodził d
 odwiedzanych. Dzięki temu będzie mógł uniknąć utknięcia w minimum lokalnym, celem znalezienia
 minimum globalnego.
 
+
+
 \subsubsection{Algorytm symulowane wyżarzanie}
 
 Podobnie jak algorytm Tabu search algorytm ten minimalizuje ryzyko utknięcia w minimum 
@@ -119,7 +121,7 @@ są coraz mniejsze, aby małymi krokami doprecyzować odnalezione minimum.
 Jak widzimy na wykresach w niektórych przypadkach odległość od optimum jest bardzo mała, znacznie 
 mniejsza niż w przypadku algorytmów Greedy i Steepest, i wynosi mniej niż 10\%. 
 
-Algorytm ten wrażliwy jest na zmianę temperatury początkowej oraz jej spadku, gdyż ma to znaczący 
+Algorytm ten wrażliwy jest na zmianę spadku temperatury początkowej, gdyż ma to znaczący 
 wpływ na ilość iteracji. Jest ona kluczowa przy wprawnym rozwiązywaniu problemu i powinna być 
 uzależniona od wielkości instancji. W przypadku danych wziętych do obliczeń uzyskujemy:
 
@@ -131,6 +133,11 @@ $$ n > 26~021~570.19 $$
 Jak możemy zauważyć w tym przypadku ilość iteracji wynosi ponad 26 milionów, co pozwala przejrzeć 
 dużą ilość rozwiązań i znaleźć rozwiązanie bliskie optimum globalnemu.
 
+O ile zmiana spadku temperatury początkowej jest bardzo istotna dla uzyskanych, o tyle sama 
+temperatura początkowa nie jest ważna. Można to zauważyć na wykresach od \ref{999900_Tav} do 
+\ref{999999_Tav}, że przy różnych temperaturach początkowych wyniki uzyskiwane przez algorytm 
+są do siebie zbliżone. 
+
 
 \subsection{Efektywność}
 
@@ -139,6 +146,9 @@ zawsze lepsze wyniki. W większości przypadków wyniki są ok. 2 razy lepsze. W
 zestaw danych \it berlin52 \rm różnica jest minimalna, ok. 4\%. Jest to spowodowane 
 bardzo małymi rozmiarami instancji, więc i dużym prawdopodobieństwem znalezienia podobnych
 rozwiązań przez oba algorytmy.
+
+Algorytm symulowane wyżarzanie uzyskuje najlepsze wyniki w prezentowanym zestawieniu. Jednak
+wymaga więcej czasu w przypadku małych instancji (poniżej 400 elementów). 
 
 \subsection{Czas działania}
 
@@ -166,6 +176,22 @@ dłużej niż w przypadku algorytmu Greedy.
 
 Algorytm ten działa niederministycznie, dlatego potrafi osiągnąć szybsze czasy działania dla 
 większych instancji. Jednak procentowe szanse rozwiązania danego problemu są najmniejsze.
+
+\subsubsection{Algorytm Tabu search}
+
+Algorytm TS działa w mniejszych instancjach wolniej od algorytmów Steepest i Greedy, ale
+ok. 4 razy szybciej niż algorytm SA. W większych instancjach (ok. 100 elementów) czasy 
+działania algorytmów TS i SA się zrównują. Przy wielkości 200 elementów TS jest już 
+dwukrotnie wolniejszy od symulowanego wyżarzania. We wszystkich przypadkach Tabu search 
+jest wolniejszy od algorytmów Greedy i Steepest.
+
+\subsubsection{Algorytm symulowane wyżarzanie}
+
+Algorytm SA uzyskuje najlepsze wyniki czasowe, licząc największe instancje (ponad 700 
+elementów) poniżej 7 min. Algorytm Greedy, który jest drugi w zestawieniu potrzebował 
+około 1 h. Biorąc pod uwagę jednak małe instancje (ok. 50 elementów) do ich obliczenia 
+potrzebował ponad 30 sekund, podczas gdy algorytm Greedy potrafił je rozwiązać w 0,04 
+sekundy.
 
 \subsection{Ilość iteracji}
 
