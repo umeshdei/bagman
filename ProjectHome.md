@@ -1,0 +1,1 @@
+Project allows to compare alogrithm for solving bagman problem. It is developed in C++.
